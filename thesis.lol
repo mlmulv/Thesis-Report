@@ -23,7 +23,7 @@
 \babel@toc {estonian}{}\relax
 \babel@toc {english}{}\relax
 \babel@toc {english}{}\relax
-\contentsline {lstlisting}{\numberline {4.1}{\ignorespaces Hello world in C code}}{21}{lstlisting.4.1}%
-\contentsline {lstlisting}{\numberline {4.2}{\ignorespaces Using a python program to access the KTH API to get all of the programs at KTH}}{21}{lstlisting.4.2}%
-\contentsline {lstlisting}{lib/acronyms.tex}{48}{lstlisting.B.-1}%
+\contentsline {lstlisting}{\numberline {4.1}{\ignorespaces Hello world in C code}}{19}{lstlisting.4.1}%
+\contentsline {lstlisting}{\numberline {4.2}{\ignorespaces Using a python program to access the KTH API to get all of the programs at KTH}}{19}{lstlisting.4.2}%
+\contentsline {lstlisting}{lib/acronyms.tex}{46}{lstlisting.B.-1}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file

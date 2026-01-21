@@ -648,72 +648,57 @@ We would like to thank xxxx for having yyyy.
 \chapter{Introduction}
 \label{ch:introduction}
 
-\generalExpl{Give a general introduction to the area. (Remember to use appropriate references in this and all other sections.)}
+% \generalExpl{Give a general introduction to the area. (Remember to use appropriate references in this and all other sections.)}
 
-% One can use either biblatex or bibtex - set as the option for the document at the top of this file
-\ifbiblatex
-\engExpl{We use the \emph{biblatex} package to handle our references.  We
-use the command \texttt{parencite} to get a reference in parenthesis, like
-this \textbackslash parencite\{heisenberg2015\} resulting in \parencite{heisenberg2015}.  It is also possible to include the author as part of the sentence using \texttt{textcite}, like talking about the work of \textbackslash textcite\{einstein2016\} resulting in \textcite{einstein2016}.\\
-This also means that you have to change the include files to include biblatex and change the way that the reference.bib file is included.}
-\else
-\engExpl{We use the \emph{bibtex} package to handle our references.  We therefore
-use the command \textbackslash cite\{farshin\_make\_2019\}. For example, Farshin, \etal described how to improve LLC
-cache performance in \cite{farshin_make_2019} in the context of links running
-at \qty{200}{Gbps}.}
-\fi
+% % One can use either biblatex or bibtex - set as the option for the document at the top of this file
+% \ifbiblatex
+% \engExpl{We use the \emph{biblatex} package to handle our references.  We
+% use the command \texttt{parencite} to get a reference in parenthesis, like
+% this \textbackslash parencite\{heisenberg2015\} resulting in \parencite{heisenberg2015}.  It is also possible to include the author as part of the sentence using \texttt{textcite}, like talking about the work of \textbackslash textcite\{einstein2016\} resulting in \textcite{einstein2016}.\\
+% This also means that you have to change the include files to include biblatex and change the way that the reference.bib file is included.}
+% \else
+% \engExpl{We use the \emph{bibtex} package to handle our references.  We therefore
+% use the command \textbackslash cite\{farshin\_make\_2019\}. For example, Farshin, \etal described how to improve LLC
+% cache performance in \cite{farshin_make_2019} in the context of links running
+% at \qty{200}{Gbps}.}
+% \fi
 
-\engExpl{Use the glossaries package to help yourself and your readers.
-Add the acronyms and abbreviations to lib/acronyms.tex. Some examples are shown below:}
-In this thesis we will examine the use of \glspl{LAN}. In this thesis we will
-assume that \glspl{LAN} include \glspl{WLAN}, such as \gls{WiFi}.
+Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induce physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the relationship of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. To mitigate fluctuations in glucose levels of critically ill patients, clinicians have utilized intensive insulin therapy and tight glucose control. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Thus, more sophisticated methods of capturing the dynamic fluctuations of insulin sensitivity are required for glycaemic control. 
 
-Patients in the icu from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induce physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021}, \cite{song_relationship_2025}, \cite{lang_insulin-mediated_1990}, \cite{andrews_glucocorticoids_1999}, \cite{shangraw_differentiation_1989}, \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the relationship of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia in contrast to patients with diabetes \cite{dungan_stress_2009}, \cite{song_relationship_2025}. To mitigate fluctuations in glucose levels of critically ill patients, clinicians have utilized iit and tgc. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001},at the subsequent cost of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Thus, more sophisticated methods of capturing the dynamic fluctuations of insulin sensitivity are required for glycaemic control. 
 
-Mechanistic insulin-glucose models have been developed with an extensive physiological foundation to improve upon solely monitoring glucose concentration with insulin infusion \cite{chase_model-based_nodate}, \cite{lotz_monte_2008}, \cite{lin_physiological_2011}. Such models are designed patient-specific, as a result of the variability of critical illnesses and their development over time. The patient-specific parameters must reflect glucose-insulin dynamics observed physiologically for accurate modeling of gluco-regulation. Previously mentioned models assign patient-specific parameters either as population constants or by fitting to patient data, while being validated from pre-existing literature. This approach of parameter identification ultimately relies on the diversity of the patient conditions available to assign population constants and the robustness of the fitting algorithms to approximate the remaining parameters. This oversimplification of patient-specific parameters hinders the performance of glycaemic control in critically ill patients due to poorly-fitted insulin-glucose models.
-
-This paper introduces a more robust approach to patient-specific parameter identification by formulating an estimator model. Instead of relying on fitting error metrics as the basis of parameter choice, leveraging bayesian estimation can improve the patient-specific parameter estimates used in dynamic mechanistic glucose-insulin models \cite{ninness_bayesian_2010}. Improved parameter estimates will result in enhanced glycaemic control and can further reduce hypoglycaemia, mortality, and morbidity in critically ill patients.
 
 \section{Background}
 \label{sec:background}
-\sweExpl{svensk: Bakgrund}
+% \sweExpl{svensk: Bakgrund}
 
-\generalExpl{Present the background for the area. Set the context for your project – so that your reader can understand both your project and this thesis. (Give detailed background information in Chapter 2 - together with related work.)
-Sometimes it is useful to insert a system diagram here so that the reader
-knows what are the different elements and their relationship to each
-other. This also introduces the names/terms/… that you are going to use
-throughout your thesis (be consistent). This figure will also help you later
-delimit what you are going to do and what others have done or will do.}
+% \generalExpl{Present the background for the area. Set the context for your project – so that your reader can understand both your project and this thesis. (Give detailed background information in Chapter 2 - together with related work.)
+% Sometimes it is useful to insert a system diagram here so that the reader
+% knows what are the different elements and their relationship to each
+% other. This also introduces the names/terms/… that you are going to use
+% throughout your thesis (be consistent). This figure will also help you later
+% delimit what you are going to do and what others have done or will do.}
 
-As one can find in RFC 1235\,\cite{ioannidis_coherent_1991} multicast is useful for xxxx. A number of different \glspl{OS} have been used in this work, such as the following \glspl{OS}: UNIX, Linux, Windows, etc. The main focus will be on one \gls{OS}, namely Linux.
+Mechanistic insulin-glucose models have been developed with an extensive physiological foundation to improve upon solely monitoring glucose concentration with insulin infusion \cite{chase_model-based_nodate} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005} \cite{compte_blood_2009}. Such models are designed patient-specific, as a result of the large variability of critical illnesses and their development over time. The patient-specific parameters must reflect glucose-insulin dynamics observed physiologically to accurately model gluco-regulation. Mechanistic insulin-glucose models published have traditionally assigned patient-specific parameters as population constants backed by parameter sensitivity analysis studies, followed by applying integral-fitting methods to estimate insulin sensitivity \cite{chase_model-based_nodate} \cite{hann_integral-based_2005} \cite{compte_blood_2009}. This current methodology of patient-specific parameters identification hinders the analysis of insulin sensitivity attributed by oversimplified models.
 
 \section{Problem}
 \label{sec:problem}
-\sweExpl{svensk: Problemdefinition eller Frågeställning\\
-Lyft fram det ursprungliga problemet om det finns något och definiera därefter
-den ingenjörsmässiga erfarenheten eller/och vetenskapen som kan komma ur
-projektet. }
 
-Longer problem statement\\
-If possible, end this section with a question as a problem statement.
+% This paper introduces a more robust approach to patient-specific parameter identification by formulating an estimator model. Instead of relying on fitting error metrics as the basis of parameter choice, leveraging bayesian estimation can improve the patient-specific parameter estimates used in dynamic mechanistic glucose-insulin models \cite{ninness_bayesian_2010}. Improved parameter estimates will result in enhanced glycaemic control and can further reduce hypoglycaemia, mortality, and morbidity in critically ill patients.
 
 % Research Question
 \subsection{Original problem and definition}
 \label{sec:researchQuestion}
-\sweExpl{Ursprungligt problem och definition}
-Some text
+There currently exists a gap in research for further fine-tuning of mechanistic insulin-glucose models. While there is evidence shown in sensitivity studies that certain patient-specific parameters don't have much influence in the approximation of the insulin-sensitivity \cite{chase_model-based_nodate} \cite{hann_integral-based_2005} \cite{compte_blood_2009}, inadequate assigning of other parameters can additionally compound the approximation error, possibly leading to inadequate glycaemic control in critical ill patients. 
 
-\subsection{Scientific and engineering issues}\sweExpl{Vetenskaplig och ingenjörsmässig frågeställning}
-some text
+\subsection{Scientific and engineering issues}
+
+Shifts in observed insulin sensitivity are often gradual, often in a matter of several hours. Therefore, sudden fluctuations in approximated insulin sensitivity are not physiologically supported. A prevalent issue is the approximation error of insulin sensitivity over time creates abrupt changes between samples, consequently leaving clinicians with little insight into the patient's insulin sensitivity from current mechanistic insulin-glucose models.
 
 \section{Purpose}
-\sweExpl{Syfte}
-\sweExpl{Skilj på syfte och mål! Syfte är att förändra något till det bättre. I examensarbetet finns ofta två aspekter på detta. Dels vill problemägaren (företaget) få sitt problem löst till det bättre men akademin och ingenjörssamfundet vill också få nya erfarenheter och vetskap. Beskriv ett syfte som tillfredställer båda dessa aspekter.\\
-Det finns även ett syfte till som kan vara värt att beakta och det är att du som student skall ta examen och att du måste bevisa, i ditt examensarbete, att du uppfyller examensmålen. Dessa mål sammanfaller med kursmålen för examensarbetskursen. 
-}
-\generalExpl{State the purpose  of your thesis and the purpose of your degree project.\\
-Describe who benefits and how they benefit if you achieve your goals. Include anticipated ethical, sustainability, social issues, etc. related to your project. (Return to these in your reflections in Section~\ref{sec:reflections}.)}
+% \generalExpl{State the purpose  of your thesis and the purpose of your degree project.\\
+% Describe who benefits and how they benefit if you achieve your goals. Include anticipated ethical, sustainability, social issues, etc. related to your project. (Return to these in your reflections in Section~\ref{sec:reflections}.)}
 
+Mechanistic insulin-glucose models are of great benefit to critically ill patients and clinicians, as modeling gluco-regulation allows for necessary glycaemic adjustments to avoid the onset of adverse outcomes. In practice, clinicians only have the ability to base insulin sensitivity on blood glucose and insulin measurements, and thus, dynamic models fill in the gap as a tool for insulin sensitivity approximation. Improvements in the approximation of insulin sensitivity can better capture the evolution of the health of the patient in the intensive care unit to prevent mortality and morbidity.
 
 
 \section{Goals}
