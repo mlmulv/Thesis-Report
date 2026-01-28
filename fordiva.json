@@ -1,8 +1,8 @@
 {
 "Author1": {"Last name": "Mulvihill", "First name": "Markus", "Local User Id": "u100001", "E-mail": "mulv\spacefactor \@m {}kth.se", "organisation": {"L1": "School of Electrical Engineering and Computer Science" }},
-"Cycle": "1", "Course code": "IA150X", "Credits": "15.0",
-"Degree1": {"Educational program": "Bachelor's Programme in Information and Communication Technology","programcode": "TCOMK" ,"Degree": "Bachelors degree" ,"subjectArea": "Technology" },
-"Title": {"Main title": "This is the title in the language of the thesis", "Subtitle": "A subtitle in the language of the thesis", "Language": "eng" }, "Alternative title": {"Main title": "Detta är den svenska översättningen av titeln", "Subtitle": "Detta är den svenska översättningen av undertiteln", "Language": "swe" },
+"Cycle": "1", "Course code": "EA260X", "Credits": "30.0",
+"Degree1": {"Educational program": "Master's Programme, Information and Network Engineering, 120 credits","programcode": "TINNM" ,"Degree": "Master's" ,"subjectArea": "Decision and Control Systems" },
+"Title": {"Main title": "This is the title in the language of the thesis", "Subtitle": "A subtitle in the language of the thesis", "Language": "eng" }, "Alternative title": {"Main title": "Detta är den svenska översättnin gen av titeln", "Subtitle": "Detta är den svenska översättningen av undertiteln", "Language": "swe" },
 "Supervisor1": {"Last name": "Supervisor", "First name": "A. Busy", "Local User Id": "u100003", "E-mail": "sa@kth.se", "organisation": {"L1": "School of Electrical Engineering and Computer Science" ,"L2": "Computer Science" }},
 "Supervisor2": {"Last name": "Supervisor", "First name": "Another Busy", "Local User Id": "u100003", "E-mail": "sb@kth.se", "organisation": {"L1": "School of Architecture and the Built Environment" ,"L2": "Architecture" }},
 "Supervisor3": {"Last name": "Supervisor", "First name": "Third Busy", "E-mail": "sc@tu.va", "Other organisation": "Timbuktu University, Department of Pseudoscience" },
@@ -14,5 +14,5 @@
 "Series": {"Title of series": "TRITA-EECS-EX" , "No. in series": "2022:00" },
 "Opponents": {"Name": "A. B. Normal \& A. X. E. Normalè"},
 "Presentation": {"Date": "2022-03-15 13:00" ,"Language": "eng" ,"Room": "via Zoom https://kth-se.zoom.us/j/ddddddddddd" ,"Address": "Isafjordsgatan 22 (Kistagången 16)" ,"City": "Stockholm" },
-"Number of lang instances": "10",
+"Number of lang instances": "2",
 }
