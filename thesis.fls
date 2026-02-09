@@ -1918,6 +1918,9 @@ OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
 OUTPUT thesis.out
 INPUT ./thesis.out
 INPUT ./thesis.out
