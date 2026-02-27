@@ -296,6 +296,9 @@ nopostdot]{glossaries}
 \makeatother
 \usepackage{subfiles}
 
+\usepackage{amsfonts} 
+\usepackage{lipsum}
+
 % To have Creative Commons (CC) license and logos use the doclicense package
 % Note that the lowercase version of the license has to be used in the modifier
 % i.e., one of by, by-nc, by-nd, by-nc-nd, by-sa, by-nc-sa, zero.
@@ -663,8 +666,7 @@ We would like to thank xxxx for having yyyy.
 % at \qty{200}{Gbps}.}
 % \fi
 
-Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the relationship of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia in a critically ill patient is more detrimental than short-term hyperglycaemia, with an increase of mortality and health complications observed in patients \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012}. Thus, more personalized model-based methods are required to achieve tight glycaemic control.
-
+Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the relationship of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia. Traditional intensive insulin therapy struggles to fully capture the dynamic fluctuations of blood glucose in critically ill patients. Thus, more personalized model-based methods are required to achieve tight glycaemic control.
 
 
 \section{Background}
@@ -731,182 +733,137 @@ This study will not consist of any real patient data from the intensive care uni
 
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
-% Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methods} presents the methodology and method used to solve the problem. …
+% Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methods} presents the methodology and method used to solve the problem.
+\lipsum[1]
 
 \cleardoublepage
 \chapter{Background}
 \label{ch:background}
-\sweExpl{Bakgrund}
+% \sweExpl{Bakgrund}
 
-\generalExpl{When you do your literature study, you should have a nearly complete Chapters 1 and 2.\\
-You may also find it convenient to introduce the future work section into your report early – so that you can put things that you think about but decide not to do now into this section.\\
-Note that later you can move things between this future work section and what you have done as you may change your mind about what to do now versus what to put off to future work.
-}
-\generalExpl{What does a reader (another x student -- where x is your study line) need to know to understand your report?
-What have others already done? (This is the “related work”.) Explain what and
-how prior work/prior research will be applied on or used in the degree
-project/work (described in this thesis). Explain why and what is not used in
-the degree project and give valid reasons for rejecting the work/research.}
+% \generalExpl{When you do your literature study, you should have a nearly complete Chapters 1 and 2.\\
+% You may also find it convenient to introduce the future work section into your report early – so that you can put things that you think about but decide not to do now into this section.\\
+% Note that later you can move things between this future work section and what you have done as you may change your mind about what to do now versus what to put off to future work.
+% }
+% \generalExpl{What does a reader (another x student -- where x is your study line) need to know to understand your report?
+% What have others already done? (This is the “related work”.) Explain what and
+% how prior work/prior research will be applied on or used in the degree
+% project/work (described in this thesis). Explain why and what is not used in
+% the degree project and give valid reasons for rejecting the work/research.}
 
-This chapter provides basic background information about xxx. Additionally, this chapter describes xxx. The chapter also describes related work xxxx.
-
-
-
-\sweExpl{Vilken viktig litteratur och
-  (forsknings-)artiklar har du studerat inom området (litteraturstudie)? }
-
-\section{Major background area 1}
-\sweExpl{Viktigt bakgrundsområde 1}
-There are xxx characteristics that distinguish yyy from other information and communication technology (ICT) system, as shown in Figure~\ref{fig:lotsofstars}. Table \ref{tab:tablecaracteristics} summarizes these characteristics.
-
- 
-\begin{figure}[!ht]
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{figures/lots_of_stars.png}
-  \end{center}
-  \caption{Lots of stars  (Inspired by Figure x.y on page z of [xxx])}
-  \label{fig:lotsofstars}
-\end{figure}
-\sweExpl{Massor av stärnor (Inspirerad av figur x.y på sidan z i [xxx])}
+% This chapter provides basic background information about xxx. Additionally, this chapter describes xxx. The chapter also describes related work xxxx.
 
 
-\begin{table}[!ht]
-  \begin{center}
-    \caption{xxx characteristics}
-    \label{tab:tablecaracteristics}
-    \begin{tabular}{l|S[table-format=4.6]} % <-- Alignments: 1st column left, 2nd middle, with vertical lines in between
-      \textbf{Characteristics} & \textbf{Description}\\
-      $\alpha$ & $\beta$ \\
-      \hline
-      1 & 1110.1\\
-      2 & 10.1\\
-      3 & 23.113231\\
-    \end{tabular}
-  \end{center}
-\end{table}
-\sweExpl{Egenskaper}
-\sweExpl{Beskrivning}
 
-\subsection{Subarea 1.1}
-Entangled states are an important part of quantum cryptography, but also relevant in other domains. This concept might be relevant for neutrinos, see for example \cite{kim_small-mass_2016}.
-
-\subsection{Subarea 1.1.2}
-Computational methods are increasingly used as a third method of carrying out
-scientific investigations. For example, computational experiments were used to
-find the amount of wear in a polyethylene liner of a hip prosthesis in \cite{maguire_jr_new_2014}.
-…
-
-\subsection{Subarea 1.1.2}
-Using the nearest data center may improve performance, see \cite{bogdanov_nearest_2015}
+% \sweExpl{Vilken viktig litteratur och
+%   (forsknings-)artiklar har du studerat inom området (litteraturstudie)? }
 
 
-\subsection{Link layer Encapsulation}
-\label{sec:llencap}
 
-See Figure~\ref{fig:ieee8023-data-packet} which uses the \textsf{bytefield}  \LaTeX\ package. 
+% \subsection{\glsentryshort{WLAN} Security}% you can't use the \gls() command in a heading - but you can get the short (\glsentryshort) or long version (\glsentryshort) or \glsentrylong or even the text entry (\glsentrytext) and then there is no problem - see https://tex.stackexchange.com/questions/198140/glossaries-and-custom-section-headings-broken
 
+The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} describes the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, with the following ensemble of ordinary differential equations as shown
+\begin{align}
+ \dot{BG} &= -p_{G}BG(t) - S_{I}BG(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+EGP_{B}-CNS}{V_G} \label{eq:BG} \\
+ \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
+ \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)+(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
+ \dot{P1} &= -d_{1}P1 + D(t) \label{eq:P1} \\
+ \dot{P2} &= -min(d_{2}P2,P_{max}) + d_{1}P1 \label{eq:P2} \\
+ P(t) &= -min(d_{2}P2,P_{max}) + PN(t) \label{eq:P} \\
+ u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen}
+\end{align}
+Equation \ref{eq:BG} is the independent insulin glucose removal, where $BG$ is the total blood glucose concentration (mmol/L). The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is represented as $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can modeled as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} - \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
 
-\begin{figure}[!ht]
-	\centering
-\begin{bytefield}{21}
-\bitbox[]{7}{} & \bitbox[]{3}{\tiny octets:} & \bitbox[]{4}{\tiny 6} & \bitbox[]{4}{\tiny 6} & \bitbox[]{3}{\tiny 2} & \bitbox[]{5}{\tiny 46 to 1500} & \bitbox[]{3}{\tiny 0 to 46} & \bitbox[]{2}{\tiny 4}\\ 
+It is of great importance to note that while the proposed model can capture the insulin-glucose dynamics, in practice, typically it is only possible for the clinician to take blood glucose measurements, not for the dynamics in equations \ref{eq:Q}-\ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
 
-\bitbox[]{8}{\textbf{ETHERNET \\[-1ex] \tiny{data link-layer}}} & \bitbox[]{2}{} & 
+\section{State Estimation}
+A probabilistic state estimator can be modeled in the following state space representation
+\begin{equation} \label{eq:prob1}
+    \begin{aligned}
+        x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1})  \\
+        y_{k} &\sim p(y_{k} \mid x_{k}), 
+    \end{aligned}
+\end{equation}
+where $p(x_{k}, u_{k} | x_{k-1})$ and $p(y_{k} | x_{k})$ are the discrete-time dynamic and measurement models, $x_{k} \in\mathbb{R}^n $ are the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the point estimate $\hat{x_k}$ of the state, given all the measurements up to current sample $p(x_{k} \mid y_{1:k})$.
+In the case of assuming the state estimator is linear and Gaussian,
+\begin{equation}
+    \begin{aligned}
+        x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1} \\
+        y_{k} &= Hx_{k} + r_{k},
+    \end{aligned}
+\end{equation}
+where $q_{k-1} \sim N(0, Q_{k-1})$ is the process noise, $r_{k} \sim N(0,R_k)$ is the measurement noise, we can rewrite equation \ref{eq:prob1} as the following
+\begin{equation}
+    \begin{aligned}
+        p(x_{k} \mid x_{k-1}, u_{k-1}) &= N(x_{k} \mid A_{k-1}x_{k-1} + B_{k-1}u_{k-1}, Q_{k-1}) \\
+        p(y_{k} \mid x_{k}) &= N(y_{k} \mid H_{k}x_{k}, R_{k}).
+    \end{aligned}
+\end{equation}
+The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dynamic and measurement models is known as the Kalman filter, with two key parts: the \textit{prediction step} and the \textit{update step}.
+\begin{enumerate}
+    \item \textit{Prediction step} 
+    \begin{equation} \label{eq:Predict}
+        \begin{aligned}
+            m_{k}^- &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} \\
+            P_{k}^- &= A_{k-1}P_{k-1}A_{k-1}^T + Q_{k-1}.
+        \end{aligned}
+    \end{equation}
+    \item \textit{Update step} 
+    \begin{equation} \label{eq:Update}
+        \begin{aligned}
+            v_{k} &= y_{k} - H_{k}m_{k}^- \\
+            S_{k} &= H_{k}P_{k}^-H_k^T + R_k \\
+            K_k &= P_k^-H_k^TS_k^{-1} \\
+            m_k &= m_k^- + K_kv_K \\
+            P_k &= P_k^- - K_kS_kK_k^T.
+        \end{aligned}
+    \end{equation}
+\end{enumerate} 
+The Kalman Filter is a recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG}-\ref{eq:P2}, the ordinary differential equations are not linear, consequently, the estimators of choice must have the capability to properly handle nonlinearities in the state equations.
 
-\bitbox{4}{\tiny Destination Address} & \bitbox{4}{\tiny Source Address} & \bitbox{3}{\tiny Length/ Type} & 
-\bitbox{5}{\tiny Data Payload} & \bitbox{3}{\tiny Padding} &
-\bitbox{2}{\tiny CRC} \\
+\subsection{Extended Kalman filter}
 
-\bitbox[]{1}{} &\bitbox[]{3}{\tiny octets:} & \bitbox[]{4}{\tiny 7} & \bitbox[]{2}{\tiny 1} & \bitbox[]{0}{$\vdots$ \\[1ex]} & \bitbox[]{16}{} & \bitbox[]{0}{$\vdots$ \\[1ex]} & \bitbox[]{5}{} & \bitbox[]{4}{\tiny Variable}\\
+The extended Kalman filter expands upon the linearity condition to allow for nonlinear models. The structure of the extended Kalman filter remains the same as equations \ref{eq:Predict} and \ref{eq:Update}.
 
-\bitbox[]{4}{\textbf{MAC \\[-1ex] \tiny{packet}}} & \colorbitbox{lightgray}{4}{\tiny Preamble} & \colorbitbox{lightgray}{2}{\tiny SFD} & \colorbitbox{lightgray}{16}{\tiny MAC Client Data} & \colorbitbox{lightgray}{3}{\tiny Padding} &
-\colorbitbox{lightgray}{2}{\tiny CRC} & \colorbitbox{lightgray}{4}{\tiny Extension}
-\end{bytefield}
-     \caption{Ethernet data link layer protocol encapsulated into a IEEE~802.3 MAC packet}
-     \label{fig:ieee8023-data-packet}
-\end{figure}
-
-\subsection{IP packet headers}
-\label{sec:ipheaders}
-The data link layer will receive a packet from the IP layer. The layout of
-an IPv4 packet is shown in Figure~\ref{fig:ipv4-header}. This should be
-contrasted with the IPv6 header shown in Figure~\ref{fig:ipv6-header}.
-
-%
-% IPv4 packet header
-%
-\begin{figure}[!ht]
-	\centering
-\begin{bytefield}{32}
-\bitheader{0-31} \\
-\bitbox{4}{\footnotesize{Version}} & \bitbox{4}{IHL} & \bitbox{6}{\tiny{Type of Service}} & \bitbox{2}{{\scriptsize ECN}} \bitbox{16}{Total Length}\\
-\bitbox{16}{Identification} & \bitbox{3}{Flags} & \bitbox{13}{Fragment Offset}\\
-\bitbox{8}{Time to Live} & \bitbox{8}{Protocol} & \bitbox{16}{Header Checksum}\\
-\wordbox{1}{Source Address}\\
-\wordbox{1}{Destination Address}\\
-\colorbitbox{lightgray}{24}{Options} & \colorbitbox{lightgray}{8}{Padding}
-\end{bytefield}
-     \caption[IPv4 datagram header]{IPv4 datagram header. Light grey coloured fields are optional.}
-    \label{fig:ipv4-header} 
-\end{figure}
-
-%
-% IPv6 packet header
-%
-\begin{figure}[!ht]
-	\centering
-\begin{bytefield}{32}
-\bitheader{0-31} \\
-\bitbox{4}{\footnotesize{Version}} & \bitbox{8}{Traffic Class} & \bitbox{20}{Flow Label}\\
-\bitbox{16}{Payload Length} & \bitbox{8}{Next Header} & \bitbox{8}{Hop Limit}\\
-\wordbox{4}{Source Address}\\
-\wordbox{4}{Destination Address}\\
-\end{bytefield}
-     \caption{IPv6 datagram header}
-    \label{fig:ipv6-header}
-\end{figure}
-
-\subsection{Test for accessibility of formulas}
-
-As can be seen in these equations:
-$c=2 \cdot \pi \cdot r$ or \[ \int_{a}^{b} x^2 \,dx \] a chemical formula: $(C_5O_2H_8)_n$
-...
-\section{Major background area 2}\sweExpl{Viktigt bakgrundsområde 2}
-...
-\subsection{\glsentryshort{WLAN} Security}% you can't use the \gls() command in a heading - but you can get the short (\glsentryshort) or long version (\glsentryshort) or \glsentrylong or even the text entry (\glsentrytext) and then there is no problem - see https://tex.stackexchange.com/questions/198140/glossaries-and-custom-section-headings-broken
-
-\subsection{Network layer security}
-...
-
-\section{Related work area}\sweExpl{Relaterade arbeten}
+\subsection{Bootstrap Particle filter}
 
 
-\subsection{Major related work 1}\sweExpl{Relaterade arbeten 1}
-Carrier clouds have been suggested as a way to reduce the delay between the users and the cloud server that is providing them with content. However, there is a question of how to find the available resources in such a carrier cloud. One approach has been to disseminate resource information using an extension to OSPF-TE, see Roozbeh, Sefidcon, and Maguire \cite{roozbeh_resource_2013}.
+\section{Parameter estimation}
 
 
-\subsection{Major related work n}\sweExpl{Relaterade arbeten}
-
-\subsection{Minor related work 1}\sweExpl{Mindre relaterat arbete 1}
-
-
-…
-\subsection{Minor related work n}\sweExpl{Mindre relaterat arbete n}
+\section{Related work area}
+% \sweExpl{Relaterade arbeten}
 
 
-\section{Summary}\sweExpl{Sammanfattning}
-\sweExpl{Det är trevligt om detta kapitel
-  avslutas med en sammanfattning. Till exempel kan du inkludera en tabell som
-  sammanfattar andras idéer och fördelar och nackdelar med varje - så som
-  senare kan du jämföra din lösning till var och en av dessa. Detta kommer
-  också att hjälpa dig att definiera de variabler som du kommer att använda
-  för din utvärdering.}
+\subsection{Major related work 1}
+% \sweExpl{Relaterade arbeten 1}
+% Carrier clouds have been suggested as a way to reduce the delay between the users and the cloud server that is providing them with content. However, there is a question of how to find the available resources in such a carrier cloud. One approach has been to disseminate resource information using an extension to OSPF-TE, see Roozbeh, Sefidcon, and Maguire \cite{roozbeh_resource_2013}.
 
-\engExpl{It is nice to have this chapter conclude with a summary. For
-  example, you can include a table that summarizes other people's ideas and
-  benefits and drawbacks with each - so as later you can compare your solution
-  to each of them. This will also help you define the variables that you will
-  use for your evaluation.}
+
+\subsection{Major related work n}
+% \sweExpl{Relaterade arbeten}
+
+\subsection{Minor related work 1}
+% \sweExpl{Mindre relaterat arbete 1}
+
+\subsection{Minor related work n}
+% \sweExpl{Mindre relaterat arbete n}
+
+
+\section{Summary}
+% \sweExpl{Sammanfattning}
+% \sweExpl{Det är trevligt om detta kapitel
+%   avslutas med en sammanfattning. Till exempel kan du inkludera en tabell som
+%   sammanfattar andras idéer och fördelar och nackdelar med varje - så som
+%   senare kan du jämföra din lösning till var och en av dessa. Detta kommer
+%   också att hjälpa dig att definiera de variabler som du kommer att använda
+%   för din utvärdering.}
+
+% \engExpl{It is nice to have this chapter conclude with a summary. For
+%   example, you can include a table that summarizes other people's ideas and
+%   benefits and drawbacks with each - so as later you can compare your solution
+%   to each of them. This will also help you define the variables that you will
+%   use for your evaluation.}
 
 \cleardoublepage
 \chapter{Method or Methods}
