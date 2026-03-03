@@ -762,7 +762,7 @@ This study will not consist of any real patient data from the intensive care uni
 
 % \subsection{\glsentryshort{WLAN} Security}% you can't use the \gls() command in a heading - but you can get the short (\glsentryshort) or long version (\glsentryshort) or \glsentrylong or even the text entry (\glsentrytext) and then there is no problem - see https://tex.stackexchange.com/questions/198140/glossaries-and-custom-section-headings-broken
 
-The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} describes the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, with the following ensemble of ordinary differential equations as shown
+The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} characterizes the insulin-glucose dynamics in critically ill patients, and incorporates additional methods beyond solely using insulin infusion for gluco-regulation. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, with the following ensemble of ordinary differential equations shown as
 \begin{align}
  \dot{BG} &= -p_{G}BG(t) - S_{I}BG(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+EGP_{B}-CNS}{V_G} \label{eq:BG} \\
  \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
@@ -772,11 +772,11 @@ The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \c
  P(t) &= -min(d_{2}P2,P_{max}) + PN(t) \label{eq:P} \\
  u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen}
 \end{align}
-Equation \ref{eq:BG} is the independent insulin glucose removal, where $BG$ is the total blood glucose concentration (mmol/L). The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is represented as $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can modeled as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} - \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
+Equation \ref{eq:BG} is the independent insulin glucose removal, where $BG$ is the total blood glucose concentration (mmol/L). The insulin sensitivity $S_I$ is time varying and crucially gives insight to the long-term evolution of the patient's health over time. The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is represented as $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can modeled as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} - \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
 
-It is of great importance to note that while the proposed model can capture the insulin-glucose dynamics, in practice, typically it is only possible for the clinician to take blood glucose measurements, not for the dynamics in equations \ref{eq:Q}-\ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
+It is of great importance to note that while the proposed model can capture the insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in equations \ref{eq:Q}-\ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
 
-\section{State Estimation}
+\section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
 \begin{equation} \label{eq:prob1}
     \begin{aligned}
@@ -799,7 +799,7 @@ where $q_{k-1} \sim N(0, Q_{k-1})$ is the process noise, $r_{k} \sim N(0,R_k)$ i
         p(y_{k} \mid x_{k}) &= N(y_{k} \mid H_{k}x_{k}, R_{k}).
     \end{aligned}
 \end{equation}
-The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dynamic and measurement models is known as the Kalman filter, with two key parts: the \textit{prediction step} and the \textit{update step}.
+The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dynamic and measurement models is known as the Kalman filter \cite{sarkka_bayesian_nodate}, with two key parts: the \textit{prediction step} and the \textit{update step}.
 \begin{enumerate}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
@@ -819,14 +819,84 @@ The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dyna
         \end{aligned}
     \end{equation}
 \end{enumerate} 
-The Kalman Filter is a recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG}-\ref{eq:P2}, the ordinary differential equations are not linear, consequently, the estimators of choice must have the capability to properly handle nonlinearities in the state equations.
+The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG}-\ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
 
 \subsection{Extended Kalman filter}
 
-The extended Kalman filter expands upon the linearity condition to allow for nonlinear models. The structure of the extended Kalman filter remains the same as equations \ref{eq:Predict} and \ref{eq:Update}.
+The extended Kalman filter expands upon the linearity condition to allow for nonlinear models. The structure of the extended Kalman filter remains the same as equations \ref{eq:Predict} and \ref{eq:Update}, but changes are seen in the matrices of the dynamic and measurement functions $f(\cdot)$ and $h(\cdot)$. Assuming the same Gaussianity condition as the Kalman filter, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
+\begin{enumerate}
+    \item \textit{Prediction step} 
+    \begin{equation} \label{eq:Predict}
+        \begin{aligned}
+            m_{k}^- &= f(m_{k-1}, u_{k-1}) \\
+            P_{k}^- &= F_x(m_{k-1})P_{k-1}F_x^T(m_{k-1}) + Q_{k-1},
+        \end{aligned}
+    \end{equation}
+    \item \textit{Update step} 
+    \begin{equation} \label{eq:Update}
+        \begin{aligned}
+            v_{k} &= y_{k} - h(m_k^-) \\
+            S_{k} &= H_x(m_k^-)P_{k}^-H_x^T(m_k^-) + R_k \\
+            K_k &= P_k^-H_k^T(m_k^-)S_k^{-1} \\
+            m_k &= m_k^- + K_kv_K \\
+            P_k &= P_k^- - K_kS_kK_k^T,
+        \end{aligned}
+    \end{equation}
+\end{enumerate} 
+where $F_x(m_k^-)$ and $H_x(m_k^-)$ are the Jacobian matrices of $f(\cdot)$ and $h(\cdot)$ derived from the Taylor series Gaussian approximation of a linear transformation, and are written as
+\begin{equation}
+    \begin{aligned}
+        [F_x(m)]_{j,j'} &= \frac{\partial f_j(x)}{\partial x_{j'}}\bigg\rvert_{x=m} \\
+        [H_x(m)]_{j,j'} &= \frac{\partial h_j(x)}{\partial x_{j'}}\bigg\rvert_{x=m}.
+    \end{aligned}
+\end{equation}
 
-\subsection{Bootstrap Particle filter}
+\subsection{Bootstrap particle filter}
+When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations at time step $K$, one must evaluate the expected value of the posterior probability
+\begin{align}\label{eq:prior}
+   \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
+\end{align}
+where $g(\cdot)$ is an arbitrary distribution $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the dimensionality of $x$, but by using drawing $N$ many random samples from the target distribution $x^i \sim g(x)$, the approximation of the point estimate of the states will converge to the true point estimate by the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and can be rewritten as
+\begin{equation}\label{eq:prior2}
+    \begin{aligned}
+        \hat{x}_k &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^i) p(x^i \mid y_{1:K}).
+    \end{aligned}
+\end{equation}
+The distribution $p(x^i \mid y_{1:K})$ is often unknown, and can not be evaluated, but according to bayes' rule, it can be rewritten as 
+\begin{equation}
+    \begin{aligned}
+        p(x^i \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\frac{1}{N}\sum_{j=1}^{N} p(y_{1:K} \mid x^j) p(x^j)} \\
+        &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})},
+    \end{aligned}
+\end{equation}
+where $\pi(x^i \mid y_{1:K})$ is defined as the importance mass, which approximates the posterior by drawing particles from a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
+\begin{equation}
+    \begin{aligned}
+        w^{*(i)} &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})} \\
+        w^i &= \frac{w^{*(i)}}{\sum_{j=1}^{N} w^{*(j)}},
+    \end{aligned}
+\end{equation}
+with the approximation of the point estimate being rewritten as
+\begin{align}
+    \hat{x} \approx \sum_{i=1}^{N} w^i g(x^i).
+\end{align}
 
+The bootstrap particle filter is formulated on the principle of Markov Chain Monte Carlo approximations, where the filtering distributions are shown in equation \ref{eq:prob1}. The bootstrap particle filter is ran sequentially like the Kalman filter, and the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1})$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
+
+\begin{enumerate}
+    \item Sample $N$ particles from the dynamic function
+    \begin{align}
+        x_k^i = p(x_k \mid x_{k-1}^i) \quad i = 1,\dots, N
+    \end{align}
+    \item Update weights from the measurement
+    \begin{equation}
+        \begin{aligned}
+            w_k^{*(i)} &\propto p(y_k \mid x_k^i)  \quad i = 1,\dots, N  \\
+            w_k^i &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N
+        \end{aligned}
+    \end{equation}
+    \item Resample particles from a distribution proportional to the weights. 
+    \end{enumerate}
 
 \section{Parameter estimation}
 
