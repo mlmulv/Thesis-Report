@@ -295,9 +295,11 @@ nopostdot]{glossaries}
 \AtBeginDocument{\let\c@listing\c@lstlisting}
 \makeatother
 \usepackage{subfiles}
-
 \usepackage{amsfonts} 
 \usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{threeparttable}
 
 % To have Creative Commons (CC) license and logos use the doclicense package
 % Note that the lowercase version of the license has to be used in the modifier
@@ -819,7 +821,7 @@ The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dyna
         \end{aligned}
     \end{equation}
 \end{enumerate} 
-The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG}-\ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
+The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, but it is clear when analyzing the equations \ref{eq:BG}-\ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
 
 \subsection{Extended Kalman filter}
 
@@ -852,17 +854,17 @@ where $F_x(m_k^-)$ and $H_x(m_k^-)$ are the Jacobian matrices of $f(\cdot)$ and 
 \end{equation}
 
 \subsection{Bootstrap particle filter}
-When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations at time step $K$, one must evaluate the expected value of the posterior probability
+When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations up to time step $K$, one must evaluate the expected value of the posterior probability
 \begin{align}\label{eq:prior}
    \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
 \end{align}
 where $g(\cdot)$ is an arbitrary distribution $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the dimensionality of $x$, but by using drawing $N$ many random samples from the target distribution $x^i \sim g(x)$, the approximation of the point estimate of the states will converge to the true point estimate by the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and can be rewritten as
 \begin{equation}\label{eq:prior2}
     \begin{aligned}
-        \hat{x}_k &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^i) p(x^i \mid y_{1:K}).
+        \hat{x} &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^i) p(x^i \mid y_{1:K}).
     \end{aligned}
 \end{equation}
-The distribution $p(x^i \mid y_{1:K})$ is often unknown, and can not be evaluated, but according to bayes' rule, it can be rewritten as 
+The distribution $p(x^i \mid y_{1:K})$ is often unknown, and can not be evaluated, but according to Bayes' rule, it can be rewritten as 
 \begin{equation}
     \begin{aligned}
         p(x^i \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\frac{1}{N}\sum_{j=1}^{N} p(y_{1:K} \mid x^j) p(x^j)} \\
@@ -900,24 +902,49 @@ The bootstrap particle filter is formulated on the principle of Markov Chain Mon
 
 \section{Parameter estimation}
 
+\begin{table}
+    \centering
+    \begin{threeparttable}
+        \caption{Constant Parameters in the Intensive Control Insulin-Nutrition-Glucose Model}
+        \begin{tabular}{ccc}
+            \toprule
+            % \multicolumn{2}{c}{Constant Intensive Control Insulin-Nutrition-Glucose Model
+            % Parameters} \\
+            % \midrule
+            Constant Parameter & Notation & Value \\
+            \midrule
+            \rowcolor{gray!20}
+            Patient endogenous glucose removal & $p_G$ ($\text{min}^{-1}$) & 0.006 \\
+            Saturation of insulin-stimulated glucose removal & $\alpha_G$ (L/mu) & 0.0154 \\
+            \rowcolor{gray!20}
+            Suppression of endogenous glucose production & $EGP_b$ (mmol/min) & 1.16 \\
+            Central nervous system uptake & $CNS$ (mmol/L) & 0.3 \\
+            Glucose distribution volume & $V_G$ (L) & 13.3 \\
+            \rowcolor{gray!20}
+            Glucose distribution rate between the stomach and the gut & $n_I$ ($\text{min}^{-1}$) & 0.003 \\
+            Cellular insulin clearance rate from interstitium & $n_C$ ($\text{min}^{-1}$) & $= n_I$ \\ 
+            Kidney clearance rate of insulin from plasma & $n_K$ ($\text{min}^{-1}$) & 0.0542 \\
+            Liver clearance rate of insulin from plasma & $n_L$ ($\text{min}^{-1}$) & 0.01578 \\
+            Saturation of plasma insulin disappearance & $\alpha_I$ (L/mU) & 0.0017 \\
+            Insulin distribution volume  & $V_I$ (L) & 3.15 \\
+            Fraction of first pass hepatic extraction & $x_L$ & 0.67 \\
+            \multirow{2}{*}{Transport rates between the stomach and the gut} & $d_1$ ($\text{min}^{-1}$) & 0.0347 \\
+            & $d_2$ ($\text{min}^{-1}$) & 0.0069 \\
+            Maximal out flux from the gut & $P_{max}$ (mmol/min) & 6.11 \\
+            Base endogenous insulin production rate $k_1$ (mU/min) & 45.7 \\
+            \multirow{2}{*}{Exponential suppression constants} & $k_2$ & 1.5 \\
+            & $k_3$ & 1000 \\
+            \bottomrule
+        \end{tabular}
+        \begin{tablenotes}
+            \footnotesize
+            \item Parameters shaded in grey are derived from integral fitting, while the rest are assigned as population constants.
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
 
 \section{Related work area}
 % \sweExpl{Relaterade arbeten}
-
-
-\subsection{Major related work 1}
-% \sweExpl{Relaterade arbeten 1}
-% Carrier clouds have been suggested as a way to reduce the delay between the users and the cloud server that is providing them with content. However, there is a question of how to find the available resources in such a carrier cloud. One approach has been to disseminate resource information using an extension to OSPF-TE, see Roozbeh, Sefidcon, and Maguire \cite{roozbeh_resource_2013}.
-
-
-\subsection{Major related work n}
-% \sweExpl{Relaterade arbeten}
-
-\subsection{Minor related work 1}
-% \sweExpl{Mindre relaterat arbete 1}
-
-\subsection{Minor related work n}
-% \sweExpl{Mindre relaterat arbete n}
 
 
 \section{Summary}
