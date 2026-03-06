@@ -25,8 +25,12 @@
 \backcite {lin_physiological_2011}{{5}{2}{chapter.2}}
 \backcite {chase_model-based_nodate}{{5}{2}{chapter.2}}
 \backcite {lotz_monte_2008}{{5}{2}{chapter.2}}
-\backcite {sarkka_bayesian_nodate}{{7}{2.1}{equation.2.10}}
-\backcite {sarkka_bayesian_nodate}{{7}{2.1.1}{subsection.2.1.1}}
-\backcite {liu_monte_2004}{{8}{2.1.2}{equation.2.16}}
-\backcite {sarkka_bayesian_nodate}{{9}{2.1.2}{equation.2.20}}
-\backcite {liu_monte_2004}{{9}{2.1.2}{equation.2.20}}
+\backcite {hann_integral-based_2005}{{6}{2}{equation.2.7}}
+\backcite {compte_blood_2009}{{6}{2}{equation.2.7}}
+\backcite {chase_adaptive_2005}{{6}{2}{equation.2.7}}
+\backcite {sarkka_bayesian_nodate}{{8}{2.1}{equation.2.10}}
+\backcite {sarkka_bayesian_nodate}{{8}{2.1.1}{subsection.2.1.1}}
+\backcite {liu_monte_2004}{{9}{2.1.2}{equation.2.16}}
+\backcite {sarkka_bayesian_nodate}{{10}{2.1.2}{equation.2.20}}
+\backcite {liu_monte_2004}{{10}{2.1.2}{equation.2.20}}
+\backcite {hann_integral-based_2005}{{11}{2.2}{section.2.2}}
