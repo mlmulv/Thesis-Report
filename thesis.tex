@@ -954,24 +954,41 @@ As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fl
  the equation \ref{eq:BG} be rearranged as such 
 \begin{equation}
     \begin{aligned}
-        \int_{t_0}^{t_1} \dot{BG} \diff t &= -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t \dots \\ &+ \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \diff t \\
-        BG(t_1) - BG(t_0) &= - p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t \dots \\ &+ \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \diff t \\
-        \overbrace{
-           \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t 
-        }^{A(t_0, t_1)}
-        S_I &= \overbrace{
-            BG(t_0) - BG(t_1) - p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \diff t \dots}^{b(t_0,t_1)}\\ &+ \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \diff t.\\
+         \int_{t_0}^{t_1} \dot{BG} \, \diff t 
+         &= \left(
+            \begin{aligned}
+                -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \\ + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t
+            \end{aligned}
+        \right) \\
+        BG(t_1) - BG(t_0) &= 
+        \left(
+            \begin{aligned}
+                -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \\ + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t
+            \end{aligned}
+        \right) \\
+        \underbrace{\int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t}_{A(t_0, t_1)} \hspace{0.25em} S_I
+        &= \underbrace{\left(
+            \begin{aligned}
+            &BG(t_0) - BG(t_1)
+            - p_G \int_{t_0}^{t_1} \widetilde{BG}(t)\, \diff t \\
+            &+ \frac{1}{V_G} \int_{t_0}^{t_1} (P(t) + EGP_b - CNS)\, \diff t
+            \end{aligned}
+          \right)}_{b(t_0, t_1)}
     \end{aligned}
 \end{equation}
-It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 mins glucose measurements are taken from the patient, but every 60 mins a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$. Both insulin sensitivity parameters at 60 mins and 120 mins can be derived as a linear least squares solution as shown
+It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 mins glucose measurements are taken from the patient, but every 60 mins a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$, both insulin sensitivity parameters at 60 mins $S_I^{60}$ and 120 mins $S_I^{120}$ can be derived as a least squares solution from the system of linear equations
 \begin{align}
     \begin{bmatrix}
         A(t_0, t_0+30) & 0 \\
         A(t_0+30, t_0+60) & 0 \\
         0 & A(t_0+60, t_0+90) \\
-        0 & A(t_0+90, t_1)
-    \end{bmatrix} S_I = \begin{bmatrix}
-        b(t_0, t_0+30) \\ b(t_0+30, t_0+60) \\ b(t_0+60, t_0+90) \\ b(t_0+90, t_1)
+        0 & A(t_0+90, t_0+120)
+    \end{bmatrix}
+    \begin{bmatrix} 
+        S_I^{60} \\ S_I^{120}
+    \end{bmatrix}
+    = \begin{bmatrix}
+         b(t_0, t_0+30) \\ b(t_0+30, t_0+60) \\ b(t_0+60, t_0+90) \\ b(t_0+90, t_0+120)
     \end{bmatrix}.
 \end{align}
 
