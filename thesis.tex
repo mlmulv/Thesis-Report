@@ -767,18 +767,18 @@ This study will not consist of any real patient data from the intensive care uni
 % \subsection{\glsentryshort{WLAN} Security}% you can't use the \gls() command in a heading - but you can get the short (\glsentryshort) or long version (\glsentryshort) or \glsentrylong or even the text entry (\glsentrytext) and then there is no problem - see https://tex.stackexchange.com/questions/198140/glossaries-and-custom-section-headings-broken
 
 The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} characterizes the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of ordinary differential equations
-\begin{align}
+\begin{alignat}{1}
  \dot{BG} &= -p_{G}BG(t) - S_{I}BG(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+EGP_{B}-CNS}{V_G} \label{eq:BG} \\
  \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
- \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)+(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
+ \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)}{V_I} \nonumber \\ & \quad + \frac{(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
  \dot{P1} &= -d_{1}P1 + D(t) \label{eq:P1} \\
  \dot{P2} &= -min(d_{2}P2,P_{max}) + d_{1}P1 \label{eq:P2} \\
  P(t) &= -min(d_{2}P2,P_{max}) + PN(t) \label{eq:P} \\
  u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen}
-\end{align}
-Equation \ref{eq:BG} is the independent insulin glucose removal, where $BG$ is the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I$ gives insight to the metabolic condition of the patient and is a time-varying dynamic fitted hourly to the patient. The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is represented as $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can modeled as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} to \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
+\end{alignat}
+Equation \ref{eq:BG} is the independent insulin glucose removal, with $BG$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I$ gives insight into the metabolic condition of the patient and is a time-varying dynamic fitted hourly to the patient. The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} to \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
 
-The Intensive Control Insulin-Nutrition-Glucose model also includes several fixed parameters detailed in table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters were estimated with a data-driven approach (i.e. model identifiability) by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $EGP_b$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $EGP_b = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $EGP_b$ value that achieved the lowest fitting and prediction error for blood glucose in equation \ref{eq:BG} was chosen, ultimately that was $p_G = 0.006 (\text{min}^{-1})$ and $EGP_b = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in equation \ref{eq:Q}, a grid search covers a range $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
+The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed parameters detailed in table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters was estimated with a data-driven approach (i.e. model identifiability) by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $EGP_b$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $EGP_b = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $EGP_b$ value that achieved the lowest fitting and prediction error for blood glucose in equation \ref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 (\text{min}^{-1})$ and $EGP_b = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the equation \ref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
 
 \begin{table}[ht]
     \centering
@@ -821,7 +821,7 @@ The Intensive Control Insulin-Nutrition-Glucose model also includes several fixe
     \end{threeparttable}
 \end{table}
 
-While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in equations \ref{eq:Q}-\ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
+While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in equations \ref{eq:Q} to \ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
 
 \section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
@@ -831,7 +831,7 @@ x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}) \\
 y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{aligned}
 \end{equation}
-where $p(x_{k}, u_{k} | x_{k-1})$ and $p(y_{k} | x_{k})$ are the discrete-time dynamic and measurement models, $x_{k} \in\mathbb{R}^n $ are the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the point estimate $\hat{x_k}$ of the state, given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$.
+where $p(x_{k}, u_{k} | x_{k-1})$ and $p(y_{k} | x_{k})$ are the discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the point estimate $\hat{x_k}$ of the state, given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$.
 In the case of assuming the state estimator is linear and Gaussian,
 \begin{equation}
 \begin{aligned}
@@ -866,7 +866,7 @@ P_k &= P_k^- - K_kS_kK_k^T.
 \end{aligned}
 \end{equation}
 \end{enumerate}
-The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG} to \ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
+The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG} to \ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
 
 \subsection{Extended Kalman filter}
 
@@ -876,7 +876,7 @@ The extended Kalman filter expands upon the linearity condition to allow for non
     \begin{equation} \label{eq:Predict}
         \begin{aligned}
             m_{k}^- &= f(m_{k-1}, u_{k-1}) \\
-            P_{k}^- &= F_x(m_{k-1})P_{k-1}F_x^T(m_{k-1}) + Q_{k-1},
+            P_{k}^- &= F_x(m_{k-1})P_{k-1}F_x^T(m_{k-1}) + Q_{k-1}
         \end{aligned}
     \end{equation}
     \item \textit{Update step} 
@@ -890,7 +890,7 @@ The extended Kalman filter expands upon the linearity condition to allow for non
         \end{aligned}
     \end{equation}
 \end{enumerate} 
-where $F_x(m_k^-)$ and $H_x(m_k^-)$ are the Jacobian matrices of $f(\cdot)$ and $h(\cdot)$ derived from the Taylor series Gaussian approximation of a linear transformation, and are written as
+the Jacobian matrices $F_x(m_k^-)$ and $H_x(m_k^-)$ are derived from $f(\cdot)$ and $h(\cdot)$, as $F_x$ and $H_x$ are inferred from the Taylor series Gaussian approximation of a linear transformation, and are written as
 \begin{equation}
     \begin{aligned}
         [F_x(m)]_{j,j'} &= \frac{\partial f_j(x)}{\partial x_{j'}}\bigg\rvert_{x=m} \\
@@ -899,11 +899,11 @@ where $F_x(m_k^-)$ and $H_x(m_k^-)$ are the Jacobian matrices of $f(\cdot)$ and 
 \end{equation}
 
 \subsection{Bootstrap particle filter}
-When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations up to time step $K$, one must evaluate the expected value of the posterior probability
+When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations up to time step $K$, one must evaluate the expected value of the conditional probability
 \begin{align}\label{eq:prior}
    \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
 \end{align}
-where $g(\cdot)$ is an arbitrary distribution $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the dimensionality of $x$, but by formulating a Monte Carlo approximation by drawing $N$ many random samples from the target distribution $x^i \sim g(x) \quad i = 1,\dots, N$, the approximation of the point estimate of the states will converge to the true point estimate according to the Law of Large Numbers and the Central Limit Theorem for a large $N$ \cite{liu_monte_2004}, and the approximation of the state point estimate can be rewritten as
+with $g(\cdot)$ being an arbitrary distribution $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the dimensionality of $x$, but by formulating a Monte Carlo approximation by drawing $N$ many random samples from the target distribution $x^i \sim g(x) \quad i = 1,\dots, N$, the approximation of the point estimate of the states will converge to the true point estimate for a large $N$, according to the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and the approximation of the point estimate of the states can be rewritten as
 \begin{equation}\label{eq:prior2}
     \begin{aligned}
         \hat{x} &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^i) p(x^i \mid y_{1:K}).
@@ -913,10 +913,10 @@ The conditional probability $p(x^i \mid y_{1:K})$ is often unknown, and can not 
 \begin{equation}
     \begin{aligned}
         p(x^i \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\frac{1}{N}\sum_{j=1}^{N} p(y_{1:K} \mid x^j) p(x^j)} \\
-        &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})},
+        &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})}.
     \end{aligned}
 \end{equation}
-where $\pi(x^i \mid y_{1:K})$ is defined as the importance mass, and is a Monte Carlo approximation of the conditional probability of $p(x^i \mid y_{1:K})$, with the condition being that the mass is non-zero whenever $p(x^i \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
+The importance mass $\pi(x^i \mid y_{1:K})$ is a Monte Carlo approximation of the conditional probability $p(x^i \mid y_{1:K})$, with the condition that the mass is non-zero whenever $p(x^i \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
 \begin{equation}
     \begin{aligned}
         w^{*(i)} &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})} \\
@@ -928,7 +928,7 @@ with the approximation of the point estimate being rewritten as
     \hat{x} \approx \sum_{i=1}^{N} w^i g(x^i).
 \end{align}
 
-The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, where the filtering distributions are shown in equation \ref{eq:prob1}, and is run sequentially like the Kalman filter, with the importance mass being assigned as the dynamic model $p(x_k \mid x_{k-1})$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
+The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in equation \ref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1})$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
 \begin{enumerate}
     \item Sample $N$ particles from the dynamic function
     \begin{align}
@@ -947,25 +947,20 @@ The bootstrap particle filter is formulated on the basis of Markov Chain Monte C
 
 \section{Related Work}
 
-As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fluctuates over time depending on the patient's metabolic condition, as a result, naively assigning $S_I$ as a constant parameter can hinder the performance of the estimators. A nonlinear and nonconvex integral-based parameter identification method has been introduced that can approximate patient-specific parameters \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements at times $t_0$ and $t_1$,
+As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning $S_I$ as a constant parameter can hinder the performance of the estimators. A nonlinear and nonconvex integral-based parameter identification method has been introduced that can approximate patient-specific parameters \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
     \widetilde{{BG}(t)} = \frac{BG(t_1) - BG(t_0)}{t_1 - t_0}t,
 \end{align}
  the equation \ref{eq:BG} be rearranged as such 
-\begin{equation}
+\begin{alignat}{1}
+    \int_{t_0}^{t_1} \dot{BG} \, \diff t &= 
+        -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t \\
+    BG(t_1) - BG(t_0) &= 
+            -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t,
+\end{alignat}
+and $S_I$ can be expressed as a linear equation
+\begin{equation} \label{eq:integral_based}
     \begin{aligned}
-         \int_{t_0}^{t_1} \dot{BG} \, \diff t 
-         &= \left(
-            \begin{aligned}
-                -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \\ + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t
-            \end{aligned}
-        \right) \\
-        BG(t_1) - BG(t_0) &= 
-        \left(
-            \begin{aligned}
-                -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \\ + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t
-            \end{aligned}
-        \right) \\
         \underbrace{\int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t}_{A(t_0, t_1)} \hspace{0.25em} S_I
         &= \underbrace{\left(
             \begin{aligned}
@@ -973,10 +968,10 @@ As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fl
             - p_G \int_{t_0}^{t_1} \widetilde{BG}(t)\, \diff t \\
             &+ \frac{1}{V_G} \int_{t_0}^{t_1} (P(t) + EGP_b - CNS)\, \diff t
             \end{aligned}
-          \right)}_{b(t_0, t_1)}
+          \right).}_{b(t_0, t_1)}
     \end{aligned}
 \end{equation}
-It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 mins glucose measurements are taken from the patient, but every 60 mins a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$, both insulin sensitivity parameters at 60 mins $S_I^{60}$ and 120 mins $S_I^{120}$ can be derived as a least squares solution from the system of linear equations
+It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 mins glucose measurements are taken from the patient, but every 60 mins a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$. Both insulin sensitivity parameters at 60 mins $S_I^{60}$ and 120 mins $S_I^{120}$ can be derived as the least squares solution from the system of linear equations
 \begin{align}
     \begin{bmatrix}
         A(t_0, t_0+30) & 0 \\
@@ -992,18 +987,16 @@ It is often the case with longer measurement periods ($t_1 - t_0$), that identif
     \end{bmatrix}.
 \end{align}
 
-
+The fundamental flaw of the integral-based parameter identification method is the assumption of linear blood glucose dynamics between measurements of times $[t_0, t_1]$. If we closely analyze the figure \ref{fig:background}, linearly interpolating blood glucose introduces residuals. Consequently, the residuals will propagate into the integrals in the equation \ref{eq:integral_based}, resulting in errors in the parameter calculation. This can be seen in the bottom plot of \ref{fig:background}, in the beginning 120 mins, a sharp non-linear increase in blood glucose transpires in a significant error of 100\%. The approximated $S_I$ struggles to converge to the constant true $S_I$ value and fluctuates rapidly. The insulin-sensitivity parameter observed in critically-ill patients does not change rapidly, often slowly fluctuating in terms of hours. Relying on data-driven methods can not account for physiological behavior in the parameters, and other methods must be explored to allow for realistic estimation of parameters, thus giving better insight of the patient's health status to clinicians. 
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/2_3.png}
-    \caption[Caption for LOF]{Integral-based Insulin Sensitivity Identification on Patient Model\footnotemark.}
+    \caption[Caption for LOF]{Fitting the insulin sensitivity $S_I$ hourly using the integral-based parameter identification method on a patient model\footnotemark.}
     \label{fig:background}
 \end{figure}
 
-\footnotetext{Initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 15.0$ (mU/L), $Q = 15.0$ (mU/L), $P1 = P2 = 0.0$ (mmol) due to no external nutrition given. Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
-
-
+\footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 15.0$ (mU/L), $Q = 15.0$ (mU/L), $P1 = P2 = 0.0$ (mmol), with no external nutrition given. Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
 
 \section{Summary}
 % \sweExpl{Sammanfattning}
@@ -1019,6 +1012,8 @@ It is often the case with longer measurement periods ($t_1 - t_0$), that identif
 %   benefits and drawbacks with each - so as later you can compare your solution
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
+
+The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Often, clinicians solely rely on blood glucose measurements, which limits the knowledge of the insulin-glucose dynamics in real-time. Utilizing nonlinear state estimators, such as the extended Kalman filter and the bootstrap particle filter, allow for estimation of all dynamics over time. To evaluate patient-specific parameters, model identifiability is used to make inferences about the parameters of interest. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
 \chapter{Method or Methods}
@@ -1725,7 +1720,7 @@ xxxx.
 
 
 
-\warningExpl{If you do not have an appendix, do not include the \textbackslash cleardoublepage command below, otherwise the last page number in the meta data will be one too large.}
+% \warningExpl{If you do not have an appendix, do not include the \textbackslash cleardoublepage command below, otherwise the last page number in the meta data will be one too large.}
 \cleardoublepage
 \appendix
 \renewcommand{\chaptermark}[1]{\markboth{Appendix \thechapter\relax:\thinspace\relax#1}{}}
