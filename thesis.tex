@@ -670,7 +670,7 @@ We would like to thank xxxx for having yyyy.
 % at \qty{200}{Gbps}.}
 % \fi
 
-Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the relationship of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia. Traditional intensive insulin therapy struggles to fully capture the dynamic fluctuations of blood glucose in critically ill patients. Thus, more personalized model-based methods are required to achieve tight glycaemic control.
+Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the causality of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia. Traditional intensive insulin therapy struggles to fully capture the dynamic fluctuations of blood glucose in critically ill patients. Thus, more personalized model-based methods are required to achieve tight glycaemic control.
 
 
 \section{Background}
@@ -714,7 +714,7 @@ The overall goal of this project is the estimation of patient-specific parameter
 \item Estimate insulin-glucose dynamics using a nonlinear state estimator
 % \sweExpl{för att tillfredsställa ingenjörssamfundet och vetenskapen – akademin) }
 \item Determine the subset of patient-specific parameters of interest to model
-\item Formulate estimators for chosen patient-specific parameters 
+\item Formulate and evaluate estimators for chosen patient-specific parameters 
 % \sweExpl{eventuellt, för att uppfylla kursmålen – du som student}
 \end{enumerate}
 
@@ -768,22 +768,22 @@ This study will not consist of any real patient data from the intensive care uni
 
 The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} characterizes the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of ordinary differential equations
 \begin{alignat}{1}
- \dot{BG} &= -p_{G}BG(t) - S_{I}BG(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+EGP_{B}-CNS}{V_G} \label{eq:BG} \\
+ \dot{G} &= -p_{G}G(t) - S_{I}(t)G(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+E_G-C_G}{V_G} \label{eq:BG} \\
  \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
  \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)}{V_I} \nonumber \\ & \quad + \frac{(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
  \dot{P1} &= -d_{1}P1 + D(t) \label{eq:P1} \\
  \dot{P2} &= -min(d_{2}P2,P_{max}) + d_{1}P1 \label{eq:P2} \\
- P(t) &= -min(d_{2}P2,P_{max}) + PN(t) \label{eq:P} \\
+ P(t) &= -min(d_{2}P2,P_{max}) + P_N(t) \label{eq:P} \\
  u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen}
 \end{alignat}
-Equation \ref{eq:BG} is the independent insulin glucose removal, with $BG$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I$ gives insight into the metabolic condition of the patient and is a time-varying dynamic fitted hourly to the patient. The insulin pharamacodynamics are shown in equations \ref{eq:Q} and \ref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in equation \ref{eq:uen}. The gastric absorption of glucose is defined in equations \ref{eq:P1} to \ref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $PN(t)$ (mmol/min).
+Equation \eqref{eq:BG} is the independent insulin glucose removal, with $G$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I(t)$ gives insight into the metabolic condition of the patient and is a time-varying dynamic. The insulin pharamacodynamics are shown in Equations \eqref{eq:Q} and \eqref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in Equation \eqref{eq:uen}. The gastric absorption of glucose is defined in Equations \eqref{eq:P1} to \eqref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $P_N(t)$ (mmol/min).
 
-The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed parameters detailed in table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters was estimated with a data-driven approach (i.e. model identifiability) by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $EGP_b$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $EGP_b = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $EGP_b$ value that achieved the lowest fitting and prediction error for blood glucose in equation \ref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 (\text{min}^{-1})$ and $EGP_b = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the equation \ref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
+The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed parameters detailed in Table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters was estimated with a data-driven approach (i.e. model identifiability) by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $E_G$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $E_G = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $E_G$ value that achieved the lowest fitting and prediction error for blood glucose in Equation \eqref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 (\text{min}^{-1})$ and $E_G = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the Equation \eqref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
 
 \begin{table}[ht]
     \centering
     \begin{threeparttable}
-        \caption{Constant Parameters in the Intensive Control Insulin-Nutrition-Glucose Model.}
+        \caption{Constant parameters in the Intensive Control Insulin-Nutrition-Glucose model.}
         \label{tab:params}
         \begin{tabular}{l l r}
             \toprule
@@ -793,8 +793,8 @@ The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed 
             Patient endogenous glucose removal & $p_G$ ($\text{min}^{-1}$) & 0.006 \\
             Saturation of insulin-stimulated glucose removal & $\alpha_G$ (L/mU) & 0.0154 \\
             \rowcolor{gray!20}
-            Suppression of endogenous glucose production & $EGP_b$ (mmol/min) & 1.16 \\
-            Central nervous system uptake & $CNS$ (mmol/L) & 0.3 \\
+            Suppression of endogenous glucose production & $E_G$ (mmol/min) & 1.16 \\
+            Central nervous system uptake & $C_G$ (mmol/L) & 0.3 \\
             Glucose distribution volume & $V_G$ (L) & 13.3 \\
             \rowcolor{gray!20}
             Glucose distribution rate between the stomach and the gut & $n_I$ ($\text{min}^{-1}$) & 0.003 \\
@@ -821,7 +821,7 @@ The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed 
     \end{threeparttable}
 \end{table}
 
-While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in equations \ref{eq:Q} to \ref{eq:P2}. Thus, leveraging estimators is a viable solution to estimate the insulin-glucose dynamics over time to account for the lack of intuition into the dynamics that can not be measured.
+While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in Equations \eqref{eq:Q} to \eqref{eq:P2}. Thus, leveraging estimators is a viable solution to account for the lack of intuition into the dynamics that can not be measured.
 
 \section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
@@ -831,7 +831,7 @@ x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}) \\
 y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{aligned}
 \end{equation}
-where $p(x_{k}, u_{k} | x_{k-1})$ and $p(y_{k} | x_{k})$ are the discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the point estimate $\hat{x_k}$ of the state, given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$.
+where $p(x_{k} | x_{k-1}, u_{k})$ and $p(y_{k} | x_{k})$ are the discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$.
 In the case of assuming the state estimator is linear and Gaussian,
 \begin{equation}
 \begin{aligned}
@@ -839,14 +839,14 @@ x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1} \\
 y_{k} &= Hx_{k} + r_{k},
 \end{aligned}
 \end{equation}
-where $q_{k-1} \sim N(0, Q_{k-1})$ is the process noise, $r_{k} \sim N(0,R_k)$ is the measurement noise, we can rewrite the equation \ref{eq:prob1} as the following
+where $q_{k-1} \sim N(0, Q_{k-1})$ is the process noise, $r_{k} \sim N(0,R_k)$ is the measurement noise, we can rewrite the Equation \eqref{eq:prob1} as the following
 \begin{equation}
 \begin{aligned}
 p(x_{k} \mid x_{k-1}, u_{k-1}) &= N(x_{k} \mid A_{k-1}x_{k-1} + B_{k-1}u_{k-1}, Q_{k-1}) \\
 p(y_{k} \mid x_{k}) &= N(y_{k} \mid H_{k}x_{k}, R_{k}).
 \end{aligned}
 \end{equation}
-The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dynamic and measurement functions is known as the Kalman filter \cite{sarkka_bayesian_nodate}, with two key parts: the \textit{prediction step} and the \textit{update step}.
+The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dynamic and measurement functions is known as the Kalman filter, with a full derivation available from Sräkkä and Svensson \cite{sarkka_bayesian_nodate}. The filter contains two key parts: the \textit{prediction step} and the \textit{update step}.
 \begin{enumerate}
 \item \textit{Prediction step}
 \begin{equation} \label{eq:Predict}
@@ -866,11 +866,11 @@ P_k &= P_k^- - K_kS_kK_k^T.
 \end{aligned}
 \end{equation}
 \end{enumerate}
-The Kalman Filter is recursive, as the filter starts with an initial point estimate of the mean $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the equations \ref{eq:BG} to \ref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
+The Kalman filter is recursive, as the filter starts with an estimate of the initial distribution of the state $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. While the Kalman filter is a great starting point for an estimator, as the assumptions of linearity and Gaussianity often hold in many contexts, it is clear when analyzing the Equations \eqref{eq:BG} to \eqref{eq:P2}, the ordinary differential equations are not linear, hence, the estimators of choice must have the capability to properly handle nonlinearities in the dynamic function.
 
 \subsection{Extended Kalman filter}
 
-The extended Kalman filter expands upon the linearity condition to allow for nonlinear models. The structure of the extended Kalman filter remains the same as the equations \ref{eq:Predict} and \ref{eq:Update}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming the same Gaussianity condition as the Kalman filter, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
+The extended Kalman filter expands upon the linearity condition to allow for nonlinear models. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict} and \eqref{eq:Update}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming the same Gaussianity condition as the Kalman filter, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
 \begin{enumerate}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
@@ -903,42 +903,41 @@ When revisiting the probabilistic state estimators in section \ref{sec:state}, t
 \begin{align}\label{eq:prior}
    \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
 \end{align}
-with $g(\cdot)$ being an arbitrary distribution $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the dimensionality of $x$, but by formulating a Monte Carlo approximation by drawing $N$ many random samples from the target distribution $x^i \sim g(x) \quad i = 1,\dots, N$, the approximation of the point estimate of the states will converge to the true point estimate for a large $N$, according to the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and the approximation of the point estimate of the states can be rewritten as
+with $g(\cdot)$ being an arbitrary function $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the intractability of the posterior $p(x \mid y_{1:K})$ in many settings, but by formulating a Monte Carlo approximation by drawing $N$ many random samples from the target distribution $x^{(i)} \sim g(x) \quad i = 1,\dots, N$, the approximation of the point estimate of the states will converge to the true point estimate for a large $N$, according to the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and the approximation of the point estimate of the states can be rewritten as
 \begin{equation}\label{eq:prior2}
     \begin{aligned}
-        \hat{x} &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^i) p(x^i \mid y_{1:K}).
+        \hat{x} &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^{(i)}) p(x^{(i)} \mid y_{1:K}).
     \end{aligned}
 \end{equation}
-The conditional probability $p(x^i \mid y_{1:K})$ is often unknown, and can not be evaluated, but according to Bayes' rule, it can be rewritten as 
+The conditional probability $p(x^{(i)} \mid y_{1:K})$ can be rewritten in terms of the likelihood $p(y_{1:K} \mid x^{(i)})$ and the prior $p(x^{(i)})$ according to Bayes' rule
 \begin{equation}
     \begin{aligned}
-        p(x^i \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\frac{1}{N}\sum_{j=1}^{N} p(y_{1:K} \mid x^j) p(x^j)} \\
-        &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})}.
+        p(x^{(i)} \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{p(y_{1:K})}.
     \end{aligned}
 \end{equation}
-The importance mass $\pi(x^i \mid y_{1:K})$ is a Monte Carlo approximation of the conditional probability $p(x^i \mid y_{1:K})$, with the condition that the mass is non-zero whenever $p(x^i \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
+The normalization term is often not able to be computed numerically, but by introducing importance sampling, the term can be approximated. The importance mass $\pi(x^{(i)} \mid y_{1:K})$ is a Monte Carlo approximation of $p(y_{1:K})$, with the condition that the mass is non-zero whenever $p(x^{(i)} \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
 \begin{equation}
     \begin{aligned}
-        w^{*(i)} &= \frac{p(y_{1:K} \mid x^i) p(x^i)}{\pi(x^i \mid y_{1:K})} \\
+        w^{*(i)} &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{\pi(x^{(i)} \mid y_{1:K})} \\
         w^i &= \frac{w^{*(i)}}{\sum_{j=1}^{N} w^{*(j)}},
     \end{aligned}
 \end{equation}
 with the approximation of the point estimate being rewritten as
 \begin{align}
-    \hat{x} \approx \sum_{i=1}^{N} w^i g(x^i).
+    \hat{x} \approx \sum_{i=1}^{N} w^i g(x^{(i)}).
 \end{align}
 
-The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in equation \ref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1})$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
+The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in Equation \eqref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1}^{(i)})$ at the time step $k$ for a given particle $(i)$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
 \begin{enumerate}
     \item Sample $N$ particles from the dynamic function
     \begin{align}
-        x_k^i = p(x_k \mid x_{k-1}^i, u_{k-1}) \quad i = 1,\dots, N
+        x_k^{(i)} = p(x_k \mid x_{k-1}^{(i)}, u_{k-1}) \quad i = 1,\dots, N
     \end{align}
     \item Update weights from the measurement
     \begin{equation}
         \begin{aligned}
-            w_k^{*(i)} &\propto p(y_k \mid x_k^i)  \quad i = 1,\dots, N  \\
-            w_k^i &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N
+            w_k^{*(i)} &\propto p(y_k \mid x_k^{(i)})  \quad i = 1,\dots, N  \\
+            w_k^{(i)} &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N
         \end{aligned}
     \end{equation}
     \item Resample particles from a distribution proportional to the weights. 
@@ -949,24 +948,24 @@ The bootstrap particle filter is formulated on the basis of Markov Chain Monte C
 
 As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning $S_I$ as a constant parameter can hinder the performance of the estimators. A nonlinear and nonconvex integral-based parameter identification method has been introduced that can approximate patient-specific parameters \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
-    \widetilde{{BG}(t)} = \frac{BG(t_1) - BG(t_0)}{t_1 - t_0}t,
+    \widetilde{{G}(t)} = \frac{G(t_1) - G(t_0)}{t_1 - t_0}t,
 \end{align}
- the equation \ref{eq:BG} be rearranged as such 
+the Equation \eqref{eq:BG} can be rearranged as such for a piecewise constant $S_I$ 
 \begin{alignat}{1}
-    \int_{t_0}^{t_1} \dot{BG} \, \diff t &= 
-        -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t \\
-    BG(t_1) - BG(t_0) &= 
-            -p_G \int_{t_0}^{t_1} \widetilde{BG(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + EGP_b - CNS \, \diff t,
+    \int_{t_0}^{t_1} \dot{G} \, \diff t &= 
+        -p_G \int_{t_0}^{t_1} \widetilde{G(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{G(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + E_G - C_G \, \diff t \nonumber \\
+    G(t_1) - G(t_0) &= 
+            -p_G \int_{t_0}^{t_1} \widetilde{G(t)} \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{G(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + E_G - C_G \, \diff t,
 \end{alignat}
 and $S_I$ can be expressed as a linear equation
 \begin{equation} \label{eq:integral_based}
     \begin{aligned}
-        \underbrace{\int_{t_0}^{t_1} \widetilde{BG(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t}_{A(t_0, t_1)} \hspace{0.25em} S_I
+        \underbrace{\int_{t_0}^{t_1} \widetilde{G(t)} \frac{Q(t)}{1+\alpha_G Q(t)} \diff t}_{A(t_0, t_1)} \hspace{0.25em} S_I
         &= \underbrace{\left(
             \begin{aligned}
-            &BG(t_0) - BG(t_1)
-            - p_G \int_{t_0}^{t_1} \widetilde{BG}(t)\, \diff t \\
-            &+ \frac{1}{V_G} \int_{t_0}^{t_1} (P(t) + EGP_b - CNS)\, \diff t
+            &G(t_0) - G(t_1)
+            - p_G \int_{t_0}^{t_1} \widetilde{G}(t)\, \diff t \\
+            &+ \frac{1}{V_G} \int_{t_0}^{t_1} (P(t) + E_G - C_G)\, \diff t
             \end{aligned}
           \right).}_{b(t_0, t_1)}
     \end{aligned}
@@ -987,7 +986,9 @@ It is often the case with longer measurement periods ($t_1 - t_0$), that identif
     \end{bmatrix}.
 \end{align}
 
-The fundamental flaw of the integral-based parameter identification method is the assumption of linear blood glucose dynamics between measurements of times $[t_0, t_1]$. If we closely analyze the figure \ref{fig:background}, linearly interpolating blood glucose introduces residuals. Consequently, the residuals will propagate into the integrals in the equation \ref{eq:integral_based}, resulting in errors in the parameter calculation. This can be seen in the bottom plot of \ref{fig:background}, in the beginning 120 mins, a sharp non-linear increase in blood glucose transpires in a significant error of 100\%. The approximated $S_I$ struggles to converge to the constant true $S_I$ value and fluctuates rapidly. The insulin-sensitivity parameter observed in critically-ill patients does not change rapidly, often slowly fluctuating in terms of hours. Relying on data-driven methods can not account for physiological behavior in the parameters, and other methods must be explored to allow for realistic estimation of parameters, thus giving better insight of the patient's health status to clinicians. 
+The fundamental flaw of the integral-based parameter identification method is the assumption of linear blood glucose dynamics between measurements of times $[t_0, t_1]$. If we closely analyze the Figure \ref{fig:background}, linearly interpolating blood glucose introduces residuals, due to fitting errors. Consequently, the residuals will propagate into the integrals in the Equation \eqref{eq:integral_based}, resulting in errors in the parameter calculation.
+% This can be seen in the bottom plot of Figure \ref{fig:background}, in the beginning 120 mins, a sharp non-linear increase in blood glucose transpires in a significant error of 100\%. The approximated $S_I$ struggles to converge to the constant true $S_I$ value and fluctuates rapidly. The insulin-sensitivity parameter observed in critically-ill patients does not change rapidly, often slowly fluctuating in terms of hours.
+Relying on data-driven methods can not account for physiological behavior in the parameters, and other methods must be explored to allow for realistic estimation of parameters, thus giving better insight of the patient's health status to clinicians. 
 
 \begin{figure}[ht]
     \centering
@@ -996,7 +997,8 @@ The fundamental flaw of the integral-based parameter identification method is th
     \label{fig:background}
 \end{figure}
 
-\footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 15.0$ (mU/L), $Q = 15.0$ (mU/L), $P1 = P2 = 0.0$ (mmol), with no external nutrition given. Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
+\footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 15.0$ (mU/L), $Q = 15.0$ (mU/L), $P1 = P2 = 0.0$ (mmol). The inputs are $u_{ex}(t) = 75 \cdot e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min),
+and no external nutrition is given. Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
 
 \section{Summary}
 % \sweExpl{Sammanfattning}
