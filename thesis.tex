@@ -171,8 +171,8 @@ nopostdot]{glossaries}
 % insert the configuration information with author(s), examiner, supervisor(s), ...
 \input{custom_configuration}
 
-\title{This is the title in the language of the thesis}
-\subtitle{A subtitle in the language of the thesis}
+\title{Patient-Specific Parameter Estimation in Mechanistic Insulin-Glucose Models}
+\subtitle{Degree Project 2026}
 
 % give the alternative title - i.e., if the thesis is in English, then give a Swedish title
 \alttitle{Detta är den svenska översättnin gen av titeln}
@@ -296,13 +296,6 @@ nopostdot]{glossaries}
 \makeatletter
 \AtBeginDocument{\let\c@listing\c@lstlisting}
 \makeatother
-\usepackage{subfiles}
-\usepackage{amsfonts} 
-\usepackage{lipsum}
-\usepackage{booktabs}
-\usepackage[table]{xcolor}
-\usepackage{threeparttable}
-\usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
 
 % To have Creative Commons (CC) license and logos use the doclicense package
@@ -621,30 +614,30 @@ We would like to thank xxxx for having yyyy.
 
 \listoftables
 \cleardoublepage
-\lstlistoflistings\engExpl{If you have listings in your thesis. If not, then remove this preface page.}
-\cleardoublepage
+% \lstlistoflistings\engExpl{If you have listings in your thesis. If not, then remove this preface page.}
+% \cleardoublepage
 % Align the text expansion of the glossary entries
-\newglossarystyle{mylong}{%
-  \setglossarystyle{long}%
-  \renewenvironment{theglossary}%
-     {\begin{longtable}[l]{@{}p{\dimexpr 2cm-\tabcolsep}p{0.8\hsize}}}% <-- change the value here
-     {\end{longtable}}%
- }
+% \newglossarystyle{mylong}{%
+%   \setglossarystyle{long}%
+%   \renewenvironment{theglossary}%
+%      {\begin{longtable}[l]{@{}p{\dimexpr 2cm-\tabcolsep}p{0.8\hsize}}}% <-- change the value here
+%      {\end{longtable}}%
+%  }
 %\glsaddall
 %\printglossaries[type=\acronymtype, title={List of acronyms}]
-\printglossary[style=mylong, type=\acronymtype, title={List of acronyms and abbreviations}]
+% \printglossary[style=mylong, type=\acronymtype, title={List of acronyms and abbreviations}]
 %\printglossary[type=\acronymtype, title={List of acronyms and abbreviations}]
 
 %\printnoidxglossary[style=mylong, title={List of acronyms and abbreviations}]
-\engExpl{The list of acronyms and abbreviations should be in alphabetical order based on the spelling of the acronym or abbreviation.
-}
+% \engExpl{The list of acronyms and abbreviations should be in alphabetical order based on the spelling of the acronym or abbreviation.
+% }
 
-% if the nomenclature option was specified, then include the nomenclature page(s)
-\ifnomenclature
-    \cleardoublepage
-    % Output the nomenclature list
-    \printnomenclature
-\fi
+% % if the nomenclature option was specified, then include the nomenclature page(s)
+% \ifnomenclature
+%     \cleardoublepage
+%     % Output the nomenclature list
+%     \printnomenclature
+% \fi
 
 %% The following label is essential to know the page number of the last page of the preface
 %% It is used to computer the data for the "For DIVA" pages
@@ -995,7 +988,7 @@ Relying on data-driven methods can not account for physiological behavior in the
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/2_3.png}
-    \caption[Caption for LOF]{Fitting the insulin sensitivity $S_I$ hourly using the integral-based parameter identification method on a patient model\footnotemark.}
+    \caption[Blood Glucose Dynamic Example]{Blood glucose and its' corresponding measurements from the patient model\footnotemark.}
     \label{fig:background}
 \end{figure}
 
@@ -1022,6 +1015,9 @@ The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to m
 \cleardoublepage
 \chapter{Research Methods}
 \label{ch:methods}
+
+This chapter will consist of presenting the scientific design of the experiment. Beginning with the overall goals of the study, and how the corresponding experimental process will be formulated to achieve answering the stated research questions. The inclusion and motivation of the data collected, models used, and analysis of the observations in the experiment will be laid out in the following sections.
+
 % \generalExpl{This chapter is about Engineering-related
 %   content, Methodologies and Methods.  Use a self-explaining title.\\The
 %   contents and structure of this chapter will change with your choice of
@@ -1032,44 +1028,65 @@ The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to m
 
 \section{Research Process}
 \label{sec:researchProcess}
-
-\generalExpl{Example of using customize item labels.}
-Some steps in the process:
+The main topics this study aim to address fall in line with the following research questions:
+\begin{enumerate}
+    \item \label{RQ: 1} \textbf{Does the mathematical formulation of the Intensive Control Insulin-Nutrition-Glucose model permit patient-specific model-identifiability when approximating insulin-glucose dynamics for patients in the intensive care unit?} 
+    \item \label{RQ: 2} \textbf{How do state estimation techniques compare against traditional parameter-identification methods in estimating patient-specific insulin-glucose dynamics in terms of accuracy and computational complexity?} 
+\end{enumerate}
+Given the overall experimental goals, the research process can therefore be outlined as such:
 \begin{enumerate}[leftmargin=*, label=\textbf{Step \arabic*}, ref=Step \arabic*] %labelindent=1em for indent
     \itemsep0em
-    \item \label{x:s1} plan experiment,
-    \item \label{x:s2} conduct experiment,
-    \item \label{x:s3} analyze data from the experiment, and
+    \item \label{x:s1} create virtual patients,
+    \item \label{x:s2} conduct experiments with patient data,
+    \item \label{x:s3} analyze statistical metrics from the experiments, and
     \item \label{x:s4} discuss the results of the analysis.
 \end{enumerate}
 
 \section{Research Paradigm}
 \label{sec:researchParadigm}
+The philosophical motivation in this study is founded on utilizing a set of quantitative methods that serve the purpose of ultimately answering the previously stated research questions. The use of statistical metrics will quantitatively express the relationships of variables tested in the experiment. Consequently, the research questions will effectively be addressed. 
 
 \section{Data Collection}
 \label{sec:dataCollection}
-% \generalExpl{This should also show that you are aware of the social and ethical concerns that might be relevant to your data collection method.}
+A virtual patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G, Q, I, P1, P2$) represented in Equations \eqref{eq:BG} to \eqref{eq:P2}, known insulin sensitivity $S_I(t)$, exogenous insulin $u_{ex}(t)$, and enternal feed $D(t)$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all virtual patients. To simulate patient data, each virtual patient (100 total patients) is given an initial state for the dynamics $x_0$.
+Blood glucose concentration (mmol/L) has been demonstrated to have an underlying log-normal distribution \cite{davidson_multi-input_2019}, thus, for the purpose of this experiment, we can define blood glucose as the following random variable $\ln G \sim N(2.02, 1.3^2)$, with each patient being assigned an unique initial state of
+\begin{align}
+    x_0 &= \begin{bmatrix}
+        G_0 & Q_0 & I_0 & \,P1_0 & \,P2_0
+    \end{bmatrix} \nonumber \\
+    &= \begin{bmatrix}
+        \exp(\ln G) & 15.0 & 15.0 & 0.0 & 0.0
+    \end{bmatrix}.
+\end{align}
+$Q_0$ and $I_0$ are both chosen as $16.5$ (mU/L) as the initial interstitial and plasma insulin concentration are in line with measurements collected to model an insulin-glucose system \cite{dalla_man_meal_2007}. The initial glucose concentration (mmol/L) in the stomach $\,P1_0$ and gut $\,P2_0$ are assumed to be zero at the beginning of insulin infusion and feeding. All patients are given continuous ($t=$ mins) exogenous insulin input
+\begin{align}
+    u_{ex}(t) = 140 \exp \left(-\frac{\log 2}{300} \left(t \mod{300}\right)\right) \text{ (mU/min)},
+\end{align} and a constant enternal intake of glucose
+\begin{align}
+    D(t) = 0.30 \text{ (mmol/min)}.
+\end{align}
+The units of insulin per hour (U/hr) can be derived as
+\begin{align}
+    \frac{1}{1000} \int_{t_1}^{t_1+60}u_{ex}(t) dt \approx 7.84 \text{ (U/hr)} && \text{for } t > 300,
+\end{align}
+as well as the total caloric intake of glucose per day 
+\begin{align}
+    \frac{0.30 \text{ (mol/min)}}{1000} \times 180.156 \text{ (g/mol)} \times 1440 \text{ (min)} \times 4 \text{(kcal/day)} \approx 304 \text{ (kcal/day)},
+\end{align} with both aligning in typical ranges given to ICU patients in the Karolinska University Hospital.
 
-\subsection{Sampling}
+Given all the initial states $x_0$, known insulin sensitivity $S_I(t)$, and the patient inputs $u_{ex}(t), D(t)$, the patient cohort can be generated by solving the Differential Equations \eqref{eq:BG} to \eqref{eq:P2} from times 0 mins to 3600 mins with a time step of $dt = 1$ min for each patient. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.  
 
-\subsection{Sample Size}
-
-\subsection{Target Population}
-
-\section[Experimental design/Planned Measurements]{Experimental design and\\Planned Measurements}
-\label{sec:experimentalDesign}
-
-\subsection{Test environment/test bed/model}
-% \engExpl{Describe everything that someone else would need to reproduce your test environment/test bed/model/… .}
-
-\subsection{Hardware/Software to be used}
 
 \section{Assessing reliability and validity of the data collected}
 \label{sec:assessingReliability}
 
+A virtual patient cohort is a simplified model to characterize the target population of patients in the intensive care unit, given certain assumptions of the patients. Each patient will have their unique insulin-glucose model that contains all the recorded dynamics and inputs in time.
 
 \subsection{Validity of method}
 \label{sec:validtyOfMethod}
+
+The patient models, parameters, and initial states are all adopted and cross-validated from multiple clinically validated studies. This provides a physiologically accurate basis to the control variables of the experiment. Interventions in the experiment can be assessed and compared knowing the manipulated variable is correlated with the change in the output and not due to poor model formulation. 
+
 % \engExpl{How will you know if your results are valid?}
 % \engExpl{Remember that validity is about the \textit{accuracy} of a measurement while reliability is about the \textit{consistency} of the measurement values under the same conditions (\ie repeatability).}
 
@@ -1077,34 +1094,28 @@ Some steps in the process:
 \label{sec:reliabilityOfMethod}
 % \engExpl{How will you know if your results are reliable?}
 
-\subsection{Data validity}
-\label{sec:dataValidity}
+Simulating patient data gives the necessary control to assign all patient parameters. A clear benefit of virtual patients is the repeatability of experiments, given identical patient parameters. Often in clinical settings, the true patient dynamics and parameters are unknown. Thus, results from clinical data may not be repeatable under the same conditions as there could be unaccounted for variables in the methods.
 
-\subsection{Reliability of data}
-\label{sec:reliabilityOfData}
 
 \section{Planned Data Analysis}
 \label{sec:plannedDataAnalysis}
-
-\subsection{Data Analysis Technique}
-\label{sec:dataAnalysisTechnique}
-
-\subsection{Software Tools}
-\label{sec:softwareTools}
 
 
 \section{Evaluation framework}
 \label{sec:evaluationFramework}
 
 
-\section{System documentation}
-\label{sec:systemDocumentation}
-% \generalExpl{If this is going to be a complete document consider putting it in as an appendix, then just put the highlights here.}
-
-
 \cleardoublepage
 \chapter{Research Methodology}
 \label{ch:whatYouDid}
+
+\section{Patient Identifiability}
+\subsection{Observability}
+\subsection{Integral-Based Fitting}
+
+\section{Nonlinear State Estimation}
+
+\section{Parameter Estimation}
 
 
 % \engExpl{What have you done? How did you do it? What design decisions did you make? How did what you did help you to meet your goals?}
@@ -1149,7 +1160,7 @@ Thus, given a nonzero $\delta_Q$, there exists a corresponding $\delta_S$, which
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/5_1.png}
-    \caption{The performance of approximating insulin sensitivity with the Integral-Based method across various measurement noise.}
+    \caption[Analysis of the integral-based parameter identification method]{The performance of approximating insulin sensitivity with the integral-based method across various measurement noise.}
     \label{fig:Int_Error}
 \end{figure}
 
