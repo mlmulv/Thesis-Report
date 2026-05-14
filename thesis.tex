@@ -735,7 +735,7 @@ The modeling of the insulin-glucose dynamics found in critically ill patients wi
 % sweExpl{Avgränsningar}
 % \generalExpl{Describe the boundary/limits of your thesis project and what you are explicitly not going to do. This will help you bound your efforts – as you have clearly defined what is out of the scope of this thesis project. Explain the delimitations. These are all the things that could affect the study if they were examined and included in the degree project.}
 
-This study will not consist of any real patient data from the intensive care unit. Using virtual patients is important for maintaining internal validity in the experimental process, as it verifies the observed outcome of the experiment is due to the manipulation of patient-specific parameters and not from uncontrolled variables. This study will build the foundation of the modeling of insulin-glucose dynamics, and future work can replicate the study with preprocessed real patient data. 
+This study will not consist of any real patient data from the intensive care unit. Using virtual patients is important for maintaining internal validity in the experimental process, as it verifies the observed outcome of the experiment is due to the manipulation of patient-specific parameters and not from uncontrolled variables. This study will build the foundation of the modeling of insulin-glucose dynamics, and future work can replicate the study with observed clinical patient data. 
 
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
@@ -824,11 +824,11 @@ The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed 
 \end{table}
 
 
-While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in Equations \eqref{eq:Q} to \eqref{eq:P2}.
+While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in Equations \eqref{eq:Q} to \eqref{eq:uen}.
 
 \section{Observability and Identifiability}
 
-In the scope of this paper, assessing observability and identifiability must be assessed within the context of nonlinear insulin-glucose dynamical models. Utilizing the observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian gives insight into which states and/or parameters have the most influence in the relationship of inputs and outputs of the system by analyzing the rank condition of the matrix.
+Analyzing observability and identifiability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into which states or parameters have the most influence in the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability and identifiability.
 
 We can define the following generic discrete system with a nonlinear dynamic function $f(\cdot)$ and a nonlinear measurement function $h(\cdot)$
 \begin{align}\label{eq:gramian}
@@ -841,7 +841,7 @@ The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mat
     x_{0,i} &= x_{\,nom} + \delta_i \nonumber \\
     \delta_i &= c \cdot S \cdot t_i && \text{with } S=\text{diag}(x_{\text{max}}).
 \end{align}
-The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathcal{R}^{n,n}$ is the diagonal matrix of the maximum of each state and parameter. The row vector $t_i \in R^n$ corresponds to the current perturbation of the orthonormal matrix $T = \begin{bmatrix}
+The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathcal{R}^{n,n}$ is the diagonal matrix of the maximum of each state and parameter. The row vector $t_i \in R^n$ is the specified perturbation $i$ from the orthonormal matrix $T = \begin{bmatrix}
     t_1 & t_2 & \dots & t_{2^n}
 \end{bmatrix} \in R^{n,2^n}$
 \begin{align}
@@ -864,11 +864,11 @@ with the positive definite matrix $\Psi \left[k\right]$ being assigned as the fo
     \Psi_{i,j}\left[k\right] &= \left|y_i \left[k\right] - y_0 \left[k\right] \right| \left|y_j \left[k\right] - y_0 \left[k\right] \right|.
 \end{align}
 
-To make inferences about the observability and identifiability of the observability gramian, one can check the rank condition of the matrix by analyzing the eigenvalues of $W_0$. The eigenvalues close to zero can be classified as not observable. If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
+To make inferences about the observability and identifiability of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. The singular values close to zero can be classified as not observable. If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
 \begin{align}
     x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
 \end{align}
-The new state perturbations and perturbation matrix are now assigned as the transformation as such $\bar{x} = T_s x$ and $\bar{T} = T_s T$. If the system is found to be weakly observable or not observable after calculating the eigenvalues with the transformed parameters, one can not learn about a subset of the dynamics of the system directly from the measurements. State estimators will be discussed in the following sections, and can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
+The new state perturbations and perturbation matrix are now assigned as the transformation as such $\bar{x} = T_s x$ and $\bar{T} = T_s T$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
 
 \section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
@@ -993,11 +993,32 @@ The bootstrap particle filter is formulated on the basis of Markov Chain Monte C
 
 \section{Parameter Estimation}
 
+As previously mentioned, there exists patient-specific parameters the whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$, with different proposed computational methods to estimate them will be elaborated on within this section.
 
+
+\subsection{State Augmentation}
+
+A practical method to handle unknown parameters is to augment them to the existing state variables $x_k$, such that Equation \eqref{eq:prob1} can be redefined as
+\begin{equation} \label{eq:prob2} 
+\begin{aligned}
+\theta_{k} &= \theta_{k-1} \\
+x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}, \theta_{k-1}) \\
+y_{k} &\sim p(y_{k} \mid x_{k}).
+\end{aligned}
+\end{equation}
+An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as nonlinear models often have approximation errors, and this can invoke the extended Kalman filter to ultimately diverge in the gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
+
+One method to compensate for singularity is to add artificial process noise $Q_{k}$ to allow the unknown parameters to randomly walk in the state space
+\begin{align}
+    \theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim N(0, Q_{k-1}).
+\end{align}
+With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of parameters $\theta_k$.
+
+\subsection{Metropolis-Hastings Algorithm}
 
 \subsection{Related Work}
 
-As previously mentioned, the whole-body insulin sensitivity $S_I$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning $S_I$ as a constant parameter can hinder the performance of the estimators. A nonlinear and nonconvex integral-based parameter identification method has been introduced that can approximate patient-specific parameters \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
+A nonlinear, and nonconvex integral-based parameter identification method has been introduced that can estimate patient-specific parameters through maximum likelihood estimation \cite{hann_integral-based_2005} . By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
     \widetilde{{G}(t)} = \frac{G(t_1) - G(t_0)}{t_1 - t_0}t,
 \end{align}
@@ -1051,9 +1072,6 @@ Relying on data-driven methods can not account for physiological behavior in the
 \footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 15.0$ (mU/L), $Q = 15.0$ (mU/L), $P1 = P2 = 0.0$ (mmol). The inputs are $u_{ex}(t) = 75 \cdot e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min),
 and no external nutrition is given. Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
 
-\subsection{State Augmentation}
-
-\subsection{Metropolis-Hastings Algorithm}
 
 
 \section{Summary}
