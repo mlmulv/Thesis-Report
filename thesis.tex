@@ -740,7 +740,7 @@ This study will not consist of any real patient data from the intensive care uni
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
 % Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methods} presents the methodology and method used to solve the problem.
-\lipsum[1]
+Chapter \ref{ch:background} will introduce the existing modeling of insulin-glucose dynamics used, followed by an overview of state estimation and parameter estimation techniques. In Chapter \ref{ch:methods}, the research method will be motivated along with the data collection. The research methodology will be presented in Chapter \ref{ch:whatYouDid} such that the steps to answer the research questions are clearly documented. The results will be shown in Chapter \ref{ch:resultsAndAnalysis}, and the analysis of the results will proceed in Chapter \ref{ch:resultsAndAnalysis}. Finally, the overall conclusion, key findings, and future work of the experiment will be summarized in Chapter \ref{ch:conclusionsAndFutureWork}.
 
 \cleardoublepage
 \chapter{Background}
@@ -827,10 +827,10 @@ The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed 
 While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in Equations \eqref{eq:Q} to \eqref{eq:uen}.
 
 \section{Observability and Identifiability}
-
-Analyzing observability and identifiability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into which states or parameters have the most influence in the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability and identifiability.
+Analyzing observability and identifiability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into which states or parameters have the most influence on the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability and identifiability.
 
 We can define the following generic discrete system with a nonlinear dynamic function $f(\cdot)$ and a nonlinear measurement function $h(\cdot)$
+
 \begin{align}\label{eq:gramian}
     \dot{x_k} &= f(x_{k-1}, u_k) \nonumber \\
     y_k &= h(x_k).
@@ -866,9 +866,9 @@ with the positive definite matrix $\Psi \left[k\right]$ being assigned as the fo
 
 To make inferences about the observability and identifiability of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. The singular values close to zero can be classified as not observable. If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
 \begin{align}
-    x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
+x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
 \end{align}
-The new state perturbations and perturbation matrix are now assigned as the transformation as such $\bar{x} = T_s x$ and $\bar{T} = T_s T$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
+The new state perturbations and perturbation matrix are now assigned as the transformation such as $\bar{x} = T_s x$ and $\bar{T} = T_s T$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
 
 \section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
@@ -945,7 +945,7 @@ the Jacobian matrices $F_x(m_k^-)$ and $H_x(m_k^-)$ are derived from $f(\cdot)$ 
     \end{aligned}
 \end{equation}
 
-\subsection{Bootstrap particle filter}
+\subsection{Bootstrap particle filter} \label{sec:particle}
 When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations up to time step $K$, one must evaluate the expected value of the conditional probability
 \begin{align}\label{eq:prior}
    \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
@@ -992,31 +992,99 @@ The bootstrap particle filter is formulated on the basis of Markov Chain Monte C
 
 
 \section{Parameter Estimation}
-
-As previously mentioned, there exists patient-specific parameters the whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$, with different proposed computational methods to estimate them will be elaborated on within this section.
-
+As previously mentioned, there exists patient-specific parameters. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$, with different proposed computational methods to estimate them will be elaborated on within this section.
 
 \subsection{State Augmentation}
-
 A practical method to handle unknown parameters is to augment them to the existing state variables $x_k$, such that Equation \eqref{eq:prob1} can be redefined as
-\begin{equation} \label{eq:prob2} 
+\begin{equation} \label{eq:prob2}
 \begin{aligned}
 \theta_{k} &= \theta_{k-1} \\
 x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}, \theta_{k-1}) \\
 y_{k} &\sim p(y_{k} \mid x_{k}).
 \end{aligned}
 \end{equation}
-An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as nonlinear models often have approximation errors, and this can invoke the extended Kalman filter to ultimately diverge in the gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
+An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as nonlinear models often have approximation errors, and this can drive the extended Kalman filter to ultimately diverge in the Gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
 
-One method to compensate for singularity is to add artificial process noise $Q_{k}$ to allow the unknown parameters to randomly walk in the state space
+One method to compensate for singularity is to add artificial process noise $Q_{k}$ to allow the unknown parameters to randomly walk in the state space, thus, accounting for errors in the dynamic function
 \begin{align}
-    \theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim N(0, Q_{k-1}).
+\theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim N(0, Q_{k-1}).
 \end{align}
-With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of parameters $\theta_k$.
+With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$, or one can utilize the Rao-Blackwellized representation of the covariance $Q_{k}$ in the state space.
+
+\subsection{Markov Chain Monte Carlo Sampling}
+The Markov Chain Monte Carlo methods are a class of parameter estimation approaches to estimate the posterior $p(\theta \mid y_{1:K})$ by drawing random samples of the unknown parameters $\theta$ from a desired stationary distribution formulated as a Markov Chain \cite{sarkka_bayesian_nodate}\cite{ninness_bayesian_2010}. Only the unnormalized posterior is considered due to similar concerns regarding computing $p(y_{1:K})$ as previously discussed in Section \ref{sec:particle}
+\begin{align}
+    p(\theta \mid y_{1:K}) \propto p(y_{1:K} \mid \theta) p(\theta).
+\end{align}
+The marginal likelihood $p(y_{1:K} \mid \theta)$ can be represented recursively as the state space models are run sequentially
+\begin{align}
+    p(y_{1:K} \mid \theta) & = \prod_{k=1}^{K} p(y_k \mid y_{k-1}, \theta).
+\end{align}
+The energy function $\varphi(\theta)$ will be introduced to maximize $p(y_{1:K} \mid \theta)$ in the negative log-domain
+\begin{align}
+    \varphi(\theta) = - \log p(y_{1:K} \mid \theta) = - \sum_{k-1}^K \log p(y_k \mid y_{k-1}, \theta),
+\end{align}
+which can additionally be expressed as in the recursive form
+\begin{align}\label{eq:energy}
+    \varphi_k(\theta) = \varphi_{k-1}(\theta) - \log p(y_k \mid y_{k-1}, \theta).
+\end{align}
+
+\subsubsection{Extended Kalman Filter-based Energy Function}
+If we return to Equations \eqref{eq:Predict} and \eqref{eq:Update}, the equations will be redefined such that the filter parameters are also dependent on the unknown parameters $\theta$
+\begin{enumerate}
+    \item \textit{Prediction step} 
+    \begin{equation} 
+        \begin{aligned}
+            m_{k}^-(\theta) &= f(m_{k-1}(\theta), u_{k-1}) \\
+            P_{k}^-(\theta) &= F_x(m_{k-1}(\theta))P_{k-1}(\theta)F_x^T(m_{k-1}(\theta)) + Q_{k-1}(\theta)
+        \end{aligned}
+    \end{equation}
+    \item \textit{Update step} 
+    \begin{equation} 
+        \begin{aligned}
+            v_{k}(\theta) &= y_{k} - h(m_k^-(\theta)) \\
+            S_{k}(\theta) &= H_x(m_k^-(\theta))P_{k}^-(\theta)H_x^T(m_k^-(\theta)) + R_k(\theta) \\
+            K_k(\theta) &= P_k^-(\theta)H_k^T(m_k^-(\theta))S_k^{-1}(\theta) \\
+            m_k(\theta) &= m_k^-(\theta) + K_k(\theta)v_K(\theta) \\
+            P_k(\theta) &= P_k^-(\theta) - K_k(\theta)S_k(\theta)K_k^T(\theta).
+        \end{aligned}
+    \end{equation}
+\end{enumerate} 
+The marginal log likelihood $\log p(y_k \mid y_{k-1}, \theta)$ in the extended Kalman filter can be simply derived as
+\begin{equation}
+    \begin{aligned}
+       \log p(y_k \mid y_{k-1}, \theta) &= \log N(y_k \mid h(m_k^-(\theta)), S_k(\theta)) \\
+       &= \log \frac{1}{\sqrt{\left|2 \pi S_k(\theta)\right|}} \exp \left(-\frac{1}{2} v_k^T(\theta) S_k(\theta) v_k(\theta)\right)\\
+       &= -\frac{1}{2} \log \left|2 \pi S_k(\theta)\right| - \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
+    \end{aligned}
+\end{equation}
+Given the closed form formulation of the marginal log likelihood, the energy function in Equation \eqref{eq:energy} can be finalized as
+\begin{align}
+    \varphi_k(\theta) = \varphi_{k-1}(\theta) + \frac{1}{2} \log \left|2 \pi S_k(\theta)\right| + \frac{1}{2} \log v_k^T(\theta)S_k(\theta)v_k(\theta).
+\end{align}
 
 \subsection{Metropolis-Hastings Algorithm}
+The Metropolis-Hastings algorithm is one of the most common Markov Chain Monte Carlo samplers, and provides a sequential process of estimating the potential candidates of $\theta$ by drawing them from a symmetric proposal distribution $\theta^* \sim q(\theta^* \mid \theta_{(k-1)})$, given the previous candidate $\theta_{(k-1)}$ \cite{sarkka_bayesian_nodate} \cite{ninness_bayesian_2010}. The algorithm will be laid out in the preceding block
+\begin{itemize}
+    \item $k=0$
+    \begin{enumerate}
+        \item assign an initial candidate $\theta_{0}$ and the initial energy function value $\varphi_0(\theta_0) = - \log p(\theta$)
+    \end{enumerate}
+    \item for $k=1:K$
+        \begin{enumerate}
+        \item sample a proposal candidate $\theta^* \sim q(\theta^* \mid \theta_{k-1})$
+        \item calculate energy of proposed candidate $\varphi_k(\theta^*)$
+        \item calculate acceptance probability $\alpha_k = \min \left(1, \exp \left(\varphi_k(\theta^*)-\varphi_k(\theta_{k-1})\right)\right)$
+        \item $\theta_k =
+            \begin{cases}
+            \theta^* & \text{if } z < \alpha_k \qquad \text{with } z \sim \mathcal{U}[0,1] \\
+            \theta_{k-1} & \text{otherwise}
+            \end{cases} $
+    \end{enumerate}
+\end{itemize}
 
-\subsection{Related Work}
+
+\section{Related Work}
 
 A nonlinear, and nonconvex integral-based parameter identification method has been introduced that can estimate patient-specific parameters through maximum likelihood estimation \cite{hann_integral-based_2005} . By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
@@ -1089,7 +1157,7 @@ and no external nutrition is given. Measurements are sampled with additive Gauss
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
 
-The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Often, clinicians solely rely on blood glucose measurements, which limits the knowledge of the insulin-glucose dynamics in real-time. Utilizing nonlinear state estimators, such as the extended Kalman filter and the bootstrap particle filter, allow for estimation of all dynamics over time. To evaluate patient-specific parameters, model identifiability is used to make inferences about the parameters of interest. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth methods can improve model identifiability for glucoregulation in critically ill patients.
+The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Often, clinicians solely rely on blood glucose measurements, which limits the knowledge of the insulin-glucose dynamics in real-time. Utilizing nonlinear state estimators, such as the extended Kalman filter and the bootstrap particle filter, allow for estimation of all dynamics over time. To evaluate patient-specific parameters, model identifiability is used to make inferences about the parameters of interest. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
 \chapter{Research Methods}
