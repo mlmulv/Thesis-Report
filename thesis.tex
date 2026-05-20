@@ -657,6 +657,8 @@ swe
 \chapter{Introduction}
 \label{ch:introduction}
 
+\def\svgwidth{0.9\linewidth}
+
 % \generalExpl{Give a general introduction to the area. (Remember to use appropriate references in this and all other sections.)}
 
 % % One can use either biblatex or bibtex - set as the option for the document at the top of this file
@@ -775,8 +777,8 @@ The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \c
  \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)}{V_I} \nonumber \\ & \quad + \frac{(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
  \dot{P1} &= -d_{1}P1 + D(t) \label{eq:P1} \\
  \dot{P2} &= -min(d_{2}P2,P_{max}) + d_{1}P1 \label{eq:P2} \\
- P(t) &= -min(d_{2}P2,P_{max}) + P_N(t) \label{eq:P} \\
- u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen}
+ u_{en}(t) &= k_1e^{-\frac{k_{2}}{k_{3}}I(t)}, \quad \text{when C-peptide data is not available.} \label{eq:uen} \\
+ P(t) &= min(d_{2}P2,P_{max}) + P_N(t) \label{eq:P}
 \end{alignat}
 Equation \eqref{eq:BG} is the independent insulin glucose removal, with $G$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I(t)$ gives insight into the metabolic condition of the patient and is a time-varying dynamic. The insulin pharamacodynamics are shown in Equations \eqref{eq:Q} and \eqref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in Equation \eqref{eq:uen}. The gastric absorption of glucose is defined in Equations \eqref{eq:P1} to \eqref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral dextrose is described by $P_N(t)$ (mmol/min).
 
@@ -826,7 +828,7 @@ The Intensive Control Insulin-Nutrition-Glucose model consists of several fixed 
 
 While the proposed clinically-validated model for patients in the intensive care unit has shown to capture long-term insulin-glucose dynamics, in practice, typically it is only possible for clinicians to take blood glucose measurements, consequently, excluding measurements for the dynamics seen in Equations \eqref{eq:Q} to \eqref{eq:uen}.
 
-\section{Observability and Identifiability}
+\section{Observability and Identifiability} \label{sec: obs}
 Analyzing observability and identifiability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into which states or parameters have the most influence on the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability and identifiability.
 
 We can define the following generic discrete system with a nonlinear dynamic function $f(\cdot)$ and a nonlinear measurement function $h(\cdot)$
@@ -835,13 +837,13 @@ We can define the following generic discrete system with a nonlinear dynamic fun
     \dot{x_k} &= f(x_{k-1}, u_k) \nonumber \\
     y_k &= h(x_k).
 \end{align}
-To empirically calculate the observability gramian, we first generate $2^n$ unique combinations of the initial state $x_0 \in \mathcal{R}^n$, with $n$ denoting the numbers of states and parameters.
-The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mathcal{R}^n$ around a nominal value $x_{\,nom} \in \mathcal{R}^n$
+To empirically calculate the observability gramian, we first generate $2^n$ unique combinations of the initial state $x_0 \in \mathbb{R}^n$, with $n$ denoting the numbers of states and parameters.
+The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mathbb{R}^n$ around a nominal value $x_{\,nom} \in \mathbb{R}^n$
 \begin{align}
     x_{0,i} &= x_{\,nom} + \delta_i \nonumber \\
-    \delta_i &= c \cdot S \cdot t_i && \text{with } S=\text{diag}(x_{\text{max}}).
+    \delta_i &= c \cdot S \cdot t_i, \qquad \text{with } S=\text{diag}(x_{\text{max}}).
 \end{align}
-The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathcal{R}^{n,n}$ is the diagonal matrix of the maximum of each state and parameter. The row vector $t_i \in R^n$ is the specified perturbation $i$ from the orthonormal matrix $T = \begin{bmatrix}
+The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathbb{R}^{n,n}$ is the diagonal matrix of the maximum of each state and parameter. The row vector $t_i \in R^n$ is the specified perturbation $i$ from the orthonormal matrix $T = \begin{bmatrix}
     t_1 & t_2 & \dots & t_{2^n}
 \end{bmatrix} \in R^{n,2^n}$
 \begin{align}
@@ -868,7 +870,7 @@ To make inferences about the observability and identifiability of the observabil
 \begin{align}
 x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
 \end{align}
-The new state perturbations and perturbation matrix are now assigned as the transformation such as $\bar{x} = T_s x$ and $\bar{T} = T_s T$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
+The new state perturbations are now assigned as the transformation $\bar{x} = T_s x$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
 
 \section{State Estimation}\label{sec:state}
 A probabilistic state estimator can be modeled in the following state space representation
@@ -1060,7 +1062,7 @@ The marginal log likelihood $\log p(y_k \mid y_{k-1}, \theta)$ in the extended K
 \end{equation}
 Given the closed form formulation of the marginal log likelihood, the energy function in Equation \eqref{eq:energy} can be finalized as
 \begin{align}
-    \varphi_k(\theta) = \varphi_{k-1}(\theta) + \frac{1}{2} \log \left|2 \pi S_k(\theta)\right| + \frac{1}{2} \log v_k^T(\theta)S_k(\theta)v_k(\theta).
+    \varphi_k(\theta) = \varphi_{k-1}(\theta) + \frac{1}{2} \log \left|2 \pi S_k(\theta)\right| + \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
 \end{align}
 
 \subsection{Metropolis-Hastings Algorithm}
@@ -1068,7 +1070,7 @@ The Metropolis-Hastings algorithm is one of the most common Markov Chain Monte C
 \begin{itemize}
     \item $k=0$
     \begin{enumerate}
-        \item assign an initial candidate $\theta_{0}$ and the initial energy function value $\varphi_0(\theta_0) = - \log p(\theta$)
+        \item assign an initial candidate $\theta_{0}$ and the initial energy function value $\varphi_0(\theta_0) = - \log p(\theta_0$)
     \end{enumerate}
     \item for $k=1:K$
         \begin{enumerate}
@@ -1195,44 +1197,48 @@ The philosophical motivation in this study is founded on utilizing a set of quan
 
 \section{Data Collection}
 \label{sec:dataCollection}
-A virtual patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G, Q, I, P1, P2$) represented in Equations \eqref{eq:BG} to \eqref{eq:P2}, known insulin sensitivity $S_I(t)$, exogenous insulin $u_{ex}(t)$, and enternal feed $D(t)$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all virtual patients. To simulate patient data, each virtual patient (100 total patients) is given an initial state for the dynamics $x_0$.
-Blood glucose concentration (mmol/L) has been demonstrated to have an underlying log-normal distribution \cite{davidson_multi-input_2019}, thus, for the purpose of this experiment, we can define blood glucose as the following random variable $\ln G \sim N(2.02, 1.3^2)$, with each patient being assigned an unique initial state of
+A virtual patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G, Q, I, \,P1, \,P2, u_{\,en}$, P) represented in Equations \eqref{eq:BG} to \eqref{eq:P}, known insulin sensitivity $S_I(t)$, exogenous insulin $u_{ex}(t)$, enteral feed $D(t)$, and parenteral feed $\,PN(t)$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all virtual patients. To introduce variance between patients, a virtual patient is given a random constant input observed from doses given to patients in the Karolinska University Hospital
+\begin{equation}
+    \begin{aligned}
+        u_{\,ex} &\sim \mathcal{U}[0, 166] \text{ mU/min} \\
+        D &\sim \mathcal{U}[0.2, 0.4] \text{ mmol/min} \\
+        PN &\sim \mathcal{U}[0.2, 0.4]\text{ mmol/min.} \\
+    \end{aligned}
+\end{equation}
+The insulin sensitivity $SI$ has been shown to follow a log-normal distribution \cite{davidson_multi-input_2019}. Sampling the insulin sensitivity from a log-normal is important to adhere to the physiological constraints typically observed in patients, as the insulin sensitivity is small in magnitude, and sampling from a normal distribution may shift the value to negative or too large in magnitude, which can possibly result in poor estimation. The values chosen within this study will be drawn from the distribution
+\begin{align}
+    SI &= \exp(X), \qquad \text{ with } X \sim N(-8.7, 0.40^2).
+\end{align}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/3_1.pdf}
+    \caption{System Inputs and Parameters Probability Density Function}
+\end{figure}
+
+To simulate patient data given the inputs and parameters, each virtual patient needs to be assigned an unique initial state for the dynamics
 \begin{align}
     x_0 &= \begin{bmatrix}
-        G_0 & Q_0 & I_0 & \,P1_0 & \,P2_0
-    \end{bmatrix} \nonumber \\
-    &= \begin{bmatrix}
-        \exp(\ln G) & 15.0 & 15.0 & 0.0 & 0.0
+        G_0 & I_0 & Q_0 & \,P1_0 & \,P2_0 & \, P(0), uen(0)
     \end{bmatrix}.
 \end{align}
-$Q_0$ and $I_0$ are both chosen as $15.0$ (mU/L) as the initial interstitial and plasma insulin concentration are in line with measurements collected to model an insulin-glucose system \cite{dalla_man_meal_2007}. The initial glucose concentration (mmol/L) in the stomach $\,P1_0$ and gut $\,P2_0$ are assumed to be zero at the beginning of insulin infusion and feeding. All patients are given continuous ($t=$ mins) exogenous insulin input
-\begin{align}
-    u_{ex}(t) = 140 \exp \left(-\frac{\log 2}{300} \left(t \mod{300}\right)\right) \text{ (mU/min)},
-\end{align} and a constant enternal intake of glucose
-\begin{align}
-    D(t) = 0.30 \text{ (mmol/min)}.
-\end{align}
-The units of insulin per hour (U/hr) can be derived as
-\begin{align}
-    \frac{1}{1000} \int_{t_1}^{t_1+60}u_{ex}(t) dt \approx 7.84 \text{ (U/hr)} && \text{for } t > 300,
-\end{align}
-as well as the total caloric intake of glucose per day 
-\begin{align}
-    \frac{0.30 \text{ (mol/min)}}{1000} \times 180.156 \text{ (g/mol)} \times 1440 \text{ (min)} \times 4 \text{(kcal/day)} \approx 304 \text{ (kcal/day)},
-\end{align} with both aligning in typical ranges given to ICU patients in the Karolinska University Hospital.
+If it assumed that the patient model starts at steady state, it is possible to derive the initial states with the input and parameter values by solving for the roots of the Differential Equations \eqref{eq:BG} to \eqref{eq:uen}. This can be computed with the solver function \texttt{scipy.optimize.fsolve}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html}} for each patient.
 
-Given all the initial states $x_0$, known insulin sensitivity $S_I(t)$, and the patient inputs $u_{ex}(t), D(t)$, the patient cohort can be generated by solving the Differential Equations \eqref{eq:BG} to \eqref{eq:P2} from times 0 mins to 3600 mins with a time step of $dt = 1$ min for each patient. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.  
+Given all the initial states $x_0$, known insulin sensitivity $S_I(t)$, and the patient inputs $u_{ex}(t), D(t)$, the patient cohort can be generated by solving the Differential Equations \eqref{eq:BG} to \eqref{eq:P2} with a time step of $dt = 1$ min for each patient, and the results will be inputs to Equations \eqref{eq:uen} and \eqref{eq:P}. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.
+\begin{figure}[ht] 
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/3_2.pdf}
+    \caption{Initial States Probability Density Function}
+    \label{fig:states_dist}
+\end{figure}  
 
 
 \section{Assessing reliability and validity of the data collected}
 \label{sec:assessingReliability}
 
-A virtual patient cohort is a simplified model to characterize the target population of patients in the intensive care unit, given certain assumptions of the patients. Each patient will have their unique insulin-glucose model that contains all the recorded dynamics and inputs in time.
-
 \subsection{Validity of method}
 \label{sec:validtyOfMethod}
 
-The patient models, parameters, and initial states are all adopted and cross-validated from multiple clinically validated studies. This provides a physiologically accurate basis to the control variables of the experiment. Interventions in the experiment can be assessed and compared knowing the manipulated variable is correlated with the change in the output and not due to poor model formulation. 
+The patient models, parameters, and initial states are all adopted and cross-validated from multiple clinically validated studies. This provides a physiologically accurate basis for the control variables of the experiment. Interventions in the experiment can be assessed and compared to the manipulated variables, and with confidence a conclusion can be reached that the intervention is correlated with the change in the output, and not due to poor model formulation with nonvalidated patient input and parameters. 
 
 % \engExpl{How will you know if your results are valid?}
 % \engExpl{Remember that validity is about the \textit{accuracy} of a measurement while reliability is about the \textit{consistency} of the measurement values under the same conditions (\ie repeatability).}
@@ -1244,36 +1250,52 @@ The patient models, parameters, and initial states are all adopted and cross-val
 Simulating patient data gives the necessary control to assign all patient parameters. A clear benefit of virtual patients is the repeatability of experiments, given identical patient parameters. Often in clinical settings, the true patient dynamics and parameters are unknown. Thus, results from clinical data may not be repeatable under the same conditions as there could be unaccounted for variables in the methods.
 
 
-\section{Planned Data Analysis}
-\label{sec:plannedDataAnalysis}
-
-
 \section{Evaluation framework}
 \label{sec:evaluationFramework}
 
+To answer the given Research Questions \ref{RQ: 1} and \ref{RQ: 2}, statistical metrics such as Mean Square Error and Mean Absolute Relative Error, and mathematical results (e.g. identifiability and time-complexity of estimators) will be used to utilized to quantify the results of the experiment such that the hypotheses can be tested.
 
 \cleardoublepage
 \chapter{Research Methodology}
 \label{ch:whatYouDid}
 
-In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating patient identifiability in insulin-glucose models, comparing state estimators in stochastic models, and then assessing computational parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics. As previously mentioned, measurements of the patient model $y_k$ correspond on lone observations of blood glucose corrupted with zero-mean Gaussian noise, which will be used for all of the following sections.
+In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating patient identifiability in insulin-glucose models, comparing state estimators in stochastic models, and then assessing parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics. As previously mentioned, measurements of the patient model $y_k$ correspond on lone observations of blood glucose corrupted with zero-mean Gaussian noise, which will be used for all of the following sections.
 
 \section{Observability and Identifiability in Patient Insulin-Glucose Models}
-In Chapter \ref{ch:methods}, a patient model was created for each individual patients based on the Intensive Control Insulin-Glucose model, with the ensemble of patient models being labeled as a patient cohort. For a particular patient model to be identifiable, it must be possible to learn the underlying unique patient-specific parameters that define the model, given a sufficient number of observations. To establish if the formulation of the patient model is identifiable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations.
+In Chapter \ref{ch:methods}, a patient model was created for each individual patients based on the Intensive Control Insulin-Glucose model, with the ensemble of patient models being labeled as a patient cohort. For a particular patient model to be identifiable, it must be possible to learn the underlying unique patient-specific parameters that define the model, given a sufficient number of observations. To establish if the formulation of the patient model is identifiable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations as previously discussed in Section \ref{sec: obs}.
 
-
-
+A singular patient model was randomly selected to investigate the observability of the Intensive Control Insulin-Nutrition-Glucose model with the following nominal state vector\footnote{While $u_{en}$ is a process variable, the numerical integration method solves for the Differential Equations $\eqref{eq:BG}$ to $\eqref{eq:P2}$. Thus, permutations in $u_{en}$ do not result in a change in $G$. For the observability gramian calculation, $u_{en}$ is omitted from $x_0$.} $x_0 \in \mathbb{R}^5$
+ \begin{equation}
+    \begin{aligned}
+        x_0 &= \begin{bmatrix}
+            10.80 & 47.03 & 27.64 & 10.26 & 51.31
+        \end{bmatrix} \\
+        u_{ex}(t) &= 24.21 \\
+        D(t) &= 0.23 \\
+        \,PN(t) &= 0.36 \\
+        \,SI(t) &= 2.11 \times 10^{-4}.
+    \end{aligned}
+\end{equation}
+The maximum value of each state $x_{max}$ will be chosen from Figure \ref{fig:states_dist} to assign $S$
+\begin{equation}
+    \begin{aligned}
+        S &= \text{diag}(x_{max}) \\
+        &=  \text{diag}(\begin{bmatrix}
+            17.5 & 260 & 220 & 11.5 & 57
+         \end{bmatrix}),      
+    \end{aligned}
+\end{equation}
+as well with a maximum perturbation constant of $c=0.1$. With the following defined inputs, the observability gramian $W_O$ can be computed to analyze the singular values of the matrix.
 
 \section{Nonlinear State Estimation}
-\subsection{Extended Kalman Filter}
-\subsection{Bootstrap Particle Filter}
+The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. The key distinctions between the two estimators can be summarized as particle filters rely on Monte Carlo simulations of each state and the particles are resampled after each measurement, while the extended Kalman filter is formulated on a linear approximation of the state-space transformations with Gaussian distributed states and measurements. To compare each estimator with the Intensive Control Insulin-Nutrition-Glucose model, the total time to compute all the estimated states and the squared error of the blood glucose estimates $(G[k]-\hat{G}[k])^2$ will be recorded for all patients in the given virtual patient cohort. There will be iterations of this comparison with the following offsets of the initial states: $\pm5\%,\pm10\%,\pm15\%,\pm20\%$. Adding an offset to the initial state will gauge how each well estimator can adapt to various initial innovations in the estimate. 
+
+The number of particles for the particle filter is a hyperparameter that will be analyzed within this section. The time complexity and the estimates error of particle filters of $ \left(100, 200, 300, 400, 500, 750, 1000, 1500, 2000\right) $ particles will recorded. The "optimal" number of particles in terms of the tradeoff of time complexity and error will be subjectively chosen, and the resulting number of particles needed per dimension will be calculated to extrapolate the number of particles needed for the inclusion of unknown parameters in the state-space.
+
+
 
 \section{Parameter Estimation}
-\subsection{Parameters of Interest}
-\subsection{Computational Methods}
-\subsubsection{Integral-Based Fitting}
-\subsubsection{State-Augmentation}
-\subsubsection{Markov Chain Monte Carlo}
+
 
 
 % \engExpl{What have you done? How did you do it? What design decisions did you make? How did what you did help you to meet your goals?}
