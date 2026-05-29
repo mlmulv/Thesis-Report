@@ -9,13 +9,13 @@
 \babel@toc {english}{}\relax
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Blood Glucose Dynamic Example}}{17}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Blood glucose dynamic example}}{18}{figure.caption.5}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces System Inputs and Parameters Probability Density Function}}{21}{figure.caption.6}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Initial States Probability Density Function}}{22}{figure.caption.7}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Probability Density Functions of the system inputs and parameters.}}{21}{figure.caption.6}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Probability Density Function of the initial states.}}{22}{figure.caption.7}%
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Analysis of the integral-based parameter identification method}}{30}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Minimum eigenvalues from the corresponding observability gramian across patients.}}{27}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Mean Absolute Relative Error of insulin sensitivity estimates over increasing Gaussian measurement noise magnitudes with the Integral-based Parameter Identification method.}}{28}{figure.caption.9}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
