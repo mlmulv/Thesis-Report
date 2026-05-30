@@ -851,8 +851,11 @@ x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}) \\
 y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{aligned}
 \end{equation}
-where $p(x_{k} | x_{k-1}, u_{k})$ and $p(y_{k} | x_{k})$ are the stochastic discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements. The objective is to ultimately derive the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$.
-In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
+where $p(x_{k} | x_{k-1}, u_{k})$ and $p(y_{k} | x_{k})$ are the stochastic discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements.
+
+Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important step to accommodate for errors due to unaccounted dynamics, and for notation purposes,the artificial process noise will be omitted from the probabilistic representation in Equation \eqref{eq:prob1}. Choices in process noise will be discussed in Chapter \ref{ch:methodology}.
+
+The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
 \begin{aligned}
 x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1} \\
@@ -886,11 +889,11 @@ P_k &= P_k^- - K_kS_kK_k^T.
 \end{aligned}
 \end{equation}
 \end{enumerate}
-The Kalman filter is recursive, as the filter starts with an estimate of the initial distribution of the state $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. In practice, the Kalman filter is often a great starting point for an estimator because the assumptions of linearity and Gaussianity often hold in many contexts, but in the case of nonlinear dynamic and measurement models, other methods must be considered.
+The Kalman filter is recursive, as the filter starts with an estimate of the initial distribution of the state $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. In practice, the Kalman filter is often a great starting point for an estimator because the assumptions of linearity and Gaussianity often hold in many contexts, but as Equations \eqref{eq:BG} to \eqref{eq:P2} are nonlinear, other methods must be considered.
 
 \subsection{Extended Kalman filter}
 
-The extended Kalman filter can accommodate nonlinearities by approximating the dynamic and measurement models as a linear transformation of the states and inputs. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
+The extended Kalman filter can accommodate the nonlinearities in the Intensive Control Insulin-Nutrition-Glucose model by approximating the dynamic and measurement models as a linear transformation of the states and inputs. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
 \begin{enumerate}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
@@ -918,38 +921,42 @@ the Jacobian matrices $F_x(m_k^-)$ and $H_x(m_k^-)$ are the Taylor series linear
     \end{aligned}
 \end{equation}
 
-The intrinsic bottleneck of the extended Kalman filter can be ascribed to the Gaussian formulation of the state update equations. Any deviations from Gaussianity in the posterior will directly degrade the estimation capabilities of the estimator. Another type of state estimation method is the particle filter, which can accommodate nonlinear and nongaussian dynamic and measurement models by using point estimates from Monte Carlo approximation of the posterior.
+The intrinsic bottleneck of the extended Kalman filter can be ascribed to the Gaussian formulation of the state update equations. Any deviations from Gaussianity in the posterior will directly degrade the estimation capabilities of the estimator. Another type of state estimation method is the particle filter, which can accommodate nonlinear and nongaussian dynamic and measurement models by using point estimates from Monte Carlo approximation of the posterior distribution $p(x_k \mid y_{1:k})$.
 
 \subsection{Bootstrap particle filter} \label{sec:particle}
-When revisiting the probabilistic state estimators in section \ref{sec:state}, to analytically compute the point estimate of the states $\hat{x}$, given all observations up to time step $K$, one must evaluate the expected value of the conditional probability
-\begin{align}\label{eq:prior}
-   \hat{x} = E[g(x) \mid y_{1:K}] = \sum_{x} g(x)p(x \mid y_{1:K}),
-\end{align}
-with $g(\cdot)$ being an arbitrary function $\mathbb{R}^n \rightarrow \mathbb{R}^m$. Such an integral is often difficult to compute in closed-form due to the intractability of the posterior $p(x \mid y_{1:K})$ in many settings, but by formulating a Monte Carlo approximation by drawing $N$ many random samples from the target distribution $x^{(i)} \sim g(x) \quad i = 1,\dots, N$, the approximation of the point estimate of the states will converge to the true point estimate for a large $N$, according to the Law of Large Numbers and the Central Limit Theorem \cite{liu_monte_2004}, and the approximation of the point estimate of the states can be rewritten as
-\begin{equation}\label{eq:prior2}
-    \begin{aligned}
-        \hat{x} &\approx \frac{1}{N} \sum_{i=1}^{N} g(x^{(i)}) p(x^{(i)} \mid y_{1:K}).
-    \end{aligned}
-\end{equation}
-The conditional probability $p(x^{(i)} \mid y_{1:K})$ can be rewritten in terms of the likelihood $p(y_{1:K} \mid x^{(i)})$ and the prior $p(x^{(i)})$ according to Bayes' rule
+For state-space modeling, the dynamic and measurement models are run sequentially such that $x_k$ and $y_k$ are represented as a Markov Chain
 \begin{equation}
     \begin{aligned}
-        p(x^{(i)} \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{p(y_{1:K})}.
+        x_k &= p(x_k \mid x_{k-1}, u_{k-1}) \\
+        y_k &= p(y_k \mid x_k)
     \end{aligned}
 \end{equation}
-The normalization term is often not able to be computed numerically, but by introducing importance sampling, the term can be approximated. The importance mass $\pi(x^{(i)} \mid y_{1:K})$ is a Monte Carlo approximation of $p(y_{1:K})$, with the condition that the mass is non-zero whenever $p(x^{(i)} \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
-\begin{equation}
+In the Kalman filter case, such dynamic and measurement models were assumed to be linear and Gaussian, as a result, the estimate of the state $x_k$ was derived as a linear transformation of the mean and covariance. For the bootstrap particle filter, a point estimate of the state from the posterior distribution is formulated as a Markov Chain approximation, with $x_k^{(i)}$ denoting a randomly sampled state for $N$ total particles
+\begin{equation} \label{eq:markov}
     \begin{aligned}
-        w^{*(i)} &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{\pi(x^{(i)} \mid y_{1:K})} \\
-        w^i &= \frac{w^{*(i)}}{\sum_{j=1}^{N} w^{*(j)}},
+        \hat{x_k} =  \frac{\sum_{i=1}^{N}p(y_k \mid x_k^{(i)}) x_k^{(i)}}{\sum_{j=1}^{N} p(y_k \mid x_k^{(j)})}. \\
     \end{aligned}
 \end{equation}
-with the approximation of the point estimate being rewritten as
-\begin{align}
-    \hat{x} \approx \sum_{i=1}^{N} w^i g(x^{(i)}).
-\end{align}
-
-The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in Equation \eqref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1}^{(i)})$ at the time step $k$ for a given particle $(i)$, which results in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
+% The conditional probability $p(x^{(i)} \mid y_{1:K})$ can also be formulated in terms of the likelihood $p(y_{1:K} \mid x^{(i)})$ and the prior $p(x^{(i)})$ according to Bayes' rule
+% \begin{equation}
+%     \begin{aligned}
+%         p(x^{(i)} \mid y_{1:K}) &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{p(y_{1:K})}.
+%     \end{aligned}
+% \end{equation}
+% The normalization term is often not able to be computed numerically, but by introducing importance sampling, the term can be approximated. The importance mass $\pi(x^{(i)} \mid y_{1:K})$ is a Monte Carlo approximation of $p(y_{1:K})$, with the condition that the mass is non-zero whenever $p(x^{(i)} \mid y_{1:K})$ is non-zero, which results in a nonuniform distribution. Sampling from a nonuniform distribution will result in each particle having a corresponding weight $w^{*(i)}$, and a normalized weight $w^i$
+% \begin{equation}
+%     \begin{aligned}
+%         w^{*(i)} &= \frac{p(y_{1:K} \mid x^{(i)}) p(x^{(i)})}{\pi(x^{(i)} \mid y_{1:K})} \\
+%         w^i &= \frac{w^{*(i)}}{\sum_{j=1}^{N} w^{*(j)}},
+%     \end{aligned}
+% \end{equation}
+% with the approximation of the point estimate being rewritten as
+% \begin{align}
+%     \hat{x} \approx \sum_{i=1}^{N} w^i g(x^{(i)}).
+% \end{align}
+% 
+% The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in Equation \eqref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1}^{(i)})$ at the time step $k$ for a given particle $(i)$, 
+The steps to implement to formulate the bootstrap particle fiter iteratively can be summarized in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
 \begin{enumerate}
     \item Sample $N$ particles from the dynamic function
     \begin{align}
@@ -965,16 +972,10 @@ The bootstrap particle filter is formulated on the basis of Markov Chain Monte C
     \item Resample particles from a distribution proportional to the weights. 
     \end{enumerate}
 
-\subsection{Observability and Identifiability} \label{sec: obs}
-Analyzing observability and identifiability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into which states or parameters have the most influence on the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability and identifiability.
+\subsection{Observability in Nonlinear Discrete-Time State-Space Models} \label{sec: obs}
+Analyzing observability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight which states have the most influence on the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability.
 
-We can define the following generic discrete system with a nonlinear dynamic function $f(\cdot)$ and a nonlinear measurement function $h(\cdot)$
-
-\begin{align}\label{eq:gramian}
-    \dot{x_k} &= f(x_{k-1}, u_k) \nonumber \\
-    y_k &= h(x_k).
-\end{align}
-To empirically calculate the observability gramian, we first generate $2^n$ unique combinations of the initial state $x_0 \in \mathbb{R}^n$, with $n$ denoting the numbers of states and parameters.
+To empirically calculate the observability gramian, we first generate $2^n$ unique combinations of the initial state $x_0 \in \mathbb{R}^n$, with $n$ denoting the numbers of states .
 The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mathbb{R}^n$ around a nominal value $x_{\,nom} \in \mathbb{R}^n$
 \begin{align}
     x_{0,i} &= x_{\,nom} + \delta_i \nonumber \\
@@ -993,7 +994,7 @@ The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathb
     \vdots \nonumber \\
     t_{2^n}^T &= \frac{1}{\sqrt{2^n}} \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix}. \nonumber \\
 \end{align}
-After calculating the $2^n$ perturbations of the initial state, the output can be derived iteratively with Equations \eqref{eq:gramian} from time step $k=1,\dots,K$ beginning with $x_{0,i}$ to generate $y_i \left[1:K\right]$.
+After calculating the $2^n$ perturbations of the initial state, the output can be derived sequentially with Equations \eqref{eq:prob1} from time step $k=1,\dots,K$ beginning with $x_{0,i}$ to generate $y_i \left[1:K\right]$.
 Then, the empirical observability with discrete time steps $t=k \Delta T$ can be expressed as such
 \begin{align}
     W_O &= (cS)^{-1} \sum_{k=1}^K T \Psi \left[k\right] T^T \Delta T (cS)^{-1},
@@ -1003,14 +1004,14 @@ with the positive definite matrix $\Psi \left[k\right]$ being assigned as the fo
     \Psi_{i,j}\left[k\right] &= \left|y_i \left[k\right] - y_0 \left[k\right] \right| \left|y_j \left[k\right] - y_0 \left[k\right] \right|.
 \end{align}
 
-To make inferences about the observability and identifiability of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. The singular values close to zero can be classified as not observable. If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
+To make inferences about of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. The singular values close to zero can be classified as not observable. If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
 \begin{align}
 x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
 \end{align}
-The new state perturbations are now assigned as the transformation $\bar{x} = T_s x$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements. State estimators will be discussed in the following sections, which can account for the lack of intuition into the dynamics not observable through various probabilistic filtering mechanisms.
+The new state perturbations are now assigned as the transformation $\bar{x} = T_s x$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements.
 
 \section{Parameter Estimation}
-As previously mentioned, there exists patient-specific parameters. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$, with different proposed computational methods to estimate them will be elaborated on within this section.
+As previously mentioned, there exists patient-specific parameters. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$. 
 
 \subsection{State Augmentation}
 A practical method to handle unknown parameters is to augment them to the existing state variables $x_k$, such that Equation \eqref{eq:prob1} can be redefined as
@@ -1021,85 +1022,85 @@ x_{k} &\sim p(x_{k} \mid x_{k-1}, u_{k-1}, \theta_{k-1}) \\
 y_{k} &\sim p(y_{k} \mid x_{k}).
 \end{aligned}
 \end{equation}
-An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as nonlinear models often have approximation errors, and this can drive the extended Kalman filter to ultimately diverge in the Gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
+An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as all models often have approximation errors, and this can drive the extended Kalman filter to ultimately diverge in the Gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
 
-One method to compensate for singularity is to add artificial process noise $Q_{k}$ to allow the unknown parameters to randomly walk in the state space, thus, accounting for errors in the dynamic function
+One method to compensate for singularity is to also add artificial process noise $Q_{k}$ in unknown parameters to allow for random walking in the state space, thus, accounting for errors in the dynamic function
 \begin{align}
 \theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim N(0, Q_{k-1}).
 \end{align}
-With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$, or one can utilize the Rao-Blackwellized representation of the covariance $Q_{k}$ in the state space.
+With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$.
 
-\subsection{Markov Chain Monte Carlo Sampling}
-The Markov Chain Monte Carlo methods are a class of parameter estimation approaches to estimate the posterior $p(\theta \mid y_{1:K})$ by drawing random samples of the unknown parameters $\theta$ from a desired stationary distribution formulated as a Markov Chain \cite{sarkka_bayesian_nodate}\cite{ninness_bayesian_2010}. Only the unnormalized posterior is considered due to similar concerns regarding computing $p(y_{1:K})$ as previously discussed in Section \ref{sec:particle}
-\begin{align}
-    p(\theta \mid y_{1:K}) \propto p(y_{1:K} \mid \theta) p(\theta).
-\end{align}
-The marginal likelihood $p(y_{1:K} \mid \theta)$ can be represented recursively as the state space models are run sequentially
-\begin{align}
-    p(y_{1:K} \mid \theta) & = \prod_{k=1}^{K} p(y_k \mid y_{k-1}, \theta).
-\end{align}
-The energy function $\varphi(\theta)$ will be introduced to maximize $p(y_{1:K} \mid \theta)$ in the negative log-domain
-\begin{align}
-    \varphi(\theta) = - \log p(y_{1:K} \mid \theta) = - \sum_{k-1}^K \log p(y_k \mid y_{k-1}, \theta),
-\end{align}
-which can additionally be expressed as in the recursive form
-\begin{align}\label{eq:energy}
-    \varphi_k(\theta) = \varphi_{k-1}(\theta) - \log p(y_k \mid y_{k-1}, \theta).
-\end{align}
+% \subsection{Markov Chain Monte Carlo Sampling}
+% The Markov Chain Monte Carlo methods are a class of parameter estimation approaches to estimate the posterior $p(\theta \mid y_{1:K})$ by drawing random samples of the unknown parameters $\theta$ from a desired stationary distribution formulated as a Markov Chain \cite{sarkka_bayesian_nodate}\cite{ninness_bayesian_2010}. Only the unnormalized posterior is considered due to similar concerns regarding computing $p(y_{1:K})$ as previously discussed in Section \ref{sec:particle}
+% \begin{align}
+%     p(\theta \mid y_{1:K}) \propto p(y_{1:K} \mid \theta) p(\theta).
+% \end{align}
+% The marginal likelihood $p(y_{1:K} \mid \theta)$ can be represented recursively as the state space models are run sequentially
+% \begin{align}
+%     p(y_{1:K} \mid \theta) & = \prod_{k=1}^{K} p(y_k \mid y_{k-1}, \theta).
+% \end{align}
+% The energy function $\varphi(\theta)$ will be introduced to maximize $p(y_{1:K} \mid \theta)$ in the negative log-domain
+% \begin{align}
+%     \varphi(\theta) = - \log p(y_{1:K} \mid \theta) = - \sum_{k-1}^K \log p(y_k \mid y_{k-1}, \theta),
+% \end{align}
+% which can additionally be expressed as in the recursive form
+% \begin{align}\label{eq:energy}
+%     \varphi_k(\theta) = \varphi_{k-1}(\theta) - \log p(y_k \mid y_{k-1}, \theta).
+% \end{align}
 
-\subsubsection{Extended Kalman Filter-based Energy Function}
-If we return to Equations \eqref{eq:Predict} and \eqref{eq:Update}, the equations will be redefined such that the filter parameters are also dependent on the unknown parameters $\theta$
-\begin{enumerate}
-    \item \textit{Prediction step} 
-    \begin{equation} 
-        \begin{aligned}
-            m_{k}^-(\theta) &= f(m_{k-1}(\theta), u_{k-1}) \\
-            P_{k}^-(\theta) &= F_x(m_{k-1}(\theta))P_{k-1}(\theta)F_x^T(m_{k-1}(\theta)) + Q_{k-1}(\theta)
-        \end{aligned}
-    \end{equation}
-    \item \textit{Update step} 
-    \begin{equation} 
-        \begin{aligned}
-            v_{k}(\theta) &= y_{k} - h(m_k^-(\theta)) \\
-            S_{k}(\theta) &= H_x(m_k^-(\theta))P_{k}^-(\theta)H_x^T(m_k^-(\theta)) + R_k(\theta) \\
-            K_k(\theta) &= P_k^-(\theta)H_k^T(m_k^-(\theta))S_k^{-1}(\theta) \\
-            m_k(\theta) &= m_k^-(\theta) + K_k(\theta)v_K(\theta) \\
-            P_k(\theta) &= P_k^-(\theta) - K_k(\theta)S_k(\theta)K_k^T(\theta).
-        \end{aligned}
-    \end{equation}
-\end{enumerate} 
-The marginal log likelihood $\log p(y_k \mid y_{k-1}, \theta)$ in the extended Kalman filter can be simply derived as
-\begin{equation}
-    \begin{aligned}
-       \log p(y_k \mid y_{k-1}, \theta) &= \log N(y_k \mid h(m_k^-(\theta)), S_k(\theta)) \\
-       &= \log \frac{1}{\sqrt{\left|2 \pi S_k(\theta)\right|}} \exp \left(-\frac{1}{2} v_k^T(\theta) S_k(\theta) v_k(\theta)\right)\\
-       &= -\frac{1}{2} \log \left|2 \pi S_k(\theta)\right| - \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
-    \end{aligned}
-\end{equation}
-Given the closed form formulation of the marginal log likelihood, the energy function in Equation \eqref{eq:energy} can be finalized as
-\begin{align}
-    \varphi_k(\theta) = \varphi_{k-1}(\theta) + \frac{1}{2} \log \left|2 \pi S_k(\theta)\right| + \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
-\end{align}
+% \subsubsection{Extended Kalman Filter-based Energy Function}
+% If we return to Equations \eqref{eq:Predict} and \eqref{eq:Update}, the equations will be redefined such that the filter parameters are also dependent on the unknown parameters $\theta$
+% \begin{enumerate}
+%     \item \textit{Prediction step} 
+%     \begin{equation} 
+%         \begin{aligned}
+%             m_{k}^-(\theta) &= f(m_{k-1}(\theta), u_{k-1}) \\
+%             P_{k}^-(\theta) &= F_x(m_{k-1}(\theta))P_{k-1}(\theta)F_x^T(m_{k-1}(\theta)) + Q_{k-1}(\theta)
+%         \end{aligned}
+%     \end{equation}
+%     \item \textit{Update step} 
+%     \begin{equation} 
+%         \begin{aligned}
+%             v_{k}(\theta) &= y_{k} - h(m_k^-(\theta)) \\
+%             S_{k}(\theta) &= H_x(m_k^-(\theta))P_{k}^-(\theta)H_x^T(m_k^-(\theta)) + R_k(\theta) \\
+%             K_k(\theta) &= P_k^-(\theta)H_k^T(m_k^-(\theta))S_k^{-1}(\theta) \\
+%             m_k(\theta) &= m_k^-(\theta) + K_k(\theta)v_K(\theta) \\
+%             P_k(\theta) &= P_k^-(\theta) - K_k(\theta)S_k(\theta)K_k^T(\theta).
+%         \end{aligned}
+%     \end{equation}
+% \end{enumerate} 
+% The marginal log likelihood $\log p(y_k \mid y_{k-1}, \theta)$ in the extended Kalman filter can be simply derived as
+% \begin{equation}
+%     \begin{aligned}
+%        \log p(y_k \mid y_{k-1}, \theta) &= \log N(y_k \mid h(m_k^-(\theta)), S_k(\theta)) \\
+%        &= \log \frac{1}{\sqrt{\left|2 \pi S_k(\theta)\right|}} \exp \left(-\frac{1}{2} v_k^T(\theta) S_k(\theta) v_k(\theta)\right)\\
+%        &= -\frac{1}{2} \log \left|2 \pi S_k(\theta)\right| - \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
+%     \end{aligned}
+% \end{equation}
+% Given the closed form formulation of the marginal log likelihood, the energy function in Equation \eqref{eq:energy} can be finalized as
+% \begin{align}
+%     \varphi_k(\theta) = \varphi_{k-1}(\theta) + \frac{1}{2} \log \left|2 \pi S_k(\theta)\right| + \frac{1}{2} v_k^T(\theta)S_k(\theta)v_k(\theta).
+% \end{align}
 
-\subsection{Metropolis-Hastings Algorithm}
-The Metropolis-Hastings algorithm is one of the most common Markov Chain Monte Carlo samplers, and provides a sequential process of estimating the potential candidates of $\theta$ by drawing them from a symmetric proposal distribution $\theta^* \sim q(\theta^* \mid \theta_{(k-1)})$, given the previous candidate $\theta_{(k-1)}$ \cite{sarkka_bayesian_nodate} \cite{ninness_bayesian_2010}. The algorithm will be laid out in the preceding block
-\begin{itemize}
-    \item $k=0$
-    \begin{enumerate}
-        \item assign an initial candidate $\theta_{0}$ and the initial energy function value $\varphi_0(\theta_0) = - \log p(\theta_0$)
-    \end{enumerate}
-    \item for $k=1:K$
-        \begin{enumerate}
-        \item sample a proposal candidate $\theta^* \sim q(\theta^* \mid \theta_{k-1})$
-        \item calculate energy of proposed candidate $\varphi_k(\theta^*)$
-        \item calculate acceptance probability $\alpha_k = \min \left(1, \exp \left(\varphi_k(\theta^*)-\varphi_k(\theta_{k-1})\right)\right)$
-        \item $\theta_k =
-            \begin{cases}
-            \theta^* & \text{if } z < \alpha_k \qquad \text{with } z \sim \mathcal{U}[0,1] \\
-            \theta_{k-1} & \text{otherwise}
-            \end{cases} $
-    \end{enumerate}
-\end{itemize}
+% \subsection{Metropolis-Hastings Algorithm}
+% The Metropolis-Hastings algorithm is one of the most common Markov Chain Monte Carlo samplers, and provides a sequential process of estimating the potential candidates of $\theta$ by drawing them from a symmetric proposal distribution $\theta^* \sim q(\theta^* \mid \theta_{(k-1)})$, given the previous candidate $\theta_{(k-1)}$ \cite{sarkka_bayesian_nodate} \cite{ninness_bayesian_2010}. The algorithm will be laid out in the preceding block
+% \begin{itemize}
+%     \item $k=0$
+%     \begin{enumerate}
+%         \item assign an initial candidate $\theta_{0}$ and the initial energy function value $\varphi_0(\theta_0) = - \log p(\theta_0$)
+%     \end{enumerate}
+%     \item for $k=1:K$
+%         \begin{enumerate}
+%         \item sample a proposal candidate $\theta^* \sim q(\theta^* \mid \theta_{k-1})$
+%         \item calculate energy of proposed candidate $\varphi_k(\theta^*)$
+%         \item calculate acceptance probability $\alpha_k = \min \left(1, \exp \left(\varphi_k(\theta^*)-\varphi_k(\theta_{k-1})\right)\right)$
+%         \item $\theta_k =
+%             \begin{cases}
+%             \theta^* & \text{if } z < \alpha_k \qquad \text{with } z \sim \mathcal{U}[0,1] \\
+%             \theta_{k-1} & \text{otherwise}
+%             \end{cases} $
+%     \end{enumerate}
+% \end{itemize}
 
 
 \section{Related Work} \label{sec:related}
