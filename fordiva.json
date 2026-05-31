@@ -2,7 +2,7 @@
 "Author1": {"Last name": "Mulvihill", "First name": "Markus", "Local User Id": "u100001", "E-mail": "mulv\spacefactor \@m {}kth.se", "organisation": {"L1": "School of Electrical Engineering and Computer Science" }},
 "Cycle": "2", "Course code": "EA260X", "Credits": "30.0",
 "Degree1": {"Educational program": "Master's Programme, Information and Network Engineering, 120 credits","programcode": "TINNM" ,"Degree": "Master's" ,"subjectArea": "Decision and Control Systems" },
-"Title": {"Main title": "Patient-Specific Parameter Estimation in Mechanistic Insulin-Glucose Models", "Subtitle": "Degree Project 2026", "Language": "eng" }, "Alternative title": {"Main title": "Detta är den svenska översättnin gen av titeln", "Subtitle": "Detta är den svenska översättningen av undertiteln", "Language": "swe" },
+"Title": {"Main title": "Modeling Nonlinear Insulin-Glucose Dynamics in Critically-ill Patients", "Subtitle": "Degree Project 2026", "Language": "eng" }, "Alternative title": {"Main title": "Detta är den svenska översättnin gen av titeln", "Subtitle": "Detta är den svenska översättningen av undertiteln", "Language": "swe" },
 "Supervisor1": {"Last name": "Lindström", "First name": "Martin", "Local User Id": "u15dflcv", "E-mail": "martin12@kth.se", "organisation": {"L1": "School of Electrical Engineering and Computer Science" ,"L2": "Teknisk informationsvetenskap" }},
 "Examiner1": {"Last name": "Thobaben", "First name": "Ragnar", "Local User Id": "u1rs7mp9", "E-mail": "ragnart@kth.se", "organisation": {"L1": "School of Electrical Engineering and Computer Science" ,"L2": "Teknisk informationsvetenskap" }},
 

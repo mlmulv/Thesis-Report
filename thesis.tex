@@ -171,7 +171,7 @@ nopostdot]{glossaries}
 % insert the configuration information with author(s), examiner, supervisor(s), ...
 \input{custom_configuration}
 
-\title{Patient-Specific Parameter Estimation in Mechanistic Insulin-Glucose Models}
+\title{Modeling Nonlinear Insulin-Glucose Dynamics in Critically-ill Patients}
 \subtitle{Degree Project 2026}
 
 % give the alternative title - i.e., if the thesis is in English, then give a Swedish title
@@ -833,14 +833,14 @@ The Intensive Control Insulin-Nutrition-Glucose model contains of several fixed 
     \end{threeparttable}
 \end{table}
 
-It should be noted that in the Intensive Control Insulin-Nutrition-Glucose model, the nonlinear dynamics are defined in continuous time. Discretization of the dynamic system is necessary as in the following section, the estimation methods presented operate within discrete time noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ dt$, an example dynamic $F(t)$ can be discretized according to the Euler method
+It should be noted that in the Intensive Control Insulin-Nutrition-Glucose model, the nonlinear dynamics are defined in continuous time. Discretization of the dynamic system is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ dt$, an example dynamic $F(t)$ can be discretized according to the Euler method
 \begin{equation}
-    \begin{aligned}
-        \dot{F} &= \frac{F(t_{k}) - F(t_{k} - \,dt)}{\,dt} \\
-        F_{k} &= F_{k-1} + \,dt \dot{F}.
-    \end{aligned}
+\begin{aligned}
+\dot{F} &= \frac{F(t_{k}) - F(t_{k} - \,dt)}{\,dt} \\
+F_{k} &= F_{k-1} + \,dt \dot{F}.
+\end{aligned}
 \end{equation}
-The error of this numerical approximation of differential equations is bounded by the step size $\,dt$. As a result, larger step sizes will introduce greater approximation errors, thus, a relatively small step size is necessary to prevent errors from propagating in the estimates. 
+The error of this numerical approximation of differential equations is bounded by the step size $\,dt$. As a result, larger step sizes will introduce greater approximation errors. Thus, a relatively small step size is necessary to prevent errors from propagating in the estimates. 
 
 \section{State Estimation}\label{sec:state}
 
@@ -853,7 +853,7 @@ y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{equation}
 where $p(x_{k} | x_{k-1}, u_{k})$ and $p(y_{k} | x_{k})$ are the stochastic discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements.
 
-Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important step to accommodate for errors due to unaccounted dynamics, and for notation purposes,the artificial process noise will be omitted from the probabilistic representation in Equation \eqref{eq:prob1}. Choices in process noise will be discussed in Chapter \ref{ch:methodology}.
+Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unaccounted dynamics, and for notation purposes, the artificial process noise will be omitted from the probabilistic representation in Equation \eqref{eq:prob1}. Choices in process noise will be discussed in Chapter \ref{ch:methodology}.
 
 The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
@@ -931,7 +931,7 @@ For state-space modeling, the dynamic and measurement models are run sequentiall
         y_k &= p(y_k \mid x_k)
     \end{aligned}
 \end{equation}
-In the Kalman filter case, such dynamic and measurement models were assumed to be linear and Gaussian, as a result, the estimate of the state $x_k$ was derived as a linear transformation of the mean and covariance. For the bootstrap particle filter, a point estimate of the state from the posterior distribution is formulated as a Markov Chain approximation, with $x_k^{(i)}$ denoting a randomly sampled state for $N$ total particles
+In the Kalman filter case, such dynamic and measurement models were assumed to be linear and Gaussian. As a result, the estimate of the state $x_k$ was derived as a linear transformation of the mean and covariance. For the bootstrap particle filter, a point estimate of the state is formulated as a Markov Chain approximation, with $x_k^{(i)}$ denoting a randomly sampled state for $N$ total particles
 \begin{equation} \label{eq:markov}
     \begin{aligned}
         \hat{x_k} =  \frac{\sum_{i=1}^{N}p(y_k \mid x_k^{(i)}) x_k^{(i)}}{\sum_{j=1}^{N} p(y_k \mid x_k^{(j)})}. \\
@@ -956,7 +956,7 @@ In the Kalman filter case, such dynamic and measurement models were assumed to b
 % \end{align}
 % 
 % The bootstrap particle filter is formulated on the basis of Markov Chain Monte Carlo approximations, the filtering distributions are shown in Equation \eqref{eq:prob1}, and the filter is run sequentially like the Kalman filter, the importance mass is assigned as the dynamic model $p(x_k \mid x_{k-1}^{(i)})$ at the time step $k$ for a given particle $(i)$, 
-The steps to implement to formulate the bootstrap particle fiter iteratively can be summarized in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004}
+The steps to implement to formulate the bootstrap particle fiter iteratively can be summarized in the following algorithm \cite{sarkka_bayesian_nodate} \cite{liu_monte_2004} \cite{kuptametee_review_2022}
 \begin{enumerate}
     \item Sample $N$ particles from the dynamic function
     \begin{align}
@@ -969,8 +969,19 @@ The steps to implement to formulate the bootstrap particle fiter iteratively can
             w_k^{(i)} &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N
         \end{aligned}
     \end{equation}
-    \item Resample particles from a distribution proportional to the weights. 
-    \end{enumerate}
+    \item Systematically resample particles from a distribution proportional to the weights
+    \begin{subequations}
+        \begin{align}
+            u_1 &\sim \mathbb{U} \left[0, \frac{1}{N}\right] \\
+            u_r &= u_1 + \frac{r-1}{N} \qquad r=2, \dots, N \\
+            x_k^{(i)} &=
+                \begin{cases}
+                    x_k^{(r)} & \text{if } \sum_{j=1}^{i-1} w_k^{(j)} < u_r \leq \sum_{j=1}^{i} w_k^{(j)}  \qquad i=1,\dots, N 
+                \end{cases} \\
+            w_k^{(i)} &= \frac{1}{N} \qquad i=1, \dots, N
+        \end{align}
+    \end{subequations}
+\end{enumerate}
 
 \subsection{Observability in Nonlinear Discrete-Time State-Space Models} \label{sec: obs}
 Analyzing observability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight which states have the most influence on the output of the system by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability.
@@ -983,7 +994,7 @@ The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mat
 \end{align}
 The scalar constant $c$ corresponds to the magnitude of deviation, $S \in \mathbb{R}^{n,n}$ is the diagonal matrix of the maximum of each state and parameter. The row vector $t_i \in R^n$ is the specified perturbation $i$ from the orthonormal matrix $T = \begin{bmatrix}
     t_1 & t_2 & \dots & t_{2^n}
-\end{bmatrix} \in R^{n,2^n}$
+\end{bmatrix} \in R^{n,2^n}$, such that
 \begin{align}
     t_1^T &= \frac{1}{\sqrt{2^n}} \begin{bmatrix}
         -1 & -1 & \dots & -1
@@ -1010,6 +1021,11 @@ x_s = \sqrt{\text{diag}(W_O)} && T_s = \text{diag}^{-1}(x_s).
 \end{align}
 The new state perturbations are now assigned as the transformation $\bar{x} = T_s x$. If the system is found to be weakly observable or not observable after calculating the singular values with the transformed parameters, consequently, a subset of the dynamics of the system can't be observed from the measurements.
 
+\subsection{Related Work}
+Nonlinear state estimation of the Intensive Control Insulin-Nutrition-Glucose model has been investigated in a previous study by Aguirre-Zapata et al. \cite{aguirre-zapata_glycemic_2017}. The study incorporated an additional measurement and dynamic due to their clinical facility having a continuous glucose machine that can measure the patient's interstitial glucose, but the formulation of patient dynamics otherwise remained the same. In the methodology of the paper, all tests regarding estimation performance are tested on deviations from one virtual patient, with each deviation being assigned the same exogenous insulin input per deviation, and food intake is generally not considered. Overall, their virtual patients don't characterize a reasonable patient model in comparison to real patients.
+
+The study includes three state estimators: the extended Kalman filter, the unscented Kalman filter, and the particle filter. The majority of the study uses discrete time-steps of 5 minutes. While the dynamics of patients develop relatively slowly, such a large time step can introduce approximation errors in the discretization of the ICING model. Another notable design choice of their particle filter is that it contains 5000 particles. Further analysis of various sized particle filters would motivate the overall trade-off estimation performance compared to the time complexity. State estimation remained in the scope of dynamics represented in the Intensive Control Insulin-Nutrition-Glucose model and an additional interstitial glucose dynamic. As a result, there exists further development of state estimators to predict unrepresented patient-specific parameters as well.
+
 \section{Parameter Estimation}
 As previously mentioned, there exists patient-specific parameters. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$. 
 
@@ -1024,12 +1040,11 @@ y_{k} &\sim p(y_{k} \mid x_{k}).
 \end{equation}
 An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as all models often have approximation errors, and this can drive the extended Kalman filter to ultimately diverge in the Gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
 
-One method to compensate for singularity is to also add artificial process noise $Q_{k}$ in unknown parameters to allow for random walking in the state space, thus, accounting for errors in the dynamic function
+One method to compensate for singularity is to also add artificial process noise $Q_{k}$ to the unknown parameters to allow for random walking in the state space, thus, accounting for errors in the dynamic function
 \begin{align}
 \theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim N(0, Q_{k-1}).
 \end{align}
 With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$.
-
 % \subsection{Markov Chain Monte Carlo Sampling}
 % The Markov Chain Monte Carlo methods are a class of parameter estimation approaches to estimate the posterior $p(\theta \mid y_{1:K})$ by drawing random samples of the unknown parameters $\theta$ from a desired stationary distribution formulated as a Markov Chain \cite{sarkka_bayesian_nodate}\cite{ninness_bayesian_2010}. Only the unnormalized posterior is considered due to similar concerns regarding computing $p(y_{1:K})$ as previously discussed in Section \ref{sec:particle}
 % \begin{align}
@@ -1101,11 +1116,8 @@ With this method, you inherently add another unknown parameter $Q_{k}$, but such
 %             \end{cases} $
 %     \end{enumerate}
 % \end{itemize}
-
-
-\section{Related Work} \label{sec:related}
-
-A nonlinear, and nonconvex integral-based parameter identification method has been introduced that can estimate patient-specific parameters through maximum likelihood estimation \cite{hann_integral-based_2005} . By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
+\subsection{Related Work}
+A nonlinear, and nonconvex integral-based parameter identification method has been introduced that can estimate patient-specific parameters as a least squares solution \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
     \widetilde{{G}(t)} = \frac{G(t_1) - G(t_0)}{t_1 - t_0}t,
 \end{align}
@@ -1129,7 +1141,7 @@ and $S_I$ can be expressed as a linear equation
           \right).}_{b(t_0, t_1)}
     \end{aligned}
 \end{equation}
-It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 mins glucose measurements are taken from the patient, but every 60 mins a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$. Both insulin sensitivity parameters at 60 mins $S_I^{60}$ and 120 mins $S_I^{120}$ can be derived as the least squares solution from the system of linear equations
+It is often the case with longer measurement periods ($t_1 - t_0$), that identifying multiple $S_I$ values within the time period may be necessary. For instance, if every 120 minutes glucose measurements are taken from the patient, but every 60 minutes a patient's insulin sensitivity should be identified $S_I \in \mathbb{R}^2$. Both insulin sensitivity parameters at 60 minutes $S_I^{60}$ and 120 minutes $S_I^{120}$ can be derived as the least squares solution from the system of linear equations
 \begin{align}
     \begin{bmatrix}
         A(t_0, t_0+30) & 0 \\
@@ -1152,11 +1164,11 @@ Relying on data-driven methods can not account for physiological behavior in the
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/2_1.pdf}
-    \caption[Blood glucose dynamic example]{Blood glucose and its' corresponding measurements from the patient model\footnotemark.}
+    \caption[Blood glucose dynamic example]{Blood glucose and its' corresponding measurements from an example patient model.}
     \label{fig:background}
 \end{figure}
 
-\footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 150$ (mU/L), $Q = 100.0$ (mU/L), $P1 = 7$ (mmol), $P2 = 32$ (mmol). The inputs are $u_{ex}(t) = 125 \times e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min), $D(t) = 0.200$ (mmol/min). Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
+% \footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 150$ (mU/L), $Q = 100.0$ (mU/L), $P1 = 7$ (mmol), $P2 = 32$ (mmol). The inputs are $u_{ex}(t) = 125 \times e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min), $D(t) = 0.200$ (mmol/min). Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
 
 
 
@@ -1176,7 +1188,7 @@ Relying on data-driven methods can not account for physiological behavior in the
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
 
-The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Often, clinicians solely rely on blood glucose measurements, which limits the knowledge of the insulin-glucose dynamics in real-time. Utilizing nonlinear state estimators, such as the extended Kalman filter and the bootstrap particle filter, allow for estimation of all dynamics over time. To evaluate patient-specific parameters, model identifiability is used to make inferences about the parameters of interest. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
+The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic virtual patients and parameterization of filters will improve generalizability of the estimators. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
 \chapter{Methodology}
