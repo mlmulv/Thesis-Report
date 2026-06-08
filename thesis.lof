@@ -13,10 +13,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Virtual Patient Cohort PMFs}}{26}{figure.caption.6}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Empirical Observability Gramian PMF}}{27}{figure.caption.7}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Estimator Comparison}}{27}{figure.caption.8}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces blah blah blah}}{28}{figure.caption.10}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Analysis across all calculated empirical observability gramians.}}{28}{figure.caption.7}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Estimator Comparison}}{30}{figure.caption.9}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces MARD over time in parameter estimation methods estimating insulin sensitivity}}{33}{figure.caption.10}%
 \addvspace {10\p@ }
