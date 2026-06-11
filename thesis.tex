@@ -55,9 +55,7 @@
 \input{lib/kthcolors}
 
 %\glsdisablehyper
-%\makeglossaries
-%\makenoidxglossaries
-%\input{lib/acronyms}                %load the acronyms file
+% \makeglossaries
 
 \input{lib/defines}  % load some additional definitions to make writing more consistent
 
@@ -145,10 +143,12 @@ morekeywords={begin, todo, textbf, textit, texttt}
 % note that super will set the descriptions text aligned
 % note that nomain - does not produce a main glossary, thus only acronyms will be in the glossary
 % note that nopostdot - will prevent there being a period at the end of each entry
-\usepackage[acronym, style=super, section=section, nonumberlist, nomain,
-nopostdot]{glossaries}
+% \usepackage[acronym, style=super, section=section, nonumberlist, nomain,
+% nopostdot]{glossaries}
+\usepackage[acronym, style=super, section=section, nonumberlist, nomain, nopostdot]{glossaries-extra}
+\input{lib/acronyms}                %load the acronyms file
 \setlength{\glsdescwidth}{0.75\textwidth}
-\usepackage[]{glossaries-extra}
+\makenoidxglossaries
 \ifinswedish
     %\usepackage{glossaries-swedish}
 \fi
@@ -163,10 +163,9 @@ nopostdot]{glossaries}
 
 \newcommand{\diff}{\mathop{}\!d}
 
-%\glsdisablehyper
 % \makeglossaries
-%\makenoidxglossaries
-\input{lib/acronyms}                %load the acronyms file
+% \makenoidxglossaries
+% \input{lib/acronyms}                %load the acronyms file
 
 % insert the configuration information with author(s), examiner, supervisor(s), ...
 \input{custom_configuration}
@@ -634,8 +633,8 @@ swe
 %\printglossaries[type=\acronymtype, title={List of acronyms}]
 % \printglossary[style=mylong, type=\acronymtype, title={List of acronyms and abbreviations}]
 %\printglossary[type=\acronymtype, title={List of acronyms and abbreviations}]
-
-%\printnoidxglossary[style=mylong, title={List of acronyms and abbreviations}]
+\printnoidxglossary[type=\acronymtype]
+% \printnoidxglossary[style=mylong, title={List of acronyms and abbreviations}]
 % \engExpl{The list of acronyms and abbreviations should be in alphabetical order based on the spelling of the acronym or abbreviation.
 % }
 
@@ -750,35 +749,16 @@ This study will consist of a virtual patient cohort. Using virtual patients is i
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
 % Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methods} presents the methodology and method used to solve the problem.
-Chapter \ref{ch:background} will introduce the existing modeling of insulin-glucose dynamics used, followed by an overview of discretization, state estimation, and related work in parameter estimation. In Chapter \ref{ch:methodology}, the proposed research process used to answer the research questions of this study will be documented and motivated. The results will be presented in Chapter \ref{ch:resultsAndAnalysis}. The analysis of the results, key findings, and future work of the experiment will be summarized in Chapter \ref{ch:conclusionsAndFutureWork}.
+Chapter \ref{ch:background} will introduce the existing modeling of insulin-glucose dynamics used, followed by an overview of discretization, state estimation, and related work in parameter estimation. In Chapter \ref{ch:methodology}, the proposed research process used to answer the research questions of this study will be documented and motivated. The results will be presented in Chapter \ref{ch:resultsAndAnalysis} along with the discussion. The key findings and future work of the experiment will be summarized in Chapter \ref{ch:conclusions}.
 
 \cleardoublepage
 \chapter{Background}
 \label{ch:background}
-% \sweExpl{Bakgrund}
 
-% \generalExpl{When you do your literature study, you should have a nearly complete Chapters 1 and 2.\\
-% You may also find it convenient to introduce the future work section into your report early – so that you can put things that you think about but decide not to do now into this section.\\
-% Note that later you can move things between this future work section and what you have done as you may change your mind about what to do now versus what to put off to future work.
-% }
-% \generalExpl{What does a reader (another x student -- where x is your study line) need to know to understand your report?
-% What have others already done? (This is the “related work”.) Explain what and
-% how prior work/prior research will be applied on or used in the degree
-% project/work (described in this thesis). Explain why and what is not used in
-% the degree project and give valid reasons for rejecting the work/research.}
+\textbf{Enter some text here to summarize the background.}
 
-% This chapter provides basic background information about xxx. Additionally, this chapter describes xxx. The chapter also describes related work xxxx.
-
-
-
-% \sweExpl{Vilken viktig litteratur och
-%   (forsknings-)artiklar har du studerat inom området (litteraturstudie)? }
-
-
-
-% \subsection{\glsentryshort{WLAN} Security}% you can't use the \gls() command in a heading - but you can get the short (\glsentryshort) or long version (\glsentryshort) or \glsentrylong or even the text entry (\glsentrytext) and then there is no problem - see https://tex.stackexchange.com/questions/198140/glossaries-and-custom-section-headings-broken
-
-The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \cite{lin_physiological_2011} contains the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
+\section{Intensive Control Insulin-Nutrition-Glucose Model}
+The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} contains the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
 \begin{alignat}{1}
  \dot{G} &= - p_{G}G(t) - S_{I}(t)G(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+E_G-C_G}{V_G} \label{eq:BG} \\
  \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
@@ -790,54 +770,52 @@ The Intensive Control Insulin-Nutrition-Glucose model presented by Lin et al. \c
 \end{alignat}
 Equation \eqref{eq:BG} is the independent insulin glucose removal, with $G$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I(t)$ gives insight into the metabolic condition of the patient and is a time-varying dynamic. The insulin pharamacodynamics are shown in Equations \eqref{eq:Q} and \eqref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in Equation \eqref{eq:uen}. The gastric absorption of glucose is defined in Equations \eqref{eq:P1} to \eqref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral glucose is described by $P_N(t)$ (mmol/min).
 
-The Intensive Control Insulin-Nutrition-Glucose model contains of several fixed parameters detailed in Table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters was estimated with a data-driven approach by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors \cite{chase_adaptive_2005}. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $E_G$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $E_G = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $E_G$ value that achieved the lowest fitting and prediction error for blood glucose in Equation \eqref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 (\text{min}^{-1})$ and $E_G = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the Equation \eqref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
+The \gls{ICING} model contains several fixed parameters detailed in Table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining constant parameters was estimated with a data-driven approach by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors \cite{chase_adaptive_2005}. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $E_G$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, 0.002, \dots, 0.1 (\text{min}^{-1})$ and $E_G = 0.0, 0.1, \dots, 3.5$ (mmol/min). The joint $p_G$ and $E_G$ value that achieved the lowest fitting and prediction error for blood glucose in Equation \eqref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 (\text{min}^{-1})$ and $E_G = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the Equation \eqref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \dots, 0.02 (\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
 
 \begin{table}[ht]
     \centering
     \begin{threeparttable}
-        \caption{Constant parameters in the Intensive Control Insulin-Nutrition-Glucose model.}
+        \caption{Constant parameters in the \gls{ICING} model. The parameters shaded in gray are derived from fitting methods.}
         \label{tab:params}
-        \begin{tabular}{l l r}
+        \setlength{\tabcolsep}{6pt} 
+        \small
+        \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X l r} 
             \toprule
             \textbf{Constant Parameter}  & \textbf{Notation} & \textbf{Value} \\
             \midrule
             \rowcolor{gray!20}
-            Patient endogenous glucose removal & $p_G$ ($\text{min}^{-1}$) & 0.006 \\
+            Patient endogenous glucose removal & $p_G$ ($\min^{-1}$) & 0.006 \\
             Saturation of insulin-stimulated glucose removal & $\alpha_G$ (L/mU) & 0.0154 \\
             \rowcolor{gray!20}
             Suppression of endogenous glucose production & $E_G$ (mmol/min) & 1.16 \\
             Central nervous system uptake & $C_G$ (mmol/L) & 0.3 \\
             Glucose distribution volume & $V_G$ (L) & 13.3 \\
             \rowcolor{gray!20}
-            Glucose distribution rate between the stomach and the gut & $n_I$ ($\text{min}^{-1}$) & 0.003 \\
-            Cellular insulin clearance rate in the interstitium & $n_C$ ($\text{min}^{-1}$) & $= n_I$ \\ 
-            Kidney clearance rate of insulin from plasma & $n_K$ ($\text{min}^{-1}$) & 0.0542 \\
-            Liver clearance rate of insulin from plasma & $n_L$ ($\text{min}^{-1}$) & 0.01578 \\
+            Glucose distribution rate between the stomach and the gut & $n_I$ ($\min^{-1}$) & 0.003 \\
+            Cellular insulin clearance rate in the interstitium & $n_C$ ($\min^{-1}$) & $= n_I$ \\ 
+            Kidney clearance rate of insulin from plasma & $n_K$ ($\min^{-1}$) & 0.0542 \\
+            Liver clearance rate of insulin from plasma & $n_L$ ($\min^{-1}$) & 0.01578 \\
             Saturation of plasma insulin disappearance & $\alpha_I$ (L/mU) & 0.0017 \\
             Insulin distribution volume  & $V_I$ (L) & 3.15 \\
             Fraction of endogenous insulin hepatic extraction & $x_L$ & 0.67 \\
             Maximal glucose out flux from the gut & $P_{max}$ (mmol/min) & 6.11 \\
             Base endogenous insulin production rate & $k_1$ (mU/min) & 45.7 \\
             \midrule
-            \multirow{2}{*}{Transport rates between the stomach and the gut} & $d_1$ ($\text{min}^{-1}$) & 0.0347 \\
-            & $d_2$ ($\text{min}^{-1}$) & 0.0069 \\
+            \makecell[l]{Transport rates between the stomach and the gut} & $d_1$ ($\min^{-1}$) & 0.0347 \\
+            & $d_2$ ($\min^{-1}$) & 0.0069 \\
             \midrule
-            \multirow{2}{*}{Exponential suppression constants} & $k_2$ & 1.5 \\
+            \makecell[l]{Exponential suppression constants} & $k_2$ & 1.5 \\
             & $k_3$ & 1000 \\
             \bottomrule
-        \end{tabular}
-        \begin{tablenotes}
-            \footnotesize
-            \item Parameters shaded in gray are derived from fitting methods, as the rest are assigned as population constants.
-        \end{tablenotes}
+        \end{tabularx}
     \end{threeparttable}
 \end{table}
 
-It should be noted that in the Intensive Control Insulin-Nutrition-Glucose model, the nonlinear dynamics are defined in continuous time. Discretization of the dynamic system is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ dt$, an example dynamic $F(t)$ can be discretized according to the Euler method
+It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous time. Discretization of the dynamic system is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta$, an example dynamic $F(t)$ can be discretized according to the Euler method
 \begin{equation}
 \begin{aligned}
-\dot{F} &= \frac{F(t_{k}) - F(t_{k} - \,dt)}{\,dt} \\
-F_{k} &= F_{k-1} + \,dt \dot{F}.
+\dot{F} &\approx \frac{F(t_{k}) - F(t_{k} - \,\Delta)}{\,\Delta} \\
+F_{k} &\approx F_{k-1} + \,\Delta \dot{F}.
 \end{aligned}
 \end{equation}
 The error of this numerical approximation of differential equations is bounded by the step size $\,dt$. As a result, larger step sizes will introduce greater approximation errors. Thus, a relatively small step size is necessary to prevent errors from propagating in the estimates. 
@@ -893,7 +871,7 @@ The Kalman filter is recursive, as the filter starts with an estimate of the ini
 
 \subsection{Extended Kalman filter}
 
-The extended Kalman filter can accommodate the nonlinearities in the Intensive Control Insulin-Nutrition-Glucose model by approximating the dynamic and measurement models as a linear transformation of the states and inputs. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
+The extended Kalman filter can accommodate the nonlinearities in the \gls{ICING} model by approximating the dynamic and measurement models as a linear transformation of the states and inputs. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
 \begin{enumerate}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
@@ -1023,9 +1001,9 @@ The new state perturbations are now assigned as the transformation $\bar{x} = T_
 To make inferences about of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. If there exists singular values near zero (e.g. $<0.1$),a subset of the dynamics of the system can not be observed from the measurements.
 
 \subsection{Related Work}
-Nonlinear state estimation of the Intensive Control Insulin-Nutrition-Glucose model has been investigated in a previous study by Aguirre-Zapata et al. \cite{aguirre-zapata_glycemic_2017}. The study incorporated an additional measurement and dynamic due to their clinical facility having a continuous glucose machine that can measure the patient's interstitial glucose, but the formulation of patient dynamics otherwise remained the same. In the methodology of the paper, all tests regarding estimation performance are tested on deviations from one virtual patient, with each deviation being assigned the same exogenous insulin input per deviation, and food intake is generally not considered. Overall, their virtual patients don't characterize a reasonable patient model in comparison to real patients.
+Nonlinear state estimation of the \gls{ICING} model has been investigated in a previous study by Aguirre-Zapata et al. \cite{aguirre-zapata_glycemic_2017}. The study incorporated an additional measurement and dynamic due to their clinical facility having a continuous glucose machine that can measure the patient's interstitial glucose, but the formulation of patient dynamics otherwise remained the same. In the methodology of the paper, all tests regarding estimation performance are tested on deviations from one virtual patient, with each deviation being assigned the same exogenous insulin input per deviation, and food intake is generally not considered. Overall, their virtual patients don't characterize a reasonable patient model in comparison to real patients.
 
-The study includes three state estimators: the extended Kalman filter, the unscented Kalman filter, and the particle filter. The majority of the study uses discrete time-steps of 5 minutes. While the dynamics of patients develop relatively slowly, such a large time step can introduce approximation errors in the discretization of the ICING model. Another notable design choice of their particle filter is that it contains 5000 particles. Further analysis of various sized particle filters would motivate the overall trade-off estimation performance compared to the time complexity. State estimation remained in the scope of dynamics represented in the Intensive Control Insulin-Nutrition-Glucose model and an additional interstitial glucose dynamic. As a result, there exists further development of state estimators to predict unrepresented patient-specific parameters as well.
+The study includes three state estimators: the extended Kalman filter, the unscented Kalman filter, and the particle filter. The majority of the study uses discrete time-steps of 5 minutes. While the dynamics of patients develop relatively slowly, such a large time step can introduce approximation errors in the discretization of the ICING model. Another notable design choice of their particle filter is that it contains 5000 particles. Further analysis of various sized particle filters would motivate the overall trade-off estimation performance compared to the time complexity. State estimation remained in the scope of dynamics represented in the \gls{ICING} model and an additional interstitial glucose dynamic. As a result, there exists further development of state estimators to predict unrepresented patient-specific parameters as well.
 
 \section{Parameter Estimation}
 As previously mentioned, there exists patient-specific parameters. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either a population constant can hinder the performance of the estimators. The unknown constant parameters of interest will be denoted as $\theta$. 
@@ -1189,7 +1167,7 @@ Relying on data-driven methods can not account for physiological behavior in the
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
 
-The Intensive Control Insulin-Nutrition-Glucose model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic virtual patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
+The \gls{ICING} model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic virtual patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
 \chapter{Methodology}
@@ -1209,7 +1187,7 @@ This chapter will consist of presenting the scientific design of the experiment.
 \label{sec:researchProcess}
 The main topics this study aims to address fall in line with the following research questions:
 \begin{enumerate}
-    % \item \label{RQ: 1} \textbf{How does the mathematical formulation of the Intensive Control Insulin-Nutrition-Glucose model impact observability when approximating insulin-glucose dynamics for patients in the intensive care unit?} 
+    % \item \label{RQ: 1} \textbf{How does the mathematical formulation of the \gls{ICING} model impact observability when approximating insulin-glucose dynamics for patients in the intensive care unit?} 
     \item \label{RQ: 1} \textbf{How do state estimation techniques compare in estimating patient insulin-glucose dynamics in terms of accuracy and computational complexity?} 
     \item \label{RQ: 2} \textbf{How do practical parameter estimation methods perform relative to the integral-based parameter identification method in terms of estimating unknown constant and time-varying patient-specific parameters?}
 \end{enumerate}
@@ -1288,10 +1266,10 @@ To answer the given Research Questions \ref{RQ: 1} and \ref{RQ: 2}, statistical 
 
 In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating observability in insulin-glucose models, comparing state estimators, and then assessing parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics.
 
-\section{Observability of the Intensive Control Insulin-Nutrition-Glucose Model}
+\section{Observability of the \gls{ICING} Model}
 In Chapter \ref{sec:dataGeneration}, a patient model was created for each individual patient based on the Intensive Control Insulin-Glucose model, with the ensemble of patient models being labeled as a patient cohort. For a particular patient model to be observable, it must be possible to infer the patient dynamics, given a sufficient number of observations. To establish if the formulation of the patient model is observable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations as previously discussed in Section \ref{sec: obs}.
 
-1000 patient models will be randomly sampled to investigate the observability of the Intensive Control Insulin-Nutrition-Glucose model across various permutations of each random nominal state vector. 
+1000 patient models will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector. 
 The maximum value of each state\footnote{For this calculation, $u_{en}$ and $P$ are omitted. This is due to permutations of these values are directly represented by dynamics $I$ and $P2$.} $x_{max}$ will be chosen as $S$
 \begin{equation}
     \begin{aligned}
@@ -1304,7 +1282,7 @@ The maximum value of each state\footnote{For this calculation, $u_{en}$ and $P$ 
 as well with a maximum perturbation constant of $c=0.1$. With the following defined inputs, the observability gramian $W_O$ can be derived to analyze the singular values of all the calculated matrices using single value decomposition. To also analyze which states are the most observable respectively to each other, the diagonals of the observability gramian can be used to propose that the diagonal entries that are greater in magnitude, those states provide more information in relation to the observations. Formulating an approximation of the observability will provide insight to the performance of the estimators in the following section.   
 
 \section{Nonlinear State Estimation}
-The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the Intensive Control Insulin-Nutrition-Glucose model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the mean squared error $\,MSE$ of the blood glucose concentration estimates will be recorded for all patients and filters in the given virtual patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well with a discrete time-step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($N(0,0.25^2)$) sampled every 120 minutes. There will be iterations of this comparison with the following offsets of the initial states: $\pm2\%,\pm10\%,\pm25\%$, with each iteration having a virtual cohort of 500 patients. Adding an offset to the initial state will gauge how each well estimator can adapt to various initial innovations in the estimate. 
+The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the mean squared error $\,MSE$ of the blood glucose concentration estimates will be recorded for all patients and filters in the given virtual patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well with a discrete time-step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($N(0,0.25^2)$) sampled every 120 minutes. There will be iterations of this comparison with the following offsets of the initial states: $\pm2\%,\pm10\%,\pm25\%$, with each iteration having a virtual cohort of 500 patients. Adding an offset to the initial state will gauge how each well estimator can adapt to various initial innovations in the estimate. 
 
 To ensure that model approximation errors can be modeled as a random process, artificial process noise can be added to the state estimates for both the extended Kalman filter and the particle filter. Due to the discrete time-step to measurement time-step ratio being 120:1, the process noise per sample was chosen as an expected amount of deviation between measurements divided by 120. The process noise $w$ will be sampled at each discrete time-step
 \begin{align} \label{eq:processnoise}
@@ -1392,12 +1370,12 @@ When numerous virtual patients were sampled, the figures present a diverse distr
     \label{fig:cohort}
 \end{figure}
 
-\section{Observability of the Intensive Control Insulin-Nutrition-Glucose Model}
-To investigate the observability of the Intensive Control Insulin-Nutrition-Glucose model, two methods were investigated. In Figure \ref{fig:observabilityPMF}, a probability mass function of eigenvalues from the 1000 calculated empirical observability gramians were plotted. The eigenvalues are transformed in a log-scale to easier visualize the spread of values. The red dotted line denotes the threshold chosen to distinguish the eigenvalues that are considered observable ($>0.10$) or unobservable ($\le 0.10$). The eigenvalues range from $10^{-15}$ to $10^2$. The percentage of eigenvalues considered observable is approximately 25.4\%, which would suggest that, given all available measurements, about a quarter of the states provide insight into the observations. The other Figure \ref{fig:observabilityBox}, a box plot for each dynamic in the empirical observability gramian is plotted to show the respective locality of the empirical observability matrix diagonal $\mathrm{diag}(W_O)$ over all patients. As a result of scaling all dynamics in the empirical observability gramian, the diagonal values are comparable amongst the dynamics.
+\section{Observability of the \gls{ICING} Model}
+To investigate the observability of the \gls{ICING} model, two methods were investigated. In Figure \ref{fig:observabilityPMF}, a probability mass function of eigenvalues from the 1000 calculated empirical observability gramians were plotted. The eigenvalues are transformed in a log-scale to easier visualize the spread of values. The red dotted line denotes the threshold chosen to distinguish the eigenvalues that are considered observable ($>0.10$) or unobservable ($\le 0.10$). The eigenvalues range from $10^{-15}$ to $10^2$. The percentage of eigenvalues considered observable is approximately 25.4\%, which would suggest that, given all available measurements, about a quarter of the states provide insight into the observations. The other Figure \ref{fig:observabilityBox}, a box plot for each dynamic in the empirical observability gramian is plotted to show the respective locality of the empirical observability matrix diagonal $\mathrm{diag}(W_O)$ over all patients. As a result of scaling all dynamics in the empirical observability gramian, the diagonal values are comparable amongst the dynamics.
 
 The blood glucose concentration $G$ is the most observable. This is to be expected as the observations in our state-space model are noisy blood glucose measurements. The blood glucose appearance in the stomach and the gut are the next observable states, with a median roughly of $2.95 \times10^{-2}$ and $3.07 \times10^{-2}$, as well as an approximate interquartile range of $4.33 \times10^{-2}$ and $4.35 \times10^{-2}$ respectively. In Equation \eqref{eq:BG}, the change in $\,G$ is dependent on a constant consisting of a scaled multiple of the total glucose appearance $P$, which is a function of both the glucose appearance in the stomach and gut $\,P1,\,P2$. Thus, this representation can be attributed to why $\,P_1$ and $\,P_2$ are more observable compared to the plasma insulin $I$ and the interstitial insulin $Q$, as the fraction $\frac{Q}{1+\alpha_G Q}$ is being multiplied by a relatively small value $\,S_I$, and changes in $I$ take time to propagate to Equation \eqref{eq:BG}.
 
-Overall, the Intensive Control Insulin-Nutrition-Glucose model can not be classified as observable. For a system that is not observable, the performance of the state estimates may be hindered, as for each observation sampled, only the blood glucose and possibly the total glucose appearance can be uniquely identified. In practice, you could add more observations to increase the observability, but in the context of insulin-glucose dynamics, most institutions only have access to blood glucose measurements and not plasma insulin or C-peptide data. While poor observability is a limitation in state-space models, the following sections show that the model has capabilities, albeit imperfect, to estimate insulin-glucose dynamics.
+Overall, the \gls{ICING} model can not be classified as observable. For a system that is not observable, the performance of the state estimates may be hindered, as for each observation sampled, only the blood glucose and possibly the total glucose appearance can be uniquely identified. In practice, you could add more observations to increase the observability, but in the context of insulin-glucose dynamics, most institutions only have access to blood glucose measurements and not plasma insulin or C-peptide data. While poor observability is a limitation in state-space models, the following sections show that the model has capabilities, albeit imperfect, to estimate insulin-glucose dynamics.
 
 \begin{figure}
     \centering 
@@ -1601,9 +1579,6 @@ In the patient cohort generation, the inputs and parameters are chosen from clin
 % What suggestions can you give to others working in this area?\\
 % If you had it to do again, what would you have done differently?}
 
-
-\section{Limitations}
-\label{sec:limitations}
 % \engExpl{What did you find that limited your efforts? What are the limitations of your results?}
 
 
@@ -1615,12 +1590,9 @@ In the patient cohort generation, the inputs and parameters are chosen from clin
 % met. In these section we will focus on some of the remaining issues that
 % should be addressed in future work. ...
 
-\subsection{What has been left undone?}
-\label{what-has-been-left-undone}
 
 % The prototype does not address the third requirment, \ie a yearly unavailability of less than 3 minutes, this remains an open problem. ...
 
-\subsubsection{Cost analysis}
 % \generalExpl{Example of a missing component}
 % The current prototype works, but the performance from a cost perspective makes this an impractical solution. Future work must reduce the cost of this solution, to do so a cost analysis needs to first be done. ...
 
@@ -1629,7 +1601,6 @@ In the patient cohort generation, the inputs and parameters are chosen from clin
 % A future research effort is needed to address the security holes that results from using a self-signed certificate. Page filling text mass. Page filling text mass. ...
 
 
-\subsection{Next obvious things to be done}
 
 % In particular, the author of this thesis wishes to point out xxxxxx remains as a problem to be solved. Solving this problem is the next thing that should be done. ...
 

@@ -9,9 +9,9 @@
 \babel@toc {english}{}\relax
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Constant parameters in the Intensive Control Insulin-Nutrition-Glucose model.}}{7}{table.caption.4}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Constant parameters in the \gls {ICING} model. The parameters shaded in gray are derived from fitting methods.}}{7}{table.caption.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces MSE for different estimators and deviations of the initial state. Standard deviations of the MSE are shown in parentheses.}}{29}{table.caption.8}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison of the total average MARD in parameter estimation methods estimating insulin sensitivity}}{32}{table.caption.11}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces MSE for different estimators and deviations of the initial state. Standard deviations of the MSE are shown in parentheses.}}{29}{table.caption.9}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison of the total average MARD in parameter estimation methods estimating insulin sensitivity}}{32}{table.caption.12}%
 \addvspace {10\p@ }
