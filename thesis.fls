@@ -928,9 +928,9 @@ OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/tex-gyre/ec-qtmri.tfm
-OUTPUT thesis.mw
-INPUT thesis.mw
-OUTPUT thesis.mw
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
@@ -978,6 +978,9 @@ INPUT ./figures/2_1.pdf
 INPUT ./figures/2_1.pdf
 INPUT ./figures/2_1.pdf
 INPUT ./figures/2_1.pdf
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
@@ -1000,6 +1003,9 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/tex-gyre/ts1-qtmr.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/tex-gyre/ec-qtmr.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/stmaryrd/stmary7.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/stmaryrd/stmary5.tfm
@@ -1132,6 +1138,7 @@ INPUT ./figures/5_4.pdf
 INPUT ./figures/5_4.pdf
 INPUT ./figures/5_4.pdf
 INPUT ./figures/5_4.pdf
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
 INPUT ./figures/5_5.pdf
 INPUT ./figures/5_5.pdf
 INPUT ./figures/5_5.pdf
@@ -1669,6 +1676,15 @@ OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
 OUTPUT thesis.out
 INPUT ./thesis.out
 INPUT ./thesis.out
@@ -1691,6 +1707,7 @@ INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pf
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb

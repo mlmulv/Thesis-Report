@@ -9,7 +9,7 @@
 \babel@toc {english}{}\relax
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces Constant parameters in the \gls {ICING} model. The parameters shaded in gray are derived from fitting methods.}}{7}{table.caption.5}%
+\contentsline {table}{\numberline {2.1}{\ignorespaces Assigned parameters in the \gls {ICING} model. The parameters shaded in gray are derived from fitting methods.}}{7}{table.caption.5}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {4.1}{\ignorespaces MSE for different estimators and deviations of the initial state. Standard deviations of the MSE are shown in parentheses.}}{29}{table.caption.9}%
