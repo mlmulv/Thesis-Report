@@ -715,7 +715,7 @@ To model the behavior of dynamical systems, experience of statistical modeling i
 
 Mechanistic insulin-glucose models are of great benefit to critically ill patients and clinicians, as modeling gluco-regulation allows for necessary glycaemic adjustments to avoid the onset of adverse outcomes. In practice, clinicians only have the ability to base insulin resistance on blood glucose measurements, and thus, state estimators models fill in the gap as a tool for insulin-glucose dynamics estimation. Improvements in the estimation of insulin-glucose dynamics can better capture the evolution of the health of the patient in the intensive care unit to prevent mortality and morbidity.
 
-\section{Goals}
+\section{Goals} \label{sec:goals}
 % \sweExpl{Mål}
 % \sweExpl{Skilj på syfte och mål. Syftet är att åstakomma en förändring i något. Målen är vad som konkret skall göras för att om möjligt uppnå den önskade förändringen (syfte). }
 
@@ -736,7 +736,7 @@ The overall goals of this project has been divided into the following sub-goals:
 % \sweExpl{Undersökningsmetod}
 % \sweExpl{Här anger du vilken vilken övergripande undersökningsstrategi eller metod du skall använda för att försöka besvara den akademiska frågeställning och samtidigt lösa det e v ursprungliga problemet. Ofta kan man använda ”lösandet av ursprungsproblemet” som en fallstudie kring en akademisk frågeställning. Du undersöker någon intressant fråga i ”skarpt” läge och samlar resultat och erfarenhet ur detta.\\
 % Tänk på att företaget ibland måste stå tillbaka i sin önskan och förväntan på projektets resultat till förmån för ny eller kompletterande ingenjörserfarenhet och vetenskap (ditt examensarbete). Det är du som student som bestämmer och löser fördelningen mellan dessa två intressen men se till att alla är informerade. }
-% \generalExpl{Introduce your choice of methodology/methodologies and method/methods – and the reason why you chose them. Contrast them with and explain why you did not choose other methodologies or methods. (The details of the actual methodology and method you have chosen will be given in Chapter~\ref{ch:methods}. Note that in Chapter~\ref{ch:methods}, the focus could be research strategies, data collection, data analysis, and quality assurance.)\\
+% \generalExpl{Introduce your choice of methodology/methodologies and method/methods – and the reason why you chose them. Contrast them with and explain why you did not choose other methodologies or methods. (The details of the actual methodology and method you have chosen will be given in Chapter~\ref{ch:methodology}. Note that in Chapter~\ref{ch:methodology}, the focus could be research strategies, data collection, data analysis, and quality assurance.)\\
 % In this section you should present your philosophical assumption(s), research method(s), and research approach(es).}
 
 The modeling of the insulin-glucose dynamics found in critically ill patients will be implemented on a virtual patient cohort. Using virtual patients allows the researcher to manually control the insulin-glucose model parameters, which directly improves the evaluation of the outcome of the insulin-glucose control. Previous work will serve as the benchmark to compare how the parameterization of our method performs in estimating insulin-glucose dynamics of virtual patients. The chosen filter design will then be used to estimate additional dynamics not mathematically represented in insulin-glucose models. Fitting metrics and computational complexity of the estimators will be utilized to draw inferences about the performance.
@@ -749,14 +749,14 @@ This study will consist of a virtual patient cohort. Using virtual patients is i
 
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
-% Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methods} presents the methodology and method used to solve the problem.
-Chapter \ref{ch:background} will introduce the existing modeling of insulin-glucose dynamics used, followed by an overview of discretization, state estimation, and related work in parameter estimation. In Chapter \ref{ch:methods}, the proposed research process used to answer the research questions of this study will be documented and motivated. The results will be presented in Chapter \ref{ch:resultsAndAnalysis} along with the discussion. The key findings and future work of the experiment will be summarized in Chapter \ref{ch:conclusions}.
+% Chapter~\ref{ch:background} presents relevant background information about xxx.  Chapter~\ref{ch:methodology} presents the methodology and method used to solve the problem.
+Chapter \ref{ch:background} will introduce the existing modeling of insulin-glucose dynamics used, followed by an overview of discretization, state estimation, and related work in parameter estimation. In Chapter \ref{ch:methodology}, the proposed research process used to answer the research questions of this study will be documented and motivated. The results will be presented in Chapter \ref{ch:resultsAndAnalysis} along with the discussion. The key findings and future work of the experiment will be summarized in Chapter \ref{ch:conclusions}.
 
 \cleardoublepage
 \chapter{Background}
 \label{ch:background}
 
-\textbf{Some really interesting and insightful opening sentences to summarize the background}
+The background will introduce the theoretical concepts and prior work relevant to the paper. The \gls{ICING} model will be introduced to lay the foundation of insulin-glucose modeling, and how state estimation methods can be applied to estimate dynamics optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
 
 \section{Intensive Control Insulin-Nutrition-Glucose Model}
 The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} contains the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
@@ -834,7 +834,7 @@ y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{equation}
 where $p(x_{k} \mid x_{k-1},\,u_{k})$ and $p(y_{k} \mid x_{k})$ are the stochastic discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements.
 
-Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unaccounted dynamics. Choices in the specifics regarding the modeling of process noise of insulin-glucose dynamics will be discussed in Chapter \ref{ch:methods}.
+Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unaccounted dynamics. Choices in the specifics regarding the modeling of process noise of insulin-glucose dynamics will be discussed in Chapter \ref{ch:methodology}.
 
 The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
@@ -916,7 +916,6 @@ For state-space modeling, the dynamic and measurement models are run sequentiall
 \end{equation}
 In the Kalman filter case, such dynamic and measurement models were assumed to be linear and Gaussian. As a result, the posterior of the state $p(x_k \mid y_k)$ was derived as a linear transformation of the mean and covariance. For the bootstrap particle filter, the posterior of the state is formulated as a Monte Carlo approximation, with $x_k^{(i)}$ denoting a randomly sampled state for $N$ total particles
 
-\textbf{Double Check This}
 \begin{equation} \label{eq:markov}
     \begin{aligned}
         p(x_k \mid y_k) &\approx  \frac{\sum_{i=1}^{N}p(y_k \mid x_k^{(i)}) p(x_k^{(i)})}{\sum_{j=1}^{N} p(y_k \mid x_k^{(j)})}. \\
@@ -1105,9 +1104,7 @@ With this method, you inherently add another unknown parameter $Q_{k}$, but such
 %     \end{enumerate}
 % \end{itemize}
 \subsection{Related Work} \label{sec:integral}
-\textbf{Should all of this be approx?}
-
-A nonlinear, and nonconvex integral-based parameter identification method has been introduced that can estimate patient-specific parameters as a least squares solution \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
+The \gls{IPI} method is a nonlinear and nonconvex parameter identification method that has been introduced that can estimate patient-specific parameters as a least squares solution \cite{hann_integral-based_2005}. By linearly interpolating between the blood glucose measurements in times $[t_0,t_1]$,
 \begin{align}
     \widetilde{G}(t) = \frac{G(t_1) - G(t_0)}{t_1 - t_0}(t-t_0) + G(t_0),
 \end{align}
@@ -1142,12 +1139,12 @@ It is often the case with longer measurement periods ($t_1 - t_0$), that identif
     \begin{bmatrix} 
         S_I^{60} \\ S_I^{120}
     \end{bmatrix}
-    \approx \begin{bmatrix}
+    = \begin{bmatrix}
          b(t_0, t_0+30) \\ b(t_0+30, t_0+60) \\ b(t_0+60, t_0+90) \\ b(t_0+90, t_0+120)
     \end{bmatrix}.
 \end{align}
 
-The fundamental flaw of the integral-based parameter identification method is the assumption of linear blood glucose dynamics between measurements of times $[t_0, t_1]$. If we closely analyze the Figure \ref{fig:background}, linearly interpolating blood glucose introduces residuals, due to fitting errors. Consequently, the residuals will propagate into the integrals in the Equation \eqref{eq:integral_based}, resulting in errors in the parameter calculation.
+The fundamental flaw of the \gls{IPI} method is the assumption of linear blood glucose dynamics between measurements of times $[t_0, t_1]$. If we closely analyze the Figure \ref{fig:background}, linearly interpolating blood glucose introduces residuals, due to fitting errors. Consequently, the residuals will propagate into the integrals in the Equation \eqref{eq:integral_based}, resulting in errors in the parameter calculation.
 % This can be seen in the bottom plot of Figure \ref{fig:background}, in the beginning 120 mins, a sharp non-linear increase in blood glucose transpires in a significant error of 100\%. The approximated $S_I$ struggles to converge to the constant true $S_I$ value and fluctuates rapidly. The insulin-sensitivity parameter observed in critically-ill patients does not change rapidly, often slowly fluctuating in terms of hours.
 Other methods not relying on linearization of the measurements must be explored to allow for realistic estimation of parameters, thus giving better insight of the patient's health status to clinicians. 
 
@@ -1178,11 +1175,11 @@ Other methods not relying on linearization of the measurements must be explored 
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
 
-The \gls{ICING} model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic virtual patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of integral-based parameter identification is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
+The \gls{ICING} model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic virtual patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of \gls{IPI} is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
-\chapter{Methods}
-\label{ch:methods}
+\chapter{Methodology}
+\label{ch:methodology}
 
 % This chapter will consist of presenting the scientific design of the experiment. Beginning with the overall goals of the study, and how the corresponding experimental process will be formulated to achieve answering the stated research questions. The inclusion and motivation of the data collected, models used, and analysis of the observations in the experiment will be laid out in the following sections.
 
@@ -1200,7 +1197,7 @@ The \gls{ICING} model provides a foundation to model glucose removal, insulin ph
 % \begin{enumerate}
 %     % \item \label{RQ: 1} \textbf{How does the mathematical formulation of the \gls{ICING} model impact observability when approximating insulin-glucose dynamics for patients in the intensive care unit?} 
 %     \item \label{RQ: 1} \textbf{How do state estimation techniques compare in estimating patient insulin-glucose dynamics in terms of accuracy and computational complexity?} 
-%     \item \label{RQ: 2} \textbf{How do practical parameter estimation methods perform relative to the integral-based parameter identification method in terms of estimating unknown constant and time-varying patient-specific parameters?}
+%     \item \label{RQ: 2} \textbf{How do practical parameter estimation methods perform relative to the \gls{IPI} method in terms of estimating unknown constant and time-varying patient-specific parameters?}
 % \end{enumerate}
 % Given the overall experimental goals, the research process can therefore be outlined as such:
 % \begin{enumerate}[leftmargin=*, label=\textbf{Step \arabic*}, ref=Step \arabic*] %labelindent=1em for indent
@@ -1215,7 +1212,7 @@ The \gls{ICING} model provides a foundation to model glucose removal, insulin ph
 % \label{sec:researchParadigm}
 % The philosophical motivation in this study is founded on utilizing a set of quantitative methods that serve the purpose of ultimately answering the previously stated research questions. The use of statistical metrics will quantitatively express the relationships of variables tested in the experiment. Consequently, the research questions will effectively be addressed. 
 
-\textbf{A really well thought-out introduction to the methods chapter.}
+The necessary methodology to achieve the goals introduced in Section \ref{sec:goals} will be presented in this chapter. It begins with the design of the virtual patient cohort used for simulation of patients in this paper. The observability of the \gls{ICING} model is analyzed to learn if the dynamics can be inferred from the measurements. Based on the observed performance, nonlinear state estimators are utilized to assess the model's ability to estimate unmeasured dynamics. Finally, the parameter estimation methods used to estimate unknown constant and time-varying insulin sensitivity are introduced.
 
 \section{Synthetic Patient Cohort}
 \label{sec:patientCohort}
@@ -1229,15 +1226,15 @@ A virtual patient cohort will be simulated to model clinical insulin-glucose dat
 \end{equation}
 The insulin sensitivity has been shown to follow a log-normal distribution \cite{davidson_multi-input_2019}. Sampling the insulin sensitivity from a log-normal is important to adhere to the physiological constraints typically observed in patients, as the insulin sensitivity is small in magnitude, and sampling from a normal distribution may shift the value to negative or too large in magnitude, which can possibly result in poor estimation. The values chosen within this study will be drawn from the distribution\footnote{These parameters are approximated according to previous work from Davidson et al. \cite{davidson_multi-input_2019}}
 \begin{align} \label{eq:SI}
-    S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
+S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
 \end{align}
 % \begin{figure}[ht]
-%     \centering
-%     \includegraphics[width=0.9\linewidth]{figures/3_1.pdf}
-%     \caption{Probability Density Functions of the system inputs and parameters.}
+% \centering
+% \includegraphics[width=0.9\linewidth]{figures/3_1.pdf}
+% \caption{Probability Density Functions of the system inputs and parameters.}
 % \end{figure}
 
-To simulate patient data given the inputs and parameters, each virtual patient needs to be assigned an unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ in the beginning of the situation, thus, it simplifies to a deterministic equation.} for the dynamics
+To simulate patient data given the inputs and parameters, each virtual patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the dynamics
 \begin{align}
     x_0 &= \begin{bmatrix}
         G_0 & I_0 & Q_0 & \,P1_0 & \,P2_0 &  \,{u_{en}}_0
@@ -1280,24 +1277,24 @@ Given all the initial states $x_0$, known insulin sensitivity $S_I$, and the pat
 % In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating observability in insulin-glucose models, comparing state estimators, and then assessing parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics.
 
 \section{Observability of the Intensive Control Insulin-Nutrition-Glucose Model}
-In Chapter \ref{sec:patientCohort}, virtual patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve for the dynamics according the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose dynamics, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations as previously discussed in Section \ref{sec: obs}.
+In Chapter \ref{sec:patientCohort}, virtual patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve the dynamics according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose dynamics, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations as previously discussed in Section \ref{sec: obs}.
 
-1000 patient models will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector. 
+1000 patient models will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector.
 The maximum value of each state\footnote{\textbf{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.}} $x_{max}$ will be chosen as the maximum values of the patient cohort dynamics found in the previous Section \ref{sec:patientCohort}
 \begin{equation}
-    \begin{aligned}
-        S &= \mathrm{diag}(x_{max}) \\
-        % &=  \mathrm{diag}(\begin{bmatrix}
-        %     17.5 & 260 & 220 & 11.5 & 57
-        %  \end{bmatrix}),      
-    \end{aligned}
+\begin{aligned}
+S &= \mathrm{diag}(x_{max}) \\
+% &= \mathrm{diag}(\begin{bmatrix}
+% 17.5 & 260 & 220 & 11.5 & 57
+% \end{bmatrix}),
+\end{aligned}
 \end{equation}
-as well with a maximum perturbation constant of $c=0.1$. With the following defined inputs, the observability gramian $W_O$ can be derived to analyze the singular values of all the calculated matrices using single value decomposition. To also analyze which states are the most observable respectively to each other, the diagonals of the observability gramian can be used to propose that the diagonal entries that are greater in magnitude, those states provide more information in relation to the observations. Formulating an approximation of the observability will provide insight to the performance of the estimators in the following section.   
+as well with a maximum perturbation constant of $c=0.1$. With the following defined inputs, the observability gramian $W_O$ can be derived to analyze the singular values of all the calculated matrices using single value decomposition. To also analyze which states are the most observable respectively to each other, the diagonals of the observability gramian can be used to propose that the diagonal entries that are greater in magnitude, those states provide more information in relation to the observations. Formulating an approximation of the observability will provide insight into the performance of the estimators in the following section.    
 
 \section{Nonlinear State Estimation}
-The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the mean squared error $\,MSE$ of the blood glucose concentration estimates will be recorded for all patients and filters in the given virtual patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well with a discrete time-step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($N(0,0.125)$) sampled every 120 minutes. There will be offsets in the initial states of $\pm2\%,\pm10\%,\pm25\%$, with each iteration having a virtual cohort of 500 patients. Adding an offset to the initial state will gauge how each well estimator can adapt to various initial perturbations in the estimate. 
+The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the \gls{MSE} of the blood glucose concentration estimates will be recorded for all patients and filters in the given virtual patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well as a discrete time-step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($\mathcal{N}(0,0.125)$) sampled every 120 minutes. There will be offsets in the initial states of $\pm2\%,\pm10\%,\pm25\%$, with each iteration having a virtual cohort of 500 patients. Adding an offset to the initial state will gauge how well each estimator can adapt to various initial perturbations in the estimate.
 
-If it is assumed that the model approximation errors can be modeled as a random process, artificial process noise can be added to the state estimates for both the extended Kalman filter and the particle filter. Due to the discrete time-step to measurement time-step ratio being 120:1, the process noise per sample was chosen as an expected amount of deviation between measurements divided by 120. The process noise $w$ will be sampled at each discrete time-step for both the extended Kalman filter and the particle filter according to the following normal distribution
+If it is assumed that the model approximation errors can be modeled as a random process, artificial process noise can be added to the state estimates for both the extended Kalman filter and the particle filter. Due to the discrete time-step to measurement time-step ratio being 120:1, the process noise per sample was chosen as an expected amount of deviation between measurements divided by 120. The process noise $w$ will be sampled at each discrete time-step for both the extended Kalman filter and the particle filter roughly according to the following normal distribution
 \begin{align}
 \label{eq:processnoise}
 w &\sim \mathcal{N}\Bigg(0,\,
@@ -1313,7 +1310,7 @@ w &\sim \mathcal{N}\Bigg(0,\,
 \right)\Bigg).
 \end{align}
 The variance for the dynamics $G, \,I, \,Q, \,P1, \,P2 \,$ are chosen as the scaled median for the population statistics found in Section \ref{sec:patientCohort}.
-The process noise for the enteral insulin is assigned as a relatively small value in comparison to the other states. This is a design to choice to have the insulin sensitivity absorb more of the uncertainty of the glucose distribution between the gut and the stomach, instead of the endogenous insulin. The covariance between states are assigned as zero, as model approximation errors are assumed to independent of states.
+The process noise for the enteral insulin is assigned as a relatively small value in comparison to the other states. This is a design to choose to have the insulin sensitivity absorb more of the uncertainty of the glucose distribution between the gut and the stomach, instead of the endogenous insulin. The covariance between states is assigned as zero, as model approximation errors are assumed to be independent of states.
 
 The extended Kalman filter parameters will be defined as
 \begin{enumerate}
@@ -1351,23 +1348,23 @@ The extended Kalman filter parameters will be defined as
     \end{align}
 \end{enumerate}
 
- Particle filters containing $\left(100,\,200,\,300,\,400,\,500,\,750,\,1000,\,1500,\,2000\right)$ particles will be used to compare the relationship of the estimation performance over an increasing number of particles. The particle filter will be initialized by sampling particles from a multivariate Gaussian distribution with a mean of the initial state, and a covariance equal to the extended Kalman filter's $Q$.
+Particle filters containing $\left(100,\,200,\,300,\,400,\,500,\,750,\,1000,\,1500,\,2000\right)$ particles will be used to compare the relationship of the estimation performance over an increasing number of particles. The notation of the extended Kalman filter will be abbreviated as EKF and for a particle filter with N particles, it will be represented as PF N. The particle filter will be initialized by sampling particles from a multivariate Gaussian distribution with a mean of the initial state, and a covariance equal to the extended Kalman filter's $Q$.
 
 To define the computational complexity of the estimators given the experimental setup, let $\tau_i$ denote the average total time to run each particle filter and the extended Kalman filter in seconds, with $N$ being the total number of filters
 \begin{equation}
-    \begin{aligned}
-        \tau_{\text{min}} &= \min(\tau) \\
-        \mathcal{C}_i &= \frac{\tau_i}{\tau_{\text{min}}} & i=1,\dots,N.
-    \end{aligned}
+\begin{aligned}
+\tau_{\text{min}} &= \min(\tau) \\
+\mathcal{C}_i &= \frac{\tau_i}{\tau_{\text{min}}} & i=1,\dots,N.
+\end{aligned}
 \end{equation}
-The total time complexity is relative to the machine running the particle simulation. Hence, using a normalized scale for $\tau$ maintains repeatability across different environments, as each particle filter is designed in software such that the time complexity is linearly-dependent on the amount of particles. The error of the estimators will be represented as the mean squared error $\,\text{MSE}$  of the true blood glucose concentration sequence $G$ and an estimated blood glucose concentration sequence $\hat{G}$ of length $L$\begin{align}
-    \,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left(G_i[j] - \hat{G}_i[j]\right)^2 & i=1,\dots,K.
+The total time complexity is relative to the machine running the particle simulation. Hence, using a normalized scale for $\tau$ maintains repeatability across different environments, as each particle filter is designed in software such that the time complexity is linearly dependent on the amount of particles. The error of the estimators will be represented as the mean squared error \gls{MSE} of the true blood glucose concentration sequence $G$ and an estimated blood glucose concentration sequence $\hat{G}$ of length $L$\begin{align}
+\,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left(G_i[j] - \hat{G}_i[j]\right)^2 & i=1,\dots,K.
 \end{align}
-A Pareto curve can be utilized to visualize the "optimal" number of particles in terms of the trade off between computational complexity and error. The resulting number of particles needed per dimension will be calculated to gauge the rough number of particles needed to include additional parameters in the state-space in the following section. 
+A Pareto curve can be utilized to visualize the "optimal" number of particles in terms of the trade-off between computational complexity and error. The resulting number of particles needed per dimension will be calculated to gauge the rough number of particles needed to include additional parameters in the state-space in the following section. 
 
 \section{Parameter Estimation}
 
-The Integral-based Parameter Identification method introduced in Section \ref{sec:integral} will be the baseline implementation of estimating insulin sensitivity $\,S_I$ in patients and will be compared against the extended Kalman filter and the particle filter with state augmentation. Each method will try to estimate a constant insulin sensitivity and a piecewise insulin sensitivity that steps to a new value twice throughout the experiment to draw conclusions on the limitations of each estimator. The simulation will last for 60 hours, as changes in $S_I$ are relatively slow in time, with discrete time-steps of 1 minute. There will be 500 total patients, and each filter will get an initial state with a $\pm10\%$ deviation from the true initial state. At 20 and 40 hours, the piecewise insulin sensitivity will be randomly assigned a new value $S_{I,1}$ represented from the current value $S_{I,0}$ 
+The \gls{IPI} method introduced in Section \ref{sec:integral} will be the baseline implementation of estimating insulin sensitivity $\,S_I$ in patients and will be compared against the extended Kalman filter and the particle filter with state augmentation. Each method will try to estimate a constant insulin sensitivity and a piecewise insulin sensitivity that steps to a new value twice throughout the experiment to draw conclusions on the limitations of each estimator. The simulation will last for 60 hours, as changes in $S_I$ are relatively slow in time, with discrete time-steps of 1 minute. There will be 500 total patients, and each filter will get an initial state with a $\pm10\%$ deviation from the true initial state. At 20 and 40 hours, the piecewise insulin sensitivity will be randomly assigned a new value $S_{I,1}$ represented from the current value $S_{I,0}$ 
 \begin{equation} \label{eq:piecewise}
     \begin{aligned}
         q &\sim \mathbb{U}[0.75, \,0.95] \\
@@ -1395,7 +1392,7 @@ The multiplicative noise variance $\sigma_{S_I}^2$ will be chosen for the desire
 \end{equation}
 Each estimate in the extended Kalman filter and the particle filter will include sampling from the additive process noise distribution from Equation \eqref{eq:processnoise}, but the insulin sensitivity estimate is multiplied with a sampled random variable in Equation \eqref{eq:multnoise}.
 
-The extended Kalman filter configuration for this section will be the following
+The extended Kalman filter configuration for this section will roughly be the following
 \begin{enumerate}
     \item Initial covariance matrix of 
         \begin{align}
@@ -1430,12 +1427,12 @@ The extended Kalman filter configuration for this section will be the following
             R = 0.125.
         \end{align}
 \end{enumerate}
-For a constant insulin sensitivity, the coefficient of variation can be assigned a smaller magnitude, as the estimator doesn't need to accommodate for larger deviations in the estimate. The initial covariance of the particles in the particle filter take the same value as Equation \eqref{eq:processVary}.
-The particle filter will contain the extrapolated "optimal" number of particles chosen from the previous section to accommodate for another dimension in the state-space. Assessing the estimation of the insulin sensitivity will be evaluated using the mean squared error of the true insulin sensitivity $\,S_I$ and the estimated insulin sensitivity $\hat{\,S_I}$ for a given patient $i$, and a insulin sensitivity measurement of length L
+For a constant insulin sensitivity, the coefficient of variation can be assigned a smaller magnitude, as the estimator doesn't need to accommodate for larger deviations in the estimate. The initial covariance of the particles in the particle filter has the same value as Equation \eqref{eq:processVary}.
+The particle filter will contain the extrapolated "optimal" number of particles chosen from the previous section to accommodate another dimension in the state-space. Assessing the estimation of the insulin sensitivity will be evaluated using the \gls{MSE} of the true insulin sensitivity $\,S_I$ and the estimated insulin sensitivity $\hat{\,S_I}$ for a given patient $i$, and a insulin sensitivity measurement of length L
 \begin{equation}
-    \begin{aligned}
-        \,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left({\,S_I}_i[j] - \hat{\,S_I}_i[j]\right)^2.
-    \end{aligned}
+\begin{aligned}
+\,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left({\,S_I}_i[j] - \hat{\,S_I}_i[j]\right)^2.
+\end{aligned}
 \end{equation}
 
 In the next chapter, the results of the virtual patient cohort generation, observability, state estimation, and parameter estimation will be presented and analyzed.
@@ -1443,7 +1440,7 @@ In the next chapter, the results of the virtual patient cohort generation, obser
 \chapter{Results}
 \label{ch:resultsAndAnalysis}
 
-\section{Synthetic Patient Cohort}
+\section{Synthetic Patient Cohort} \label{sec:cohortResults}
 Approximating probability mass functions was used to analyze the characteristics of the target population of critically-ill patients in the Karolinska University Hospital. Figure \ref{fig:cohort} is divided into two subfigures, with Figure \ref{fig:cohortInput} consisting of the probability mass functions of the inputs $\,u_{\,ex},\,D,\text{ and }\,PN$, as well as the insulin sensitivity parameter $\,S_I$, and Figure \ref{fig:cohortDynamic} is visualizing the probability mass functions of the derived initial dynamics $\,G,\,I,\,Q,\,P_1,\,P_2,\,P,\,u_{\,en}$.
 
 When numerous virtual patients were sampled, the figures present a diverse distribution of realistic initial dynamics from the randomly assigned inputs and insulin sensitivity. This allowed for sampling of many unique variations of patient dynamics over time without relying on manual interventions. Previous work in virtual patient cohorts in glycaemic control was often limited to perturbations in previously recorded clinical data \cite{lotz_monte_2008} or from integral-fitting \cite{lin_physiological_2011} \cite{hann_integral-based_2005}, but in this approach, a clear computational method towards reproducible generation of patient data was made feasible to analyze and compare the methods in the following sections.
@@ -1476,7 +1473,7 @@ Overall, the \gls{ICING} model can not be classified as observable. For a system
     \centering 
     \begin{subfigure}{0.48\linewidth}
         \includegraphics[width=0.80\linewidth]{figures/5_3.pdf}
-        \caption[Empirical Observability Gramian PMF]{Probability mass function of the eigenvalues}
+        \caption[Empirical Observability Gramian Histogram]{Histogram of the eigenvalues}
         \label{fig:observabilityPMF}
     \end{subfigure}
     \hfill
@@ -1489,7 +1486,33 @@ Overall, the \gls{ICING} model can not be classified as observable. For a system
 \end{figure}
 
 \section{Nonlinear State Estimation}
-In the first stage of comparing different nonlinear state estimators, each estimator is given an initial state that has a deviation in each state from the true initial state. The notation of the extended Kalman filter is abbreviated as EKF and for a particle filter with N particles, it is represented as PF N. The mean squared error is averaged among all patients for each deviation in Table \ref{tab:estimators}, as well as the standard deviation SD of the error, and an average mean squared error across all deviations is calculated. The extended Kalman filter overall performs the worst compared to the particle filters. When there are large deviations in the initial state of $\pm 25\%$, the mean squared error (0.265, 0.117) and the standard deviation (0.85, 0.55) are large respectively in comparison to a particle filter with only 100 particles (MSEs of 0.057 and 0.038, SDs of 0.17 and 0.12). Such improvements in performance with only using 100 particles, highlight the particle filter's ability to adapt quickly to errors in the state estimates when resampling after the initial measurement, compared to the extended Kalman filter that is dynamically propagating a point estimate of states. In the deviations of $\pm2\%$ and $+10\%$, the extended Kalman filter outperforms or is comparable to the particle filters. It is a possibility that when resampling happens at the beginning of the simulation, regardless of the deviation, that the particle filter may be over-correcting because of the error till it adjusts after receiving another measurement. 
+In the first stage of comparing different nonlinear state estimators, each estimator is given an initial state that has a deviation in each state from the true initial state. The \gls{MSE} is averaged among all patients for each deviation in Table \ref{tab:estimators}, as well as the standard deviation SD of the error, and an average \gls{MSE} across all deviations is calculated. The distribution of dynamics from Section \ref{sec:cohortResults} allows for the corresponding initial and process noise covariance matrices
+\begin{equation}
+\setlength{\arraycolsep}{2pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{aligned}
+P_{0} &= \mathrm{diag}\!\left(
+\begin{bmatrix}
+1.00\\
+3.00\\
+3.00\\
+1.00\\
+2.00\\
+1.00
+\end{bmatrix}\right)\\[4pt]
+Q &= \frac{1}{120}\mathrm{diag}\!\left(
+\begin{bmatrix}
+5.00\times10^{-3}\\
+1.00\\
+1.00\\
+5.00\times10^{-3}\\
+2.50\times10^{-2}\\
+1.00\times10^{-8}
+\end{bmatrix}\right).
+\end{aligned}
+\end{equation}
+
+The extended Kalman filter overall performs the worst compared to the particle filters. When there are large deviations in the initial state of $\pm 25\%$, the \gls{MSE} (0.265, 0.117) and the standard deviation (0.85, 0.55) are large respectively in comparison to a particle filter with only 100 particles (MSEs of 0.057 and 0.038, SDs of 0.17 and 0.12). Such improvements in performance with only using 100 particles, highlight the particle filter's ability to adapt quickly to errors in the state estimates when resampling after the initial measurement, compared to the extended Kalman filter that is dynamically propagating a point estimate of states. In the deviations of $\pm2\%$ and $+10\%$, the extended Kalman filter outperforms or is comparable to the particle filters. It is a possibility that when resampling happens at the beginning of the simulation, regardless of the deviation, that the particle filter may be over-correcting because of the error till it adjusts after receiving another measurement. 
 \newcommand{\sd}[1]{{\footnotesize\color{gray}(#1)}}
 \begin{table}
     \centering
@@ -1555,7 +1578,7 @@ In the first stage of comparing different nonlinear state estimators, each estim
     \label{tab:estimators}
 \end{table}
 
-To compare the overall performance of the filters, it is helpful to analyze Figure \ref{fig:estPerf}. The x-axis is the computational complexity of each estimator. The minimum time to run amongst all the estimators was the extended filter. Thus, its computational complexity is 1. The computational complexity of the rest of the estimators is the multiple of time to run relative to the extended Kalman filter. The y-axis is the average mean squared error for all deviations of the initial states, plotted in the log-domain. In terms of error, there is a plateau in improvements in performance after 750 particles. The subjective "optimum" number of particles was chosen as 750 particles, as there is a balance of moderate performance and lower computational cost. It was assumed that for each dimension in the state space (total of 6), the number of particles needed $P$ grows exponentially with a power of 2, which allows $P$ to be estimated using the determined "optimal" number of particles
+To compare the overall performance of the filters, it is helpful to analyze Figure \ref{fig:estPerf}. The x-axis is the computational complexity of each estimator. The minimum time to run amongst all the estimators was the extended filter. Thus, its computational complexity is 1. The computational complexity of the rest of the estimators is the multiple of time to run relative to the extended Kalman filter. The y-axis is the average \gls{MSE} for all deviations of the initial states, plotted in the log-domain. In terms of error, there is a plateau in improvements in performance after 750 particles. The subjective "optimum" number of particles was chosen as 750 particles, as there is a balance of moderate performance and lower computational cost. It was assumed that for each dimension in the state space (total of 6), the number of particles needed $P$ grows exponentially with a power of 2, which allows $P$ to be estimated using the determined "optimal" number of particles
 \begin{equation}
     \begin{aligned}
         750 &= P \times 2^6 \\
@@ -1581,20 +1604,60 @@ The chosen "optimal" number of particles is much less computationally expensive 
 
 \section{Parameter Estimation}
 
-State augmentation of insulin sensitivity in the extended Kalman filter and the particle filter was implemented to compare the estimation performance of the existing state estimators against the Integral-based Patient Identification method. Both constant and time-varying insulin-sensitivity were used to investigate how characteristics of the parameter affect estimation. Figures \ref{fig:paramConstant} and \ref{fig:paramPiece} display the performance of each method according to the time dependency of the parameter. MARD in these figures depicts the mean error for each time step, not the length of the sequence. 
+State augmentation of insulin sensitivity in the extended Kalman filter and the particle filter was implemented to compare the estimation performance of the existing state estimators against the Integral-based Patient Identification method. To accommodate the inclusion of the insulin sensitivity in the state-space, the initial and process noise covariance is appended as such
+\begin{align}
+P_{0} &= \mathrm{diag}\!\left(
+\begin{bmatrix}
+1.00\\
+3.00\\
+3.00\\
+1.00\\
+2.00\\
+1.00 \\
+1.00 \times 10^{-5}
+\end{bmatrix}\right) \notag \\
+Q_{\text{ constant } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
+\begin{bmatrix}
+5.00\times10^{-3}\\
+1.00\\
+1.00\\
+5.00\times10^{-3}\\
+2.50\times10^{-2}\\
+1.00\times10^{-8}\\
+8.00\times10^{-4}
+\end{bmatrix}\right)\\
+Q_{\text{ time-varying } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
+\begin{bmatrix}
+5.00\times10^{-3}\\
+1.00\\
+1.00\\
+5.00\times10^{-3}\\
+2.50\times10^{-2}\\
+1.00\times10^{-8}\\
+0.33
+\end{bmatrix}\right) \notag .
+\end{align}
+Both constant and time-varying insulin-sensitivity were used to investigate how characteristics of the parameter affect estimation. Figures \ref{fig:integralMethod} and \ref{fig:siMSE} display the performance of each method according to the time dependency of the parameter. MSE in these figures depicts the mean error for each time step, not the length of the sequence. 
 
-The Integral-based Parameter Identification method in both examples fluctuates between 0.05 and 0.07 MARD. The Integral-based Parameter Identification method can not account for measurement noise in the calculation. Therefore, the performance is partially dependent on the quality of the measurements. Any estimation of the insulin sensitivity from the Integral-based Parameter Identification method does not provide any information on the insulin sensitivity, as the output never converges towards the true value(s).
-
-In Figure \ref{fig:paramConstant}, both the extended Kalman filter and the particle filter converge towards the true insulin sensitivity. The extended Kalman filter on average plateaus in the estimation of the insulin sensitivity around 0.03 MARD, while the particle filter with 1020 particles on average roughly converges to the true value. The extended Kalman filter often has higher variance in the estimate because particle filters average the variance over all the particles. Thus, the extended Kalman filter can also converge to the true value, but on average performs worse than the particle filter. In the time-varying parameter estimation case, when the insulin sensitivity randomly steps to a new value at 30 hours, it can be seen in Figure \ref{fig:paramPiece}, that the particle filter struggles to converge to the new true value compared to the extended Kalman filter. Before the insulin sensitivity steps to a new value at 1800 minutes, the particle filter roughly converged to true insulin sensitivity. As a result, many particles in the state-space were near the true value with most of the weight centered around those particles. When the insulin-sensitivity changes, there is sample impoverishment, and it takes a long time to propagate the particles throughout the state-space. While in the extended Kalman filter, the extended Kalman filter has higher variance in the covariance estimate $P_k$ of the insulin-sensitivity and can slowly converge to the new true value. Further comments on how to mitigate the sample impoverishment in the particle filters will be discussed in the future work section in Chapter \ref{ch:conclusions}. To conclude, the overall performance of each method in both parameter estimation scenarios is shown in Table \ref{tab:param}, with the particle filter with the lowest MARD in estimating constant $S_I$, and the extended Kalman filter performing the best in the time-varying $S_I$ case.
+The \gls{IPI} method in Figure \ref{fig:integralMethod} illustrates how the estimation accuracy degrades if measurement noise is present in the calculation. Therefore, the performance is dependent on the quality of the measurements. Any estimation of the insulin sensitivity from the \gls{IPI} method does not provide any information on the insulin sensitivity, as the output never converges towards the true value(s) in a practical setting with noisy measurements. For this reason, the \gls{IPI} method is taken out of the comparison of the extended Kalman filter and particle filter in the following section.
 \begin{figure}
     \centering
-    \includegraphics[width=0.80\linewidth]{figures/5_10.pdf}
-    \caption{Mean MSE over time in parameter estimation methods estimating insulin sensitivity}
+    \includegraphics[width=0.98\linewidth]{figures/5_11.pdf}
+    \caption{Integral-based method insulin sensitivity estimation performance across varying measurement noise variances.}
+    \label{fig:integralMethod}
 \end{figure}
 
+In Figure \ref{fig:siMSE}, both the extended Kalman filter and the particle filter converge towards the true insulin sensitivity for a constant insulin sensitivity. The extended Kalman filter on average plateaus in the estimation of the insulin sensitivity around a MSE of $10^{-10}$, while the particle filter with 1500 particles on average roughly converges closer to the true value with roughly a MSE close to $10^{-11}$. The extended Kalman filter often has higher variance in the estimate because particle filters average the variance over all the particles. Thus, the extended Kalman filter can also converge to the true value, but on average performs worse than the particle filter.
+
+In the time-varying parameter estimation case, it can be seen in Figure \ref{fig:siMSE} that the extended Kalman filter struggles to converge compared to the particle filter. This can be attributed to the extended Kalman filter's linearization approximation in the dynamic models, as when having a parameter transition to a new value quickly, the mismatch in the Jacobian linearization causes the filter to diverge. About 30\% of the extended Kalman filter runs (150 patients) diverged, and had to be discarded entirely. Consequently, the extended Kalman filter is unreliable regarding unaccounted for changes in the parameters of interest. The particle filter can be seen to adapt when the insulin sensitivity steps to a new value at 1200 and 2400 mins. The particle filter largely remains unaffected by the stationarity of the insulin-sensitivity due to the particle filter's ability to approximate nonlinear and nongaussian dynamic models, unlike the extended Kalman filter. To conclude, the overall performance in parameter estimation is shown in Table \ref{tab:siResult}, with the particle filter achieving the lowest MSE in estimating both constant and time-varying insulin sensitivity.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{figures/5_10.pdf}
+    \caption{Mean MSE over time in parameter estimation methods estimating insulin sensitivity.}
+    \label{fig:siMSE}
+\end{figure}
 \begin{table}
 \centering
-
 \begin{subtable}{0.96\textwidth}
 \centering
 \setlength{\tabcolsep}{6pt}
@@ -1613,11 +1676,10 @@ PF 1500 & $7.21 \times 10^{-10}$ & $7.02 \times 10^{-10}$ & $7.11 \times 10^{-10
 \bottomrule
 \end{tabular}
 \end{subtable}\vfill
-
 \begin{subtable}{0.96\textwidth}
 \centering
 \setlength{\tabcolsep}{6pt}
-\caption{Piecewise $S_I$}
+\caption{Time-varying $S_I$}
 \begin{tabular}{l c c c}
 \toprule
 \textbf{Method} &
@@ -1632,8 +1694,8 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 \bottomrule
 \end{tabular}
 \end{subtable}
-\label{tab:pa}
 \caption{Comparison of the mean MSE in parameter estimation methods estimating insulin sensitivity. Standard deviations of the MSE are shown in parentheses.}
+\label{tab:siResult}
 \end{table}
 
 % \begin{table}
@@ -1688,15 +1750,15 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 % \end{proof}
 
 
-\section{Reliability Analysis}
-% \sweExpl{Analys av tillförlitlighet\\
-% Tillförlitlighet i metod och data}
-To ensure the reliability of each section, numerous virtual patients were used to best represent the target population of critically-ill patients in the Karolinska University Hospital. Having many simulations reduces the likelihood that a different permutation of the patient cohort will change the result of the experiment. All patient cohort characteristics and filter parameters are clearly documented in the report, and in the source code to ensure repeatability of the experiment, if someone else chooses to replicate the study. 
+% \section{Reliability Analysis}
+% % \sweExpl{Analys av tillförlitlighet\\
+% % Tillförlitlighet i metod och data}
+% To ensure the reliability of each section, numerous virtual patients were used to best represent the target population of critically-ill patients in the Karolinska University Hospital. Having many simulations reduces the likelihood that a different permutation of the patient cohort will change the result of the experiment. All patient cohort characteristics and filter parameters are clearly documented in the report, and in the source code to ensure repeatability of the experiment, if someone else chooses to replicate the study. 
 
-\section{Validity Analysis}
-% \sweExpl{Analys av validitet\\
-% Validitet i metod och data}
-In the patient cohort generation, the inputs and parameters are chosen from clinically validated values. To identify the initial patient dynamics, it is assumed that the patient is at steady-state. Assuming the patient is at steady-state is a valid assumption, as the patient generally do not have external nutrition right before the start of their stay. Given these assumptions, the characteristics of the initial patient dynamics are also valid. When typically assessing observability in nonlinear systems, empirical methods are used as typical observability calculations are not tractable. Previous work in the field of glycaemic control and other fields used the empirical observability gramian as a tool to gauge how observable the dynamics are. While the exact values of the eigenvalues or the observability gramian are just approximations, they are valid as a guide to assess the behavior of the model of interest. Regarding state and parameter estimation, performance is typically measured on some error metric to gauge performance, which validates the choice of using mean squared error and mean absolute relative difference. Overall, all the design choices to answer the research questions are based on validated assumptions clinically or from previous work in state and parameter estimation.
+% \section{Validity Analysis}
+% % \sweExpl{Analys av validitet\\
+% % Validitet i metod och data}
+% In the patient cohort generation, the inputs and parameters are chosen from clinically validated values. To identify the initial patient dynamics, it is assumed that the patient is at steady-state. Assuming the patient is at steady-state is a valid assumption, as the patient generally do not have external nutrition right before the start of their stay. Given these assumptions, the characteristics of the initial patient dynamics are also valid. When typically assessing observability in nonlinear systems, empirical methods are used as typical observability calculations are not tractable. Previous work in the field of glycaemic control and other fields used the empirical observability gramian as a tool to gauge how observable the dynamics are. While the exact values of the eigenvalues or the observability gramian are just approximations, they are valid as a guide to assess the behavior of the model of interest. Regarding state and parameter estimation, performance is typically measured on some error metric to gauge performance, which validates the choice of using \gls{MSE} and mean absolute relative difference. Overall, all the design choices to answer the research questions are based on validated assumptions clinically or from previous work in state and parameter estimation.
 
 \cleardoublepage
 \chapter{Conclusions}
