@@ -12,9 +12,9 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Example patient's blood glucose and measurement}}{16}{figure.caption.6}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Virtual Patient Cohort Histograms}}{26}{figure.caption.7}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Analysis across all calculated empirical observability gramians.}}{27}{figure.caption.8}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Synthetic Patient Cohort Histograms}}{26}{figure.caption.7}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Empirical observability gramians}}{27}{figure.caption.8}%
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Estimator Comparison}}{30}{figure.caption.10}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Integral-based method insulin sensitivity estimation performance across varying measurement noise variances.}}{32}{figure.caption.11}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Mean MSE over time in parameter estimation methods estimating insulin sensitivity.}}{33}{figure.caption.12}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Integral-based method analysis}}{32}{figure.caption.11}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Performance of parameter estimation across time}}{33}{figure.caption.12}%
 \addvspace {10\p@ }
