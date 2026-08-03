@@ -692,7 +692,7 @@ Patients in the intensive care unit suffering from critical illnesses (e.g. acut
 % delimit what you are going to do and what others have done or will do.}
 
 
-The implementation of model-based tight glucose control methods relies on the derivation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005} \cite{compte_blood_2009}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose dynamics in patients. In practice, the estimated dynamics from the insulin-glucose models contain process noise from unaccounted dynamics in the model formulation, as well as noisy measurements. As a direct result, the insulin-glucose dynamics in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the dynamics in mechanistic insulin-glucose models. 
+The implementation of model-based tight glucose control methods relies on the derivation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005} \cite{compte_blood_2009}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose states in patients. In practice, the estimated states from the insulin-glucose models are affected by process noise from unmodeled states (and/or parameters) in the model formulation and from noisy measurements. As a direct result, the insulin-glucose states in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the states in mechanistic insulin-glucose models. 
 
 % The patient parameters used in such models must reflect glucose-insulin dynamics observed physiologically to accurately model gluco-regulation. Mechanistic insulin-glucose models published have traditionally assigned patient parameters as population constants, backed by parameter sensitivity analysis studies. There are data-driven methods to approximate some patient parameters as shown in \cite{lin_physiological_2011} \cite{compte_blood_2009}, but a lack has been implemented with noisy measurements being taken into account. 
 
@@ -702,13 +702,13 @@ The implementation of model-based tight glucose control methods relies on the de
 % This paper introduces a more robust approach to patient-specific parameter identification by formulating an estimator model. Instead of relying on fitting error metrics as the basis of parameter choice, leveraging bayesian estimation can improve the patient-specific parameter estimates used in dynamic mechanistic glucose-insulin models \cite{ninness_bayesian_2010}. Improved parameter estimates will result in enhanced glycaemic control and can further reduce hypoglycaemia, mortality, and morbidity in critically ill patients.
 
 \subsection{Original problem and definition}
-There currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose dynamics. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012}, but they lack necessary evaluation and motivation regarding the patient cohort and the filter design process. While patient inputs differ among institutions due to differing nutrition guidelines and stay times for patients, a systematic synthetic patient cohort framework would greatly improve the simulation of diverse patient dynamics and experiment reproducibility, as real patient data are often limited in size and closed-source. Concurrently, concise  parameterization and optimization of Bayesian filters will further improve glycaemic control in critically ill patients.
+There currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose states. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012}, but they lack necessary evaluation and motivation regarding the patient cohort and the filter design process. While patient inputs differ among institutions due to differing nutrition guidelines and stay times for patients, a systematic synthetic patient cohort framework would greatly improve the simulation of diverse patient dynamics and experiment reproducibility, as real patient data are often limited in size and closed-source. Concurrently, concise  parameterization and optimization of Bayesian filters will further improve glycaemic control in critically ill patients.
 
 
 % evidence shown in sensitivity studies that certain patient-specific parameters do not have much influence in the insulin-glucose dynamics \cite{chase_model-based_nodate} \cite{hann_integral-based_2005} \cite{compte_blood_2009}, inadequate assigning of the remaining parameters can lead to inadequate glycaemic control in critically ill patients. 
 
 \subsection{Scientific and engineering issues}
-To model the behavior of dynamical systems, experience of statistical modeling is often required to construct assumptions of the system parameters. In the case of the representation insulin-glucose dynamics, there are several unknown parameters, and each has its respective role in modeling gluco-regulation. As a result, on top of estimating nonlinear and time-varying dynamics, the models must be robust to misalignments of the assigned parameters, which poses an ongoing challenge. 
+To model the behavior of dynamical systems, experience of statistical modeling is often required to construct assumptions of the system parameters. In the case of the representation insulin-glucose dynamics, there are several unknown parameters, and each has its respective role in modeling gluco-regulation. As a result, on top of estimating nonlinear and time-varying states, the models must be robust to misalignments of the assigned parameters, which poses an ongoing challenge. 
 
 % System identification can be employed to model the behavior of dynamical systems. Experience of statistical modeling within system identification is often required to construct the assumptions of the system parameters. In the case of insulin-glucose dynamics, there are several unknown patient-specific parameters, and each has its respective role in modeling gluco-regulation. As a result, identifying key patient-specific parameters and the methods to model them are not intuitive, and poses an ongoing challenge.
 
@@ -716,7 +716,7 @@ To model the behavior of dynamical systems, experience of statistical modeling i
 % \generalExpl{State the purpose  of your thesis and the purpose of your degree project.\\
 % Describe who benefits and how they benefit if you achieve your goals. Include anticipated ethical, sustainability, social issues, etc. related to your project. (Return to these in your reflections in Section~\ref{sec:reflections}.)}
 
-Mechanistic insulin-glucose models are of great benefit to critically ill patients and clinicians, as modeling gluco-regulation allows for necessary glycaemic adjustments to avoid the onset of adverse outcomes. In practice, clinicians only have the ability to base insulin resistance on blood glucose measurements, and thus, state estimators models fill in the gap as a tool for insulin-glucose dynamics estimation. Improvements in the estimation of insulin-glucose dynamics can better capture the evolution of the health of the patient in the intensive care unit to prevent mortality and morbidity.
+Mechanistic insulin-glucose models are of great benefit to critically ill patients and clinicians, as modeling gluco-regulation allows for necessary glycaemic adjustments to avoid the onset of adverse outcomes. In practice, clinicians only have the ability to base insulin resistance on blood glucose measurements, and thus, state estimators models fill in the gap as a tool for insulin-glucose state estimation. Improvements in the estimation of insulin-glucose states can better capture the evolution of the health of the patient in the intensive care unit to prevent mortality and morbidity.
 
 \section{Goals} \label{sec:goals}
 % \sweExpl{Mål}
@@ -728,7 +728,7 @@ The overall goals of this project has been divided into the following sub-goals:
 \begin{enumerate}
 \item Design a synthetic patient cohort
 % \sweExpl{för att tillfredsställa ingenjörssamfundet och vetenskapen – akademin) }
-\item Compare performance of varying filtering configurations in estimation of insulin-glucose dynamics
+\item Compare performance of varying filtering configurations in estimation of insulin-glucose states
 \item Extrapolate the formulation of insulin-glucose estimators to estimate unknown parameters in patients
 % \sweExpl{eventuellt, för att uppfylla kursmålen – du som student}
 \end{enumerate}
@@ -759,7 +759,7 @@ Chapter \ref{ch:background} will introduce the existing modeling of insulin-gluc
 \chapter{Background}
 \label{ch:background}
 
-The background will introduce the theoretical concepts and prior work relevant to the paper. The \gls{ICING} model will be presented to lay the foundation of insulin-glucose modeling, and how state estimation methods can be applied to estimate dynamics optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
+The background will introduce the theoretical concepts and prior work relevant to the paper. The \gls{ICING} model will be presented to lay the foundation of insulin-glucose modeling, and how state estimation methods can be applied to estimate states optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
 
 \section{Intensive Control Insulin-Nutrition-Glucose Model}
 The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} contains the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
@@ -817,7 +817,7 @@ The \gls{ICING} model also involves several parameters alongside the previously 
     \end{threeparttable}
 \end{table}
 
-It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous time. Discretization of the dynamic system is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta$, an example dynamic $F(t)$ can be discretized according to the Euler method
+It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous-time. Discretization of the model is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta$, an example state $F(t)$ can be discretized according to the Euler method
 \begin{equation}
 \begin{aligned}
 \dot{F} &\approx \frac{F(t_{k}) - F(t_{k} - \Delta)}{\Delta} \\
@@ -828,7 +828,7 @@ The error of this numerical approximation of differential equations is bounded b
 
 \section{State Estimation}\label{sec:state}
 
-Within the scope of this paper, discrete-time dynamical systems will be modeled in the state-space representation. A state-space model consists of system variables that describe the state of the system, inputs, and measurements. The states are typically formulated as linear or nonlinear differential equations. A probabilistic representation of the discrete-time state-space can be represented as such
+Within the scope of this paper, discrete-time dynamical systems will be modeled in the state-space representation. A state-space model consists of system variables that describe the state of the system, inputs, and measurements. The states are typically formulated as linear or nonlinear equations. A probabilistic representation of the discrete-time state-space can be represented as such
 \begin{equation} \label{eq:prob1}
 \begin{aligned}
 x_{k} &\sim p(x_{k} \mid x_{k-1},\,u_{k-1}) \\
@@ -837,7 +837,7 @@ y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{equation}
 where $p(x_{k} \mid x_{k-1},\,u_{k})$ and $p(y_{k} \mid x_{k})$ are the stochastic discrete-time dynamic and measurement models, with $x_{k} \in\mathbb{R}^n $ representing the states, $u_{k} \in\mathbb{R}^p$ are the inputs, and $y_{k} \in\mathbb{R}^m$ are the measurements.
 
-Any dynamic model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unaccounted dynamics. Choices in the specifics regarding the modeling of process noise of insulin-glucose dynamics will be discussed in Chapter \ref{ch:methodology}.
+Any model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unmodeled dynamics. Choices in the specifics regarding the modeling of process noise of insulin-glucose states will be discussed in Chapter \ref{ch:methodology}.
 
 The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
@@ -877,7 +877,7 @@ The Kalman filter is recursive, as the filter starts with an estimate of the ini
 
 \subsection{Extended Kalman filter}
 
-The extended Kalman filter can accommodate the nonlinearities in the \gls{ICING} model by approximating the dynamic and measurement models as a linear transformation of the states and inputs. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
+The extended Kalman filter can accommodate the nonlinearities in the \gls{ICING} model by approximating the dynamic and measurement models as a linear transformation of the states, inputs, and measurements. The structure of the extended Kalman filter remains the same as the Equations \eqref{eq:Predict_kf} and \eqref{eq:Update_kf}, but changes are seen in the matrices of the dynamic and measurement models $f(\cdot)$ and $h(\cdot)$. Assuming that the dynamic and measurement models are Gaussian, the prediction and update steps \cite{sarkka_bayesian_nodate} can be defined as
 \begin{enumerate}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
@@ -910,13 +910,7 @@ the Jacobian matrices $F_x(m_k^-)$, $F_q(m_k^-)$, $H_x(m_k^-)$, and $H_r(m_k^-)$
 The intrinsic bottleneck of the extended Kalman filter can be ascribed to the Gaussian formulation of the state update equations. Any deviations from Gaussianity in the posterior will directly degrade the estimation capabilities of the estimator. Another type of state estimation method is the particle filter, which can accommodate nonlinear and nongaussian dynamic and measurement models by using point estimates from a Monte Carlo approximation of the posterior $p(x_k \mid y_{1:k})$.
 
 \subsection{Bootstrap particle filter} \label{sec:particle}
-For state-space modeling, the dynamic and measurement models are run sequentially such that $x_k$ and $y_k$ are represented as a Markov Chain
-\begin{equation}
-    \begin{aligned}
-        x_k &\sim p(x_k \mid x_{k-1},\,u_{k-1}) \\
-        y_k &\sim p(y_k \mid x_k)
-    \end{aligned}
-\end{equation}
+For state-space modeling, the dynamic and measurement models are run sequentially such that $x_k$ and $y_k$ are represented as a Markov Chain seen in Equation \eqref{eq:prob1}.
 In the Kalman filter case, such dynamic and measurement models were assumed to be linear and Gaussian. As a result, the posterior of the state $p(x_k \mid y_k)$ was derived as a linear transformation of the mean and covariance. For the bootstrap particle filter, the posterior of the state is formulated as a Monte Carlo approximation, with $x_k^{(i)}$ denoting a randomly sampled state for $N$ total particles
 
 \begin{equation} \label{eq:markov}
@@ -971,7 +965,7 @@ The steps to implement to formulate the bootstrap particle fiter iteratively can
 \end{enumerate}
 
 \subsection{Observability in Nonlinear Discrete-Time State-Space Models} \label{sec: obs}
-Analyzing observability in linear and nonlinear systems assesses how well the dynamics of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into the states with the most influence on the output by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability.
+Analyzing observability in linear and nonlinear systems assesses how well the states of the model can be inferred from the observations. The observability gramian $W_O$ has traditionally been used in model reduction of linear dynamic systems, but empirical methods have been adapted to accommodate nonlinear systems \cite{hahn_improved_2002}. The observability gramian provides insight into the states with the most influence on the output by analyzing the rank condition of the observability gramian matrix, which in return allows for analytically evaluating observability.
 
 To empirically calculate the observability gramian, $2^n$ unique combinations of the initial state $x_0 \in \mathbb{R}^n$ are generated, with $n$ denoting the numbers of states \cite{eberle_identifiability_2012} \cite{hahn_improved_2002} \cite{geffen_observability_2008}.
 The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mathbb{R}^n$ around a nominal value $x_{\,nom} \in \mathbb{R}^n$
@@ -1013,7 +1007,7 @@ The new state perturbations are assigned as the transformation $\bar{x} = T_s x$
 To make inferences about of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. If there exists singular values near zero (e.g. $<0.1$), a subset of the dynamics of the system can not be observed from the measurements.
 
 \subsection{Related Work}
-Nonlinear state estimation of the \gls{ICING} model has been investigated in a previous study by Aguirre-Zapata et al. \cite{aguirre-zapata_glycemic_2017}. The study incorporated an additional measurement and dynamic due to their clinical facility having a continuous glucose machine that can measure the patient's interstitial glucose, but the formulation of patient dynamics otherwise remained the same. In the methodology of the paper, all tests regarding estimation performance are tested on deviations from one synthetic patient, with each deviation being assigned the same exogenous insulin input per deviation, and food intake is generally not considered. Overall, their synthetic patients do not constitute a reasonable patient model in comparison to real patients.
+Nonlinear state estimation of the \gls{ICING} model has been investigated in a previous study by Aguirre-Zapata et al. \cite{aguirre-zapata_glycemic_2017}. The study incorporated an additional measurement and dynamic due to their clinical facility having a continuous glucose machine that can measure the patient's interstitial glucose, but the formulation of patient insulin-glucose dynamics otherwise remained the same. In the methodology of the paper, all tests regarding estimation performance are tested on deviations from one synthetic patient, with each deviation being assigned the same exogenous insulin input per deviation, and food intake is generally not considered. Overall, their synthetic patients do not constitute a reasonable patient model in comparison to real patients.
 
 The study includes three state estimators: the extended Kalman filter, the unscented Kalman filter, and the particle filter. The majority of the study uses discrete time steps of 5 minutes. While the dynamics of patients develop relatively slowly, such a large time step can introduce approximation errors in the discretization of the ICING model. Another notable design choice is their particle filter containing 5000 total particles. Further analysis of various sized particle filters would motivate the overall trade-off estimation performance compared to the time complexity. State estimation remained in the scope of dynamics represented in the \gls{ICING} model and an additional interstitial glucose dynamic. As a result, there exists further development of state estimators to predict unrepresented \gls{ICING} model parameters as well.
 
@@ -1178,7 +1172,7 @@ Other methods not relying on linearization of the measurements must be explored 
 %   to each of them. This will also help you define the variables that you will
 %   use for your evaluation.}
 
-The \gls{ICING} model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the dynamics over time with consideration of model approximation errors and measurement noise. Consideration of realistic synthetic patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of \gls{IPI} is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
+The \gls{ICING} model provides a foundation to model glucose removal, insulin pharmacokinetics, and gastric absorption of glucose for tight glucose control in critically ill patients. Utilizing nonlinear state estimators such as the extended Kalman filter and the bootstrap particle filter allows for optimal estimation of the states over time with consideration of model approximation errors and measurement noise. Consideration of realistic synthetic patients and systematically motivated parameterization of filters will improve generalizability of the estimators. The current method of \gls{IPI} is formulated with strict assumptions of blood glucose measurements, which limits the ability for clinicians to infer the health of the patient from the approximated patient-specific parameters. More in-depth parameter estimation methods can improve model identifiability for glucoregulation in critically ill patients.
 
 \cleardoublepage
 \chapter{Methodology}
@@ -1215,7 +1209,7 @@ The \gls{ICING} model provides a foundation to model glucose removal, insulin ph
 % \label{sec:researchParadigm}
 % The philosophical motivation in this study is founded on utilizing a set of quantitative methods that serve the purpose of ultimately answering the previously stated research questions. The use of statistical metrics will quantitatively express the relationships of variables tested in the experiment. Consequently, the research questions will effectively be addressed. 
 
-The necessary methodology to achieve the goals introduced in Section \ref{sec:goals} will be presented in this chapter. It begins with the design of the synthetic patient cohort used for simulation of patients in this paper. The observability of the \gls{ICING} model is analyzed to learn if the dynamics can be inferred from the measurements. Based on the observed performance, nonlinear state estimators are utilized to assess the model's ability to estimate unmeasured dynamics. Finally, the parameter estimation methods used to estimate unknown constant and time-varying insulin sensitivity are introduced.
+The necessary methodology to achieve the goals introduced in Section \ref{sec:goals} will be presented in this chapter. It begins with the design of the synthetic patient cohort used for simulation of patients in this paper. The observability of the \gls{ICING} model is analyzed to learn if the states can be inferred from the measurements. Based on the observed performance, nonlinear state estimators are utilized to assess the model's ability to estimate unmeasured dynamics. Finally, the parameter estimation methods used to estimate unknown constant and time-varying insulin sensitivity are introduced.
 
 \section{Synthetic Patient Cohort}
 \label{sec:patientCohort}
@@ -1237,7 +1231,7 @@ S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
 % \caption{Probability Density Functions of the system inputs and parameters.}
 % \end{figure}
 
-To simulate patient data given the inputs and parameters, each synthetic patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the dynamics
+To simulate patient data given the inputs and parameters, each synthetic patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the filter
 \begin{align}
     x_0 &= \begin{bmatrix}
         G_0 & I_0 & Q_0 & \,P1_0 & \,P2_0 &  \,{u_{en}}_0
@@ -1280,10 +1274,10 @@ Given all the initial states, known insulin sensitivity, and the patient inputs,
 % In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating observability in insulin-glucose models, comparing state estimators, and then assessing parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics.
 
 \section{Observability of the Intensive Control Insulin-Nutrition-Glucose Model}
-In Section \ref{sec:patientCohort}, synthetic patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve the dynamics according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose dynamics, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose dynamics and the observations as previously discussed in Section \ref{sec: obs}.
+In Section \ref{sec:patientCohort}, synthetic patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve the dynamics according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose states, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose states and the observations as previously discussed in Section \ref{sec: obs}.
 
 1000 patients will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector.
-The maximum value of each state\footnote{\textbf{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.}} $x_{max}$ will be chosen as the maximum values of the patient cohort dynamics found in the previous section \ref{sec:patientCohort}
+The maximum value of each state\footnote{\textbf{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.}} $x_{max}$ will be chosen as the maximum values of the patient cohort states found in the previous section \ref{sec:patientCohort}
 \begin{equation}
 \begin{aligned}
 S &= \mathrm{diag}(x_{max}), \\
@@ -1439,9 +1433,9 @@ In the next chapter, the results of the synthetic patient cohort generation, obs
 \label{ch:resultsAndAnalysis}
 
 \section{Synthetic Patient Cohort} \label{sec:cohortResults}
-Approximating probability mass functions was used to analyze the characteristics of the target population of critically ill patients in the Karolinska University Hospital. Figure \ref{fig:cohort} is divided into two subfigures, with Figure \ref{fig:cohortInput} consisting of the histograms of the inputs $\,u_{\,ex},\,D,\text{ and }\,P_N$, as well as the insulin sensitivity parameter $\,S_I$, and Figure \ref{fig:cohortDynamic} is visualizing the histograms of the derived initial dynamics $\,G,\,I,\,Q,\,P_1,\,P_2,\,P,\,u_{\,en}$.
+Approximating probability mass functions was used to analyze the characteristics of the target population of critically ill patients in the Karolinska University Hospital. Figure \ref{fig:cohort} is divided into two subfigures, with Figure \ref{fig:cohortInput} consisting of the histograms of the inputs $\,u_{\,ex},\,D,\text{ and }\,P_N$, as well as the insulin sensitivity parameter $\,S_I$, and Figure \ref{fig:cohortDynamic} is visualizing the histograms of the derived initial states $\,G,\,I,\,Q,\,P_1,\,P_2,\,P,\,u_{\,en}$.
 
-Sampling numerous synthetic patients presented a diverse distribution of realistic initial dynamics from the randomly assigned inputs and insulin sensitivity. This allowed for sampling of many unique variations of patient dynamics over time without relying on manual interventions. Previous work in synthetic patient cohorts in glycaemic control was often limited to perturbations in previously recorded clinical data \cite{lotz_monte_2008} or from integral-fitting \cite{lin_physiological_2011} \cite{hann_integral-based_2005}, but in this approach, a clear computational method towards reproducible generation of patient data was made feasible to analyze and compare the methods in the following sections.
+Sampling numerous synthetic patients presented a diverse distribution of realistic initial states from the randomly assigned inputs and insulin sensitivity. This allowed for sampling of many unique variations of patient insulin-glucose states over time without relying on manual interventions. Previous work in synthetic patient cohorts in glycaemic control was often limited to perturbations in previously recorded clinical data \cite{lotz_monte_2008} or from integral-fitting \cite{lin_physiological_2011} \cite{hann_integral-based_2005}, but in this approach, a clear computational method towards reproducible generation of patient data was made feasible to analyze and compare the methods in the following sections.
 
 \begin{figure}
     \centering
@@ -1453,7 +1447,7 @@ Sampling numerous synthetic patients presented a diverse distribution of realist
     \vfill
     \begin{subfigure}{0.80\linewidth}
         \includegraphics[width=\linewidth]{figures/5_2.pdf}
-        \caption{Initial Dynamics}
+        \caption{Initial States}
         \label{fig:cohortDynamic}
     \end{subfigure}
     \caption[Synthetic Patient Cohort Histograms]{Histograms of characteristics of the synthetic patient cohort.}
@@ -1480,10 +1474,10 @@ To investigate the observability of the \gls{ICING} model, two methods were inve
 
 The blood glucose concentration $G$ is the most observable. This is to be expected as the observations in our state-space model are noisy blood glucose measurements. The blood glucose appearance in the stomach and the gut are the next observable states, with a median roughly of $2.95 \times10^{-2}$ and $3.07 \times10^{-2}$, as well as an approximate interquartile range of $4.33 \times10^{-2}$ and $4.35 \times10^{-2}$ respectively. In Equation \eqref{eq:BG}, the change in $\,G$ is dependent on a constant consisting of a scaled multiple of the total glucose appearance $P$, which is a function of both the glucose appearance in the stomach and gut $\,P1,\,P2$. Thus, this representation can be attributed to why $\,P_1$ and $\,P_2$ are more observable compared to the plasma insulin $I$ and the interstitial insulin $Q$, as the fraction $\frac{Q}{1+\alpha_G Q}$ is being multiplied by a relatively small value $\,S_I$, and changes in $I$ take time to propagate to Equation \eqref{eq:BG}.
 
-Overall, the \gls{ICING} model can not be classified as observable. In each observation, only the blood glucose and possibly the total glucose appearance can be uniquely identified. In practice, you could add more observations to increase the observability, but in the context of insulin-glucose dynamics, a lot of institutions only have access to blood glucose measurements, not plasma insulin or C-peptide data. While poor observability is a limitation in state-space models, the following sections show that the model has capabilities, albeit imperfect, to estimate insulin-glucose dynamics.
+Overall, the \gls{ICING} model can not be classified as observable. In each observation, only the blood glucose and possibly the total glucose appearance can be uniquely identified. In practice, you could add more observations to increase the observability, but in the context of insulin-glucose dynamics, a lot of institutions only have access to blood glucose measurements, not plasma insulin or C-peptide data. While poor observability is a limitation in state-space models, the following sections show that the model has capabilities, albeit imperfect, to estimate insulin-glucose states.
 
 \section{Nonlinear State Estimation}
-In the first stage of comparing different nonlinear state estimators, each estimator is given an initial state that has a deviation in each state from the true initial state. The \gls{MSE} is averaged among all patients for each deviation in Table \ref{tab:estimators}, as well as the standard deviation SD of the error, and an average \gls{MSE} across all deviations is calculated. The distribution of dynamics from Section \ref{sec:cohortResults} allows for the corresponding initial and process noise covariance matrices
+In the first stage of comparing different nonlinear state estimators, each estimator is given an initial state that has a deviation in each state from the true initial state. The \gls{MSE} is averaged among all patients for each deviation in Table \ref{tab:estimators}, as well as the standard deviation SD of the error, and an average \gls{MSE} across all deviations is calculated. The distribution of states from Section \ref{sec:cohortResults} allows for the corresponding initial and process noise covariance matrices
 \begin{equation}
 \setlength{\arraycolsep}{2pt}
 \renewcommand{\arraystretch}{1.4}
@@ -1761,7 +1755,7 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 \chapter{Conclusions}
 \label{ch:conclusions}
 % \engExpl{Describe the conclusions (reflect on the whole introduction given in Chapter 1).}
-A systematic framework for estimating insulin dynamics in critically ill patients was presented in this study. Formulating a distribution of initial insulin-glucose dynamics allowed for sampling an abundance of unique virtual patients and nutrition inputs to evaluate the observability of the \gls{ICING} model and the state and parameter estimation performance. By using standard measurements and sampling frequency available in hospitals, it was possible to simulate model-based glycaemic control with Bayesian filters along with estimating unknown parameters in the \gls{ICING} model. The results illustrate how model-based glycaemic control allows for monitoring at-risk patients and how possible corrections can be made to adjust necessary nutrition to adjust or stabilize the blood glucose of a given patient. 
+A systematic framework for estimating insulin states in critically ill patients was presented in this study. Formulating a distribution of initial insulin-glucose states allowed for sampling an abundance of unique virtual patients and nutrition inputs to evaluate the observability of the \gls{ICING} model and the state and parameter estimation performance. By using standard measurements and sampling frequency available in hospitals, it was possible to simulate model-based glycaemic control with Bayesian filters along with estimating unknown parameters in the \gls{ICING} model. The results illustrate how model-based glycaemic control allows for monitoring at-risk patients and how possible corrections can be made to adjust necessary nutrition to adjust or stabilize the blood glucose of a given patient. 
 
 % \engExpl{Discuss the positive effects and the drawbacks.\\
 % Describe the evaluation of the results of the degree project.\\
@@ -1795,9 +1789,9 @@ A systematic framework for estimating insulin dynamics in critically ill patient
 
 % In particular, the author of this thesis wishes to point out xxxxxx remains as a problem to be solved. Solving this problem is the next thing that should be done. ...
 
-To better understand the applicability of the method in this study, using real clinical data in a future study would provide insight into how well the \gls{ICING} model behaves. This is important as within this study, the virtual patients were generated using the \gls{ICING} model, in which the dynamics of the virtual patient are bounded by a model. The inclusion of real clinical data would need to include necessary preprocessing and fine-tuning of the Bayesian filters that are not covered within this study. 
+To better understand the applicability of the method in this study, using real clinical data in a future study would provide insight into how well the \gls{ICING} model behaves. This is important as within this study, the virtual patients were generated utilizing the \gls{ICING} model. The inclusion of real clinical data would need to include necessary preprocessing and fine-tuning of the Bayesian filters that are not covered within this study. 
 
-Another important issue that should be addressed is estimating more unknown parameters in the \gls{ICING} model. Further estimation of these parameters could result in better prediction of the insulin-glucose dynamics at the subsequent cost of increasing the dimensionality of the state-space. In this study, only state augmentation was used for parameter estimation, but other methods should be investigated along the newly founded parameters of interest.
+Another important issue that should be addressed is estimating more unknown parameters in the \gls{ICING} model. Further estimation of these parameters could result in better prediction of the insulin-glucose states at the subsequent cost of increasing the dimensionality of the state-space. In this study, only state augmentation was used for parameter estimation, but other methods should be investigated along the newly founded parameters of interest.
 
 % \section{Reflections}
 % \label{sec:reflections}
