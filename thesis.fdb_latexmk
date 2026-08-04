@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex thesis"] 1785744878.45513 "thesis.aux" "thesis.bbl" "thesis" 1785745274.49898 0
+["bibtex thesis"] 1785852811.92229 "thesis.aux" "thesis.bbl" "thesis" 1785853358.99985 0
   "./bibstyle/myIEEEtran.bst" 1659714334 61819 650aeedb858d5fba2e8c6ad2421713ae ""
-  "./myreferences.bib" 1780216075.89952 63248 57a52ffae4ab1f8b62af30f1eeec2af5 ""
+  "./myreferences.bib" 1785749273.2703 68393 0953d59846e3259651a331926ae66da9 ""
   "./references.bib" 1659714334 6246 05f7faa920d26d53b9712ffe2be1b2cd ""
-  "thesis.aux" 1785745273.89301 28568 ddee078d108b2599e5f6e86348fb5884 "pdflatex"
+  "thesis.aux" 1785853358.33427 29381 ea11372fcdde7e54c8c382da1222d318 "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["pdflatex"] 1785745270.65551 "/Users/juni/Documents/KTH/Thesis/Documents/kthlatex-master/kththesis/thesis.tex" "thesis.pdf" "thesis" 1785745274.49919 0
-  "/Users/juni/Documents/KTH/Thesis/Documents/kthlatex-master/kththesis/thesis.tex" 1785745270.41543 140203 6f94e7559c7ad109fe208e12414fcdf9 ""
+["pdflatex"] 1785853355.05852 "/Users/juni/Documents/KTH/Thesis/Documents/kthlatex-master/kththesis/thesis.tex" "thesis.pdf" "thesis" 1785853359.00005 0
+  "/Users/juni/Documents/KTH/Thesis/Documents/kthlatex-master/kththesis/thesis.tex" 1785853354.81869 140996 d5f67f7f1a4a2ec7a332d9332a35b410 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/tex-gyre/q-ec.enc" 1529098226 2457 aaabbccba4df2a7f7371410ee4e075a3 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc" 1529098226 3124 3813fd4c981d99822890a2861b0d274c ""
@@ -80,6 +80,7 @@
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1248133631 36281 c355509802a035cadc5f15869451dcee ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb" 1248133631 36094 798f80770b3b148ceedd006d487db67c ""
+  "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1248133631 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1248133631 32734 69e00a6b65cedb993666e42eedb3d48f ""
@@ -442,15 +443,15 @@
   "lib/kthcolors.tex" 1659714334 2990 9810a390e97e3683f654939efb728e5e ""
   "lib/pdf_related_includes.tex" 1659714334 2444 d3639d2c1152de32fcda612d0d949a82 ""
   "lib/schools_and_programs.ins" 1659714334 33492 d58931fe375fd7666fa52972995f12de ""
-  "thesis.aux" 1785745273.89301 28568 ddee078d108b2599e5f6e86348fb5884 "pdflatex"
-  "thesis.bbl" 1785744878.57125 13832 7854490d95169d006a25cbc8941d28dc "bibtex thesis"
-  "thesis.brf" 1785745273.9806 2918 45a5ccf44ed8ba4cb63c040adf4435ef "pdflatex"
-  "thesis.lof" 1785745273.98129 1061 cac3def04690cf78f36a3efda4b1472c "pdflatex"
-  "thesis.lot" 1785745273.98141 737 500830de5fd2dd863c06c396870c43c7 "pdflatex"
-  "thesis.mw" 1785745273.97927 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "thesis.out" 1785745273.98022 5658 d2e736180388e0f4b2cb13e7242b76dc "pdflatex"
-  "thesis.tex" 1785745270.41543 140203 6f94e7559c7ad109fe208e12414fcdf9 ""
-  "thesis.toc" 1785745273.98116 3078 cb13e8e11a14f46dfe402048fd03ca42 "pdflatex"
+  "thesis.aux" 1785853358.33427 29381 ea11372fcdde7e54c8c382da1222d318 "pdflatex"
+  "thesis.bbl" 1785852812.04883 14970 4262c85b62314ee93e9a7d5b18f185c8 "bibtex thesis"
+  "thesis.brf" 1785853358.43557 3167 5929a6db09ed9bf5466b94fa7f470d13 "pdflatex"
+  "thesis.lof" 1785853358.43634 1061 26aba3d3c9c1737814dcb83fbf8b6cbb "pdflatex"
+  "thesis.lot" 1785853358.43646 737 f7b3608d7fc20449a85bca13e3d92146 "pdflatex"
+  "thesis.mw" 1785853358.43408 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "thesis.out" 1785853358.43508 5381 0814b9f8e523084bc57294631a59a8ba "pdflatex"
+  "thesis.tex" 1785853354.81869 140996 d5f67f7f1a4a2ec7a332d9332a35b410 ""
+  "thesis.toc" 1785853358.43619 2968 accebd07cc18bf766b5af9535a08ab82 "pdflatex"
   (generated)
   "fordiva.json"
   "thesis.aux"

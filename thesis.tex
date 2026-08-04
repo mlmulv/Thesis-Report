@@ -175,7 +175,7 @@ morekeywords={begin, todo, textbf, textit, texttt}
 \subtitle{Degree Project 2026}
 
 % give the alternative title - i.e., if the thesis is in English, then give a Swedish title
-\alttitle{Modellering av Icke-linjärt Insulin-Glukosdynamik hos Kritiskt Sjuka Patienter}
+\alttitle{Modellering av icke-linjärt insulin-glukosdynamik hos kritiskt sjuka patienter}
 \altsubtitle{Examensarbete 2026}
 % alternative, if the thesis is in Swedish, then give an English title
 %\alttitle{This is the English translation of the title}
@@ -365,7 +365,7 @@ eng
 %   \item Results/Conclusions/Consequences/Impact: What are your key results/\linebreak[4]conclusions? What will others do based upon your results? What can be done now that you have finished - that could not be done before your thesis project was completed?
 % \end{itemize}
 
-Tight glycaemic control for critically ill patients in the intensive care unit is crucial to prevent adverse outcomes influenced by metabolic fluctuations associated with insulin-resistance. Traditional insulin intensive therapy in patients has been demonstrated to inadequately sustain glucose concentration in a safe and stable range. Utilizing clinically-validated models allows for modeling unknown insulin-glucose dynamics with state estimation methods. Previous work in estimating insulin-glucose dynamics failed to consider a diverse synthetic patient cohort with differing nutrition inputs, as well as motivation for the parameterization of their proposed filters. In this project, a framework to sample synthetic patients was developed to model critically ill patients residing in the Karolinksa University Hospital, enabling estimation of insulin-glucose dynamics. The Intensive Control Insulin-Nutrition-Glucose model used in this study and previous work was found to not be observable when computing the empirical observability gramians, further highlighting the limitations of modeling glucoregulation from blood glucose measurements alone. The extended Kalman filter was identified to struggle in estimating blood glucose with large deviations from the true state in the initial prediction ($\pm 10\%$ and $\pm 25\%$) in comparison to the particle filter, but was measured to be run significantly faster. A particle filter with 750 particles achieved the best accuracy-complexity tradeoff, yielding more than a 6 times reduction in complexity from the previous method using 5000 particles. To extend upon previous work, estimation of a parameter not represented in the Intensive Control Insulin-Nutrition-Glucose model formulation was performed. The particle filter managed to estimate both constant and time-varying insulin sensitivity, while the extended Kalman filter only reliably estimated the former. Consequently, drawing attention to the limitations of the linearization approximations seen in the extended Kalman filter. The methodology proposed in this study allows for clinicians to follow a systematic process to develop their own model-based tight glycaemic control method.
+Tight glycaemic control for critically ill patients in the intensive care unit is crucial to prevent adverse outcomes influenced by metabolic fluctuations associated with insulin-resistance. Traditional insulin intensive therapy in patients has been demonstrated to inadequately sustain glucose concentration in a safe and stable range. Utilizing clinically-validated models allows for modeling unknown insulin-glucose dynamics with state estimation methods. Previous work in estimating insulin-glucose dynamics failed to consider a diverse synthetic patient cohort with differing nutrition inputs, as well as motivation for the parameterization of their proposed filters. In this project, a framework to sample synthetic patients was developed to model critically ill patients residing in the Karolinska University Hospital, enabling estimation of insulin-glucose dynamics. The Intensive Control Insulin-Nutrition-Glucose model used in this study and previous work was found to not be observable when computing the empirical observability gramians, further highlighting the limitations of modeling glucoregulation from blood glucose measurements alone. The extended Kalman filter was identified to struggle in estimating blood glucose with large deviations from the true state in the initial prediction ($\pm 10\%$ and $\pm 25\%$) in comparison to the particle filter, but was measured to be run significantly faster. A particle filter with 750 particles achieved the best accuracy-complexity tradeoff, yielding more than a 6 times reduction in complexity from the previous method using 5000 particles. To extend upon previous work, estimation of a parameter not represented in the Intensive Control Insulin-Nutrition-Glucose model formulation was performed. The particle filter managed to estimate both constant and time-varying insulin sensitivity, while the extended Kalman filter only reliably estimated the former. Consequently, drawing attention to the limitations of the linearization approximations seen in the extended Kalman filter. The methodology proposed in this study allows for clinicians to follow a systematic process to develop their own model-based tight glycaemic control method.
 
 
 
@@ -677,7 +677,7 @@ Tight glycemic control för kritiskt sjuka patienter på intensivvårdsavdelning
 % at \qty{200}{Gbps}.}
 % \fi
 
-Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of cortisol and catecholamines results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the causality of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia, in contrast to patients with diabetes \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia. Traditional intensive insulin therapy struggles to fully capture the dynamic fluctuations of blood glucose in critically ill patients. Thus, model-based methods are required to achieve tight glycaemic control.
+Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of stress hormones results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the causality of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia.
 
 
 \section{Background}
@@ -692,7 +692,8 @@ Patients in the intensive care unit suffering from critical illnesses (e.g. acut
 % delimit what you are going to do and what others have done or will do.}
 
 
-The implementation of model-based tight glucose control methods relies on the derivation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005} \cite{compte_blood_2009}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose states in patients. In practice, the estimated states from the insulin-glucose models are affected by process noise from unmodeled states (and/or parameters) in the model formulation and from noisy measurements. As a direct result, the insulin-glucose states in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the states in mechanistic insulin-glucose models. 
+Ad hoc sliding protocols have been used in the intensive care unit to provide clinicians the necessary nutrition and insulin doses to control blood glucose levels based on hourly glucose measurements \cite{thomas_implementation_2005} \cite{shaw_rethinking_2006}. Such methods are often difficult to implement in practice and result in minimal improvements in preventing mortality \cite{chase_model-based_nodate}. The implementation of tight glucose controllers avoids tedious procedures followed in sliding protocols by estimating insulin-glucose states on given insulin and nutrition inputs, with observed improvements in constraining blood glucose to a safe range \cite{compte_blood_2009}. The implementation of model-based tight glucose control methods relies on the formulation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{compte_blood_2009} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose states in patients. In practice, the estimated states from the insulin-glucose models are affected by process noise from unmodeled states (and/or parameters) in the model formulation and from noisy measurements. As a direct result, the insulin-glucose states in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the states in mechanistic insulin-glucose models. 
+
 
 % The patient parameters used in such models must reflect glucose-insulin dynamics observed physiologically to accurately model gluco-regulation. Mechanistic insulin-glucose models published have traditionally assigned patient parameters as population constants, backed by parameter sensitivity analysis studies. There are data-driven methods to approximate some patient parameters as shown in \cite{lin_physiological_2011} \cite{compte_blood_2009}, but a lack has been implemented with noisy measurements being taken into account. 
 
@@ -701,14 +702,12 @@ The implementation of model-based tight glucose control methods relies on the de
 
 % This paper introduces a more robust approach to patient-specific parameter identification by formulating an estimator model. Instead of relying on fitting error metrics as the basis of parameter choice, leveraging bayesian estimation can improve the patient-specific parameter estimates used in dynamic mechanistic glucose-insulin models \cite{ninness_bayesian_2010}. Improved parameter estimates will result in enhanced glycaemic control and can further reduce hypoglycaemia, mortality, and morbidity in critically ill patients.
 
-\subsection{Original problem and definition}
-There currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose states. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012}, but they lack necessary evaluation and motivation regarding the patient cohort and the filter design process. While patient inputs differ among institutions due to differing nutrition guidelines and stay times for patients, a systematic synthetic patient cohort framework would greatly improve the simulation of diverse patient dynamics and experiment reproducibility, as real patient data are often limited in size and closed-source. Concurrently, concise  parameterization and optimization of Bayesian filters will further improve glycaemic control in critically ill patients.
-
+Patients suffering with differing critical illnesses are observed with varying magnitudes of insulin resistance, preventing a one-size-fits-all tight glucose control protocol to restrict glycaemic levels. Model-based tight glucose control has the ability to adapt to a given patient's condition, but there currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose states. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012}, but they lack systematic design of the synthetic patient cohort and analyzing the relationship of filter configuration and performance of tight glucose control. The gap in research in analyzing various Bayesian filters with representative synthetic patients is detrimental, as studies need to gauge how well tight glucose controllers can work in practice with vulnerable patients.
 
 % evidence shown in sensitivity studies that certain patient-specific parameters do not have much influence in the insulin-glucose dynamics \cite{chase_model-based_nodate} \cite{hann_integral-based_2005} \cite{compte_blood_2009}, inadequate assigning of the remaining parameters can lead to inadequate glycaemic control in critically ill patients. 
 
-\subsection{Scientific and engineering issues}
-To model the behavior of dynamical systems, experience of statistical modeling is often required to construct assumptions of the system parameters. In the case of the representation insulin-glucose dynamics, there are several unknown parameters, and each has its respective role in modeling gluco-regulation. As a result, on top of estimating nonlinear and time-varying states, the models must be robust to misalignments of the assigned parameters, which poses an ongoing challenge. 
+% \subsection{Scientific and engineering issues}
+% Experience of statistical modeling is often required to construct assumptions of the system parameters. In the case of the representation of insulin-glucose dynamics, there are several unknown parameters, and each has its respective role in modeling gluco-regulation. As a result, on top of estimating nonlinear and time-varying states, the models must be robust to mismatches of the assumed parameters and the true unknown parameters, which poses an ongoing challenge. 
 
 % System identification can be employed to model the behavior of dynamical systems. Experience of statistical modeling within system identification is often required to construct the assumptions of the system parameters. In the case of insulin-glucose dynamics, there are several unknown patient-specific parameters, and each has its respective role in modeling gluco-regulation. As a result, identifying key patient-specific parameters and the methods to model them are not intuitive, and poses an ongoing challenge.
 
@@ -716,7 +715,7 @@ To model the behavior of dynamical systems, experience of statistical modeling i
 % \generalExpl{State the purpose  of your thesis and the purpose of your degree project.\\
 % Describe who benefits and how they benefit if you achieve your goals. Include anticipated ethical, sustainability, social issues, etc. related to your project. (Return to these in your reflections in Section~\ref{sec:reflections}.)}
 
-Mechanistic insulin-glucose models are of great benefit to critically ill patients and clinicians, as modeling gluco-regulation allows for necessary glycaemic adjustments to avoid the onset of adverse outcomes. In practice, clinicians only have the ability to base insulin resistance on blood glucose measurements, and thus, state estimators models fill in the gap as a tool for insulin-glucose state estimation. Improvements in the estimation of insulin-glucose states can better capture the evolution of the health of the patient in the intensive care unit to prevent mortality and morbidity.
+This thesis aims to improve the current research and implementation of tight blood glucose control. Researchers studying insulin-glucose systems in critically ill patients will benefit from a cohesive and reproducible methodology to accommodate their own research goals. Better glycaemic control will result in clinicians being able to adjust nutrition and insulin doses from the prediction of insulin-glucose states in between hourly measurements. Consequently, giving clinicians crucial time to better prevent mortality in patients susceptible to hypoglycaemia or hyperglycaemia.
 
 \section{Goals} \label{sec:goals}
 % \sweExpl{Mål}
@@ -728,8 +727,8 @@ The overall goals of this project has been divided into the following sub-goals:
 \begin{enumerate}
 \item Design a synthetic patient cohort
 % \sweExpl{för att tillfredsställa ingenjörssamfundet och vetenskapen – akademin) }
-\item Compare performance of varying filtering configurations in estimation of insulin-glucose states
-\item Extrapolate the formulation of insulin-glucose estimators to estimate unknown parameters in patients
+\item Compare performance of various filters in estimation of insulin-glucose states
+\item Estimate unknown parameters in patients
 % \sweExpl{eventuellt, för att uppfylla kursmålen – du som student}
 \end{enumerate}
 
@@ -748,7 +747,7 @@ The modeling of the insulin-glucose dynamics found in critically ill patients wi
 % sweExpl{Avgränsningar}
 % \generalExpl{Describe the boundary/limits of your thesis project and what you are explicitly not going to do. This will help you bound your efforts – as you have clearly defined what is out of the scope of this thesis project. Explain the delimitations. These are all the things that could affect the study if they were examined and included in the degree project.}
 
-This study will consist of a synthetic patient cohort. Using synthetic patients is important for maintaining internal validity in the experimental process, as it verifies the observed outcome of the experiment is due to the manipulation of insulin-glucose model parameters rather than uncontrolled variables. The expense of using synthetic patients can be identified in the reduced generalizability of this experiment, since synthetic patients are models. While this is a limitation, this study will focus on the foundation of the modeling of insulin-glucose dynamics, and future work can replicate the study with real clinical data. 
+This study will consist of a synthetic patient cohort. Using synthetic patients is important for maintaining internal validity in the experimental process, as it verifies the observed outcome of the experiment is due to the manipulation of insulin-glucose model parameters rather than uncontrolled variables. The expense of using synthetic patients can be identified in the reduced generalizability and external validity of this experiment, since synthetic patients are reflections of model assumptions. While this is a limitation, this study will focus on the foundation of the modeling of insulin-glucose dynamics, and future work can replicate the study with real clinical data. 
 
 \section{Structure of the thesis}
 % \sweExpl{ Rapportens disposition}
@@ -759,24 +758,30 @@ Chapter \ref{ch:background} will introduce the existing modeling of insulin-gluc
 \chapter{Background}
 \label{ch:background}
 
-The background will introduce the theoretical concepts and prior work relevant to the paper. The \gls{ICING} model will be presented to lay the foundation of insulin-glucose modeling, and how state estimation methods can be applied to estimate states optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
+The background will introduce the theoretical concepts and prior work relevant to the thesis. Beginning with a description of the system physiology and the \gls{ICING} model, and how state estimation methods can be applied to estimate insulin-glucose states optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
 
-\section{Intensive Control Insulin-Nutrition-Glucose Model}
-The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} contains the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
-\begin{align}
- \dot{G} &= - p_{G}G(t) - S_{I}(t)G(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+E_G-C_G}{V_G} \label{eq:BG} \\
- \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
- \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)}{V_I} \nonumber \\
-        &\quad + \frac{(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
- \dot{P1} &= -d_{1}P1 + D(t) \label{eq:P1} \\
- \dot{P2} &= -\min\left(d_{2}P2,P_{max}\right) + d_{1}P1 \label{eq:P2} \\
- u_{en}(t) &= k_1 \exp\left(-\frac{k_{2}}{k_{3}}I(t)\right), \quad
-              \text{when C-peptide data is not available} \label{eq:uen} \\
- P(t) &= \min\left(d_{2}P2,P_{max}\right) + P_N(t). \label{eq:P}
-\end{align}
-Equation \eqref{eq:BG} is the independent insulin glucose removal, with $G$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I(t)$ gives insight into the metabolic condition of the patient and is a time-varying dynamic. The insulin pharamacodynamics are shown in Equations \eqref{eq:Q} and \eqref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in Equation \eqref{eq:uen}. The gastric absorption of glucose is defined in Equations \eqref{eq:P1} to \eqref{eq:P}. The dynamics $P1$ and $P2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral glucose is described by $P_N(t)$ (mmol/min).
+\section{Insulin-Glucose Modeling}
 
-The \gls{ICING} model also involves several parameters alongside the previously defined dynamics, which are detailed in Table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining parameters was estimated with a data-driven approach by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors \cite{chase_adaptive_2005}. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $E_G$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, \,0.002, \,\dots, \,0.1 (\text{min}^{-1})$ and $E_G = 0.0, \,0.1, \,\dots, \,3.5$ (mmol/min). The joint $p_G$ and $E_G$ value that achieved the lowest fitting and prediction error for blood glucose in Equation \eqref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 \,(\text{min}^{-1})$ and $E_G = 1.16$, while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the Equation \eqref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \,\dots, \,0.02 \,(\text{min}^{-1})$, with a value of $n_I = 0.003$ resulting in the best predictive performance.
+
+\subsection{Intensive Control Insulin-Nutrition-Glucose Model}
+
+The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} captures the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
+\begin{subequations}
+    \begin{align}
+        \dot{G} &= - p_{G}G(t) - S_{I}(t)G(t)\frac{Q(t)}{1+\alpha_{G}Q(t)} + \frac{P(t)+E_G-C_G}{V_G} \label{eq:BG} \\
+        \dot{Q} &= n_{I}(I(t)-Q(t))-n_{C}\frac{Q(t)}{1+\alpha_{G}Q(t)} \label{eq:Q} \\
+        \dot{I} &= -n_{K}I(t) - n_{L}\frac{I(t)}{1+\alpha_{I}I(t)} - n_{I}(I(t)-Q(t)) + \frac{u_{ex}(t)}{V_I} \nonumber \\
+                &\quad + \frac{(1-x_{L})u_{en}(t)}{V_I} \label{eq:I} \\
+        \dot{P_1} &= -d_{1}P_1 + D(t) \label{eq:P_1} \\
+        \dot{P_2} &= -\min\left(d_{2}P_2,P_{max}\right) + d_{1}P_1 \label{eq:P_2} \\
+        u_{en}(t) &= k_1 \exp\left(-\frac{k_{2}}{k_{3}}I(t)\right), \quad
+                    \text{when C-peptide data is not available} \label{eq:uen} \\
+        P(t) &= \min\left(d_{2}P_2,P_{max}\right) + P_N(t). \label{eq:P}
+    \end{align}
+\end{subequations}
+Equation \eqref{eq:BG} is the independent insulin glucose removal, with $G$ being the total blood glucose concentration (mmol/L). The whole-body insulin sensitivity $S_I(t)$ gives insight into the metabolic condition of the patient and is a time-varying dynamic. The insulin pharamacodynamics are shown in Equations \eqref{eq:Q} and \eqref{eq:I}, with $Q$ and $I$ being the interstitial insulin concentration (mU/L) and the plasma insulin concentration (mU/L) respectively. The exogenous insulin input is $u_{ex}(t)$ (mU/min), and the endogenous insulin production $u_{en}(t)$ (mU/min) can be measured from C-Peptide, but if measurements are not feasible, the kinetics can model as such in Equation \eqref{eq:uen}. The gastric absorption of glucose is defined in Equations \eqref{eq:P_1} to \eqref{eq:P}. The dynamics $P_1$ and $P_2$ describe the glucose in the stomach and the gut (mmol), with $P(t)$ representing the glucose appearance in the blood (mmol/min). Any enteral food intake given to the patient is accounted for by $D(t)$ (mmol/min), and additional parenteral glucose is described by $P_N(t)$ (mmol/min).
+
+The \gls{ICING} model also involves several parameters alongside the previously defined dynamics, which are detailed in Table \ref{tab:params}. The majority of the patient model parameters are assigned as general population constants observed from clinical trials, and are validated in relevant insulin-glucose control parameter sensitivity studies \cite{hann_integral-based_2005} \cite{compte_blood_2009} \cite{chase_adaptive_2005}. The identification of the remaining parameters was estimated with a data-driven approach by fitting the patient parameters to the observed dynamics in 173 patients, and by assessing the impact of prediction errors \cite{chase_adaptive_2005}. Estimating the endogenous glucose removal $p_G$ and the suppression of endogenous glucose produce $E_G$ constants involved assigning all other patient parameters and the insulin sensitivity to constants, then starting a grid search that covers $p_G = 0.001, \,0.002, \,\dots, \,0.1 (\text{min}^{-1})$ and $E_G = 0.0, \,0.1, \,\dots, \,3.5$ (mmol/min). The joint $p_G$ and $E_G$ value that achieved the lowest fitting and prediction error for blood glucose in Equation \eqref{eq:BG} was chosen. Ultimately, that was $p_G = 0.006 \,(\text{min}^{-1})$ and $E_G = 1.16$ (mmol/min), while both falling in the ranges observed physiologically. The glucose distribution rate between the stomach and the gut $n_I$, and cellular insulin clearance rate in the interstitium were estimated similarly by fitting to $Q$ in the Equation \eqref{eq:Q}, a grid search covers a range of $n_I = n_C = 0.0001, \,\dots, \,0.02 \,(\text{min}^{-1})$, with a value of $n_I = 0.003 \, (\text{min}^{-1})$ resulting in the best predictive performance.
 
 \begin{table}[ht]
     \centering
@@ -817,18 +822,20 @@ The \gls{ICING} model also involves several parameters alongside the previously 
     \end{threeparttable}
 \end{table}
 
-It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous-time. Discretization of the model is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta$, an example state $F(t)$ can be discretized according to the Euler method
+It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous-time. Discretization of the model is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta t$, an example state $F(t)$ can be discretized according to the Euler method
 \begin{equation}
 \begin{aligned}
-\dot{F} &\approx \frac{F(t_{k}) - F(t_{k} - \Delta)}{\Delta} \\
-F_{k} &\approx F_{k-1} + \Delta \dot{F}.
+\dot{F} &\approx \frac{F(t_{k}) - F(t_{k} - \Delta t)}{\Delta t} \\
+F_{k} &\approx F_{k-1} + \Delta t \dot{F}.
 \end{aligned}
 \end{equation}
-The error of this numerical approximation of differential equations is bounded by the step size $\Delta$. As a result, larger step sizes will introduce greater approximation errors. Thus, a relatively small step size is necessary to prevent errors from propagating in the estimates. 
+The error of this numerical approximation of differential equations is bounded by the step size $\Delta t$. As a result, larger step sizes will introduce greater approximation errors. Thus, a relatively small step size is necessary to prevent errors from propagating in the estimates. 
+
+A probabilistic representation of the \gls{ICING} model will be utilized in this thesis for Bayesian filtering. The states in Equations \eqref{eq:BG} to \eqref{eq:P}, will be described as a Bayesian inference from the previous states and inputs. Modeling the \gls{ICING} equations as a random process will be done to model the uncertainty of the states. The specific conditional probability distribution will be dependent on the type of Bayesian filter, as seen in the next section.
 
 \section{State Estimation}\label{sec:state}
 
-Within the scope of this paper, discrete-time dynamical systems will be modeled in the state-space representation. A state-space model consists of system variables that describe the state of the system, inputs, and measurements. The states are typically formulated as linear or nonlinear equations. A probabilistic representation of the discrete-time state-space can be represented as such
+Within the scope of this thesis, discrete-time dynamical systems will be modeled in the state-space representation. A state-space model consists of system variables that describe the state of the system, inputs, and measurements. The states are typically formulated as linear or nonlinear equations. A probabilistic representation of the discrete-time state-space can be represented as such
 \begin{equation} \label{eq:prob1}
 \begin{aligned}
 x_{k} &\sim p(x_{k} \mid x_{k-1},\,u_{k-1}) \\
@@ -839,7 +846,7 @@ where $p(x_{k} \mid x_{k-1},\,u_{k})$ and $p(y_{k} \mid x_{k})$ are the stochast
 
 Any model has intrinsic approximation errors, and the errors should be taken into account. The approximation error for the states can be modeled as a random process, and artificial process noise can be added into $x_k$ at each time step. This step is important to accommodate errors due to unmodeled dynamics. Choices in the specifics regarding the modeling of process noise of insulin-glucose states will be discussed in Chapter \ref{ch:methodology}.
 
-The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the state estimator is linear and Gaussian, the states and measurements can be written as the difference equations
+The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the model is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
 \begin{aligned}
 x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1} \\
@@ -873,7 +880,7 @@ P_k &= P_k^- - K_kS_kK_k^{\sf T}.
 \end{aligned}
 \end{equation}
 \end{enumerate}
-The Kalman filter is recursive, as the filter starts with an estimate of the initial distribution of the state $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. In practice, the Kalman filter is often a great starting point for an estimator because the assumptions of linearity and Gaussianity often hold in many contexts, but as Equations \eqref{eq:BG} to \eqref{eq:P2} are nonlinear, other methods must be considered.
+The Kalman filter is recursive, as the filter starts with an estimate of the initial distribution of the state $m_0^-$ and the covariance $P_0^-$, and iterates sequentially over discrete time steps $k$. In practice, the Kalman filter is often a great starting point for an estimator because the assumptions of linearity and Gaussianity often hold in many contexts, but as Equations \eqref{eq:BG} to \eqref{eq:P_2} are nonlinear, other methods must be considered.
 
 \subsection{Extended Kalman filter}
 
@@ -1014,7 +1021,7 @@ The study includes three state estimators: the extended Kalman filter, the unsce
 \section{Parameter Estimation}
 As previously mentioned, there exists unrepresented \gls{ICING} model parameters. Additionally, these parameters contain time-varying characteristics. The whole-body insulin sensitivity $S_I$ or the endogenous insulin $u_{en}$ dynamically fluctuates over time depending on the patient's metabolic condition. As a result, naively assigning either as a general population constant can hinder the performance of the estimators. The unknown time-varying parameters of interest will be denoted as $\theta$ in preparation for the next section. 
 
-\subsection{State Augmentation}
+\subsection{State Augmentation}\label{sec:augment}
 A practical method to handle unknown parameters is to augment them to the existing state variables $\tilde{x}_k = \left[x_k, \theta_k\right]^{\sf T}$, such that Equation \eqref{eq:prob1} can be redefined as
 \begin{equation} \label{eq:prob2}
 \begin{aligned}
@@ -1024,11 +1031,16 @@ y_{k} &\sim p(y_{k} \mid \tilde{x}_k).
 \end{equation}
 An important distinction in Equation \eqref{eq:prob2} is that the unknown parameters are treated as stochastic variables with singularity in the process noise. This can be problematic as all models often have approximation errors, and this can drive the extended Kalman filter to ultimately diverge in the Gaussian approximation, as well as introduce sample impoverishment in particle filters \cite{sarkka_bayesian_nodate}.
 
-One method to compensate for singularity is to also add artificial process noise $Q_{k}$ to the unknown parameters to allow for random walking in the state-space, thus, accounting for errors in the dynamic function
+One method to compensate for singularity is to also add artificial process noise $\epsilon_{k}$ to the unknown parameters to allow for random walking in the state-space, thus, accounting for errors in the dynamic function
 \begin{align}
-\theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim \mathcal{N}(0,\,Q_{k-1}).
+\theta_k = \theta_{k-1} + \epsilon_{k-1}, && \text{with } \epsilon_{k-1} \sim \mathcal{N}(0,\,W_{k-1}).
 \end{align}
-With this method, you inherently add another unknown parameter $Q_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$.
+With this method, you inherently add another unknown parameter $W_{k}$, but such a parameter can be tuned with prior knowledge of the parameters $\theta_k$.
+
+It should be noted that for state augmentation, the dimension of the state-space increases by the number of unknown parameters. In the case of the particle filter, the number of particles will need to be adjusted to maintain accuracy. A simple heuristic, instead of analytically deriving the exact dependency, could be to have the base number of particles $P$ increase by a common factor for each dimension $d$, such that the total number of particles needed $N$ is
+\begin{align}
+N &= P \times 2^d.
+\end{align}
 % \subsection{Markov Chain Monte Carlo Sampling}
 % The Markov Chain Monte Carlo methods are a class of parameter estimation approaches to estimate the posterior $p(\theta \mid y_{1:K})$ by drawing random samples of the unknown parameters $\theta$ from a desired stationary distribution formulated as a Markov Chain \cite{sarkka_bayesian_nodate}\cite{ninness_bayesian_2010}. Only the unnormalized posterior is considered due to similar concerns regarding computing $p(y_{1:K})$ as previously discussed in Section \ref{sec:particle}
 % \begin{align}
@@ -1152,7 +1164,7 @@ Other methods not relying on linearization of the measurements must be explored 
     \label{fig:background}
 \end{figure}
 
-% \footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 150$ (mU/L), $Q = 100.0$ (mU/L), $P1 = 7$ (mmol), $P2 = 32$ (mmol). The inputs are $u_{ex}(t) = 125 \times e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min), $D(t) = 0.200$ (mmol/min). Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
+% \footnotetext{The initial conditions of the patient model are $BG = 5.0$ (mmol/L), $I = 150$ (mU/L), $Q = 100.0$ (mU/L), $P_1 = 7$ (mmol), $P_2 = 32$ (mmol). The inputs are $u_{ex}(t) = 125 \times e^{-\left(\frac{\log(2)}{300}\right) \cdot \left((t + 120) \mod (300)\right)}$ (mU/min), $P_N(t) = e^{-\left(\frac{\log(2)}{300}\right) \cdot \left(t \mod (300)\right)}$ (mmol/min), $D(t) = 0.200$ (mmol/min). Measurements are sampled with additive Gaussian noise $r_k \sim N(0,0.25^2)$.}
 
 
 
@@ -1213,7 +1225,7 @@ The necessary methodology to achieve the goals introduced in Section \ref{sec:go
 
 \section{Synthetic Patient Cohort}
 \label{sec:patientCohort}
-A synthetic patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G,\,Q,\,I,\,P1,\,P2,\,u_{\,en},\,P$) represented in Equations \eqref{eq:BG} to \eqref{eq:P}, known insulin sensitivity $S_I$, exogenous insulin $u_{ex}$, enteral feed $D$, and parenteral feed $P_N$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all synthetic patients. To introduce variance between patients, a synthetic patient is given a random constant input observed from doses given to patients in the Karolinska University Hospital
+A synthetic patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G,\,Q,\,I,\,P_1,\,P_2,\,u_{\,en},\,P$) represented in Equations \eqref{eq:BG} to \eqref{eq:P}, known insulin sensitivity $S_I$, exogenous insulin $u_{ex}$, enteral feed $D$, and parenteral feed $P_N$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all synthetic patients. To introduce variance between patients, a synthetic patient is given a random constant input observed from doses given to patients in the Karolinska University Hospital
 \begin{equation} \label{eq:inputs}
     \begin{aligned}
         u_{\,ex} &\sim \mathcal{U}[0,\,166] \text{ mU/min} \\
@@ -1234,12 +1246,12 @@ S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
 To simulate patient data given the inputs and parameters, each synthetic patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the filter
 \begin{align}
     x_0 &= \begin{bmatrix}
-        G_0 & I_0 & Q_0 & \,P1_0 & \,P2_0 &  \,{u_{en}}_0
+        G_0 & I_0 & Q_0 & \,P_{1,0} & \,P_{2,0} &  \,u_{\,en, 0}
     \end{bmatrix}.
 \end{align}
-If it assumed that the patient begins at a steady state, it is possible to derive the initial states by solving for the roots of the Differential Equations \eqref{eq:BG} to \eqref{eq:uen}. This can be computed with the python solver function \texttt{scipy.optimize.fsolve}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html}} for each patient in the cohort.
+If it assumed that the patient begins at a steady state, it is possible to derive the initial states by solving for the roots of the differential equations \eqref{eq:BG} to \eqref{eq:uen}. This can be computed with the python solver function \texttt{scipy.optimize.fsolve}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html}} for each patient in the cohort.
 
-Given all the initial states, known insulin sensitivity, and the patient inputs, the patient cohort can be generated by solving the differential equations \eqref{eq:BG} to \eqref{eq:P2} with a time step of 1 minute for each patient. The results will be inputs to Equations \eqref{eq:uen} and \eqref{eq:P}. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.
+Given all the initial states, known insulin sensitivity, and the patient inputs, the patient cohort can be generated by solving the differential equations \eqref{eq:BG} to \eqref{eq:P_2} with a time step of 1 minute for each patient. The results will be inputs to Equations \eqref{eq:uen} and \eqref{eq:P}. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.
 % \begin{figure}[ht] 
 %     \centering
 %     \includegraphics[width=0.9\linewidth]{figures/3_2.pdf}
@@ -1277,7 +1289,7 @@ Given all the initial states, known insulin sensitivity, and the patient inputs,
 In Section \ref{sec:patientCohort}, synthetic patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve the dynamics according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose states, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose states and the observations as previously discussed in Section \ref{sec: obs}.
 
 1000 patients will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector.
-The maximum value of each state\footnote{\textbf{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.}} $x_{max}$ will be chosen as the maximum values of the patient cohort states found in the previous section \ref{sec:patientCohort}
+The maximum value of each state\footnote{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.} $x_{max}$ will be chosen as the maximum values of the patient cohort states found in the previous section \ref{sec:patientCohort}
 \begin{equation}
 \begin{aligned}
 S &= \mathrm{diag}(x_{max}), \\
@@ -1291,41 +1303,53 @@ as well with a maximum perturbation constant of $c=0.1$. With the following defi
 \section{Nonlinear State Estimation}
 The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the \gls{MSE} of the blood glucose concentration estimates will be recorded for all patients and filters in the given synthetic patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well as a discrete time step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($\mathcal{N}(0,0.125)$) sampled every 120 minutes. There will be offsets in the initial states of $\pm2\%,\pm10\%,\pm25\%$, with each offset having a unique synthetic cohort of 500 patients. Adding an offset to the initial state will gauge how well each estimator can adapt to various initial perturbations in the estimate.
 
-If it is assumed that the model approximation errors can be modeled as a random process, artificial process noise can be added to the state estimates for both the extended Kalman filter and the particle filter. Due to the discrete time step to measurement time step ratio being 120:1, the process noise per sample was chosen as an expected amount of deviation between measurements divided by 120. The process noise $q$ will be sampled at each discrete time step for both the extended Kalman filter and the particle filter roughly according to the following normal distribution with noise covariance $Q$
-\begin{align}
-\label{eq:processnoise}
-q &\sim \mathcal{N}\Bigg(0,\,
-\overbrace{\frac{1}{120} \mathrm{diag}\left(
-\begin{bmatrix}
-\left(\frac{\mathrm{med}(G)}{100}\right)^2 \\
-\left(\frac{\mathrm{med}(I)}{100}\right)^2 \\
-\left(\frac{\mathrm{med}(Q)}{100}\right)^2\\
-\left(\frac{\mathrm{med}(P1)}{100}\right)^2\\
-\left(\frac{\mathrm{med}(P2)}{100}\right)^2\\
+Artificial process noise will be added to the state estimates for both the extended Kalman filter and the particle filter.  The process noise $q$ will be sampled at each discrete time step for both the extended Kalman filter and the particle filter roughly according to the following normal distribution
+\begin{equation}\label{eq:processnoise}
+\begin{aligned}
+q_k &\sim \mathcal{N}\!\bigl(0, \mathrm{diag}(\bm{\sigma})\bigr)\\
+\bm{\sigma} &= \frac{1}{120}\begin{bmatrix}
+\left(\frac{\mathrm{med}(G)}{100}\right)^2 &
+\left(\frac{\mathrm{med}(I)}{100}\right)^2 &
+\cdots &
+\left(\frac{\mathrm{med}(P_2)}{100}\right)^2 &
 1.0\times10^{-8}
-\end{bmatrix}
-\right)}^{Q}\Bigg).
-\end{align}
-The variance for the dynamics $G, \,I, \,Q, \,P1, \,P2 \,$ are chosen as the scaled median for the population statistics found in Section \ref{sec:patientCohort}.
-The process noise for the enteral insulin is assigned as a relatively small value in comparison to the other states to have the insulin sensitivity absorb more of the uncertainty of the glucose distribution between the gut and the stomach, instead of the endogenous insulin. The covariance between states is assigned as zero, as model approximation errors are assumed to be independent of states.
+\end{bmatrix}^{\mathsf{T}}.
+\end{aligned}
+\end{equation}
+
+
+% \,
+% \overbrace{\frac{1}{120} \mathrm{diag}\left(
+% \begin{bmatrix}
+% \left(\frac{\mathrm{med}(G)}{100}\right)^2 \\
+% \left(\frac{\mathrm{med}(I)}{100}\right)^2 \\
+% \left(\frac{\mathrm{med}(Q)}{100}\right)^2\\
+% \left(\frac{\mathrm{med}(P_1)}{100}\right)^2\\
+% \left(\frac{\mathrm{med}(P_2)}{100}\right)^2\\
+% 1.0\times10^{-8}
+% \end{bmatrix}
+% \right)}^{Q}\Bigg).
+The variance for the dynamics $G, \,I, \,Q, \,P_1, \,P_2 \,$ are chosen as the scaled median for the population statistics found in Section \ref{sec:patientCohort}. A 1\% deviation is chosen as the dynamics in the synthetic patients are relatively slow between measurements, and do not deviate much relative to the state.
+The process noise for the enteral insulin is assigned as a relatively small value in comparison to the other states to have the insulin sensitivity absorb more of the uncertainty of the glucose distribution between the gut and the stomach, instead of the endogenous insulin. 
 
 The extended Kalman filter parameters will be defined as
 \begin{enumerate}
   \item Initial covariance matrix of
   \begin{align}
-    P_0=\mathrm{diag}\!\left(
+    P_0= \mathrm{diag}\!\left(
     \renewcommand{\arraystretch}{1.4}
-    \begin{bmatrix}
-      \log_{10}(\mathrm{med}(G))\\
-      \log_{10}(\mathrm{med}(I))\\
-      \log_{10}(\mathrm{med}(Q))\\
-      \log_{10}(\mathrm{med}(P1))\\
-      \log_{10}(\mathrm{med}(P2))\\
-      \log_{10}(\mathrm{med}(u_{\,en}))
-    \end{bmatrix}\right)
+     \log_{10} \begin{bmatrix}
+      \mathrm{med}(G) &
+      \mathrm{med}(I) &
+      \cdots &
+      \mathrm{med}(u_{\,en})
+    \end{bmatrix}^{\sf T}\right)
   \end{align}
 
-  \item Process noise covariance matrix Q
+  \item Process noise covariance matrix of 
+    \begin{align}
+        Q = \mathrm{diag}(\bm \sigma)
+    \end{align} 
     \item Measurement noise covariance matrix of 
     \begin{align}
         R = \begin{bmatrix}
@@ -1382,33 +1406,25 @@ The multiplicative noise variance $\sigma_{S_I}^2$ will be chosen for the desire
     \end{aligned}
 \end{equation}
 Each estimate in the extended Kalman filter and the particle filter will include sampling from the additive process noise distribution from Equation \eqref{eq:processnoise}, but the insulin sensitivity estimate is multiplied with a sampled random variable in Equation \eqref{eq:multnoise}. 
-The extended Kalman filter configuration for this section will roughly be the following
+The extended Kalman filter configuration for this section is the following
 \begin{enumerate}
     \item Initial covariance matrix of 
         \begin{align}
-            \hat{P_0}=\mathrm{diag}\!\left(
+            \hat{P_0}= \mathrm{diag}\!\left(
             \renewcommand{\arraystretch}{1.4}
-            \begin{bmatrix}
-            \log_{10}(\mathrm{med}(G))\\
-            \log_{10}(\mathrm{med}(I))\\
-            \log_{10}(\mathrm{med}(Q))\\
-            \log_{10}(\mathrm{med}(P1))\\
-            \log_{10}(\mathrm{med}(P2))\\
-            \log_{10}(\mathrm{med}(u_{\,en}))\\
-            \max(S_I)^2 
-            \end{bmatrix}\right)
+            \log_{10} \begin{bmatrix}
+            \mathrm{med}(G) &
+            \cdots &
+            \mathrm{med}(u_{\,en}) &
+            \max(S_I)^2
+            \end{bmatrix}^{\sf T}\right)  
         \end{align}
     \item Process noise matrix of     
         \begin{align} \label{eq:processVary}
-            \hat{Q}=\frac{1}{120} \mathrm{diag}\left(
+            \hat{Q}=\mathrm{diag}\left(
             \begin{bmatrix}
-                \left(\frac{\mathrm{med}(G)}{100}\right)^2 \\
-                \left(\frac{\mathrm{med}(I)}{100}\right)^2 \\
-                \left(\frac{\mathrm{med}(Q)}{100}\right)^2\\
-                \left(\frac{\mathrm{med}(P1)}{100}\right)^2\\
-                \left(\frac{\mathrm{med}(P2)}{100}\right)^2\\
-                10^{-8}\\
-                {\,CV}^2 
+                \bm{\sigma} \\
+                \frac{\max(S_I)^2}{120} 
             \end{bmatrix}\right)
         \end{align}        
 
@@ -1423,7 +1439,7 @@ The particle filter will contain the extrapolated "optimal" number of particles 
 Assessing the estimation of the insulin sensitivity will be evaluated using the \gls{MSE} of the true insulin sensitivity $\,S_I$ and the estimated insulin sensitivity $\hat{\,S_I}$ for a given patient $i$, and a insulin sensitivity measurement of length L
 \begin{equation}
 \begin{aligned}
-\,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left({\,S_I}_i[j] - \hat{\,S_I}_i[j]\right)^2.
+\,\text{MSE}_{\,S_I, i} &= \frac{1}{L} \sum_{j=1}^{L} \left({\,S_I}_i[j] - \hat{\,S_I}_i[j]\right)^2.
 \end{aligned}
 \end{equation}
 
@@ -1472,7 +1488,7 @@ To investigate the observability of the \gls{ICING} model, two methods were inve
     \caption[Empirical observability gramians]{Analysis across all calculated empirical observability gramians.}
 \end{figure}
 
-The blood glucose concentration $G$ is the most observable. This is to be expected as the observations in our state-space model are noisy blood glucose measurements. The blood glucose appearance in the stomach and the gut are the next observable states, with a median roughly of $2.95 \times10^{-2}$ and $3.07 \times10^{-2}$, as well as an approximate interquartile range of $4.33 \times10^{-2}$ and $4.35 \times10^{-2}$ respectively. In Equation \eqref{eq:BG}, the change in $\,G$ is dependent on a constant consisting of a scaled multiple of the total glucose appearance $P$, which is a function of both the glucose appearance in the stomach and gut $\,P1,\,P2$. Thus, this representation can be attributed to why $\,P_1$ and $\,P_2$ are more observable compared to the plasma insulin $I$ and the interstitial insulin $Q$, as the fraction $\frac{Q}{1+\alpha_G Q}$ is being multiplied by a relatively small value $\,S_I$, and changes in $I$ take time to propagate to Equation \eqref{eq:BG}.
+The blood glucose concentration $G$ is the most observable. This is to be expected as the observations in our state-space model are noisy blood glucose measurements. The blood glucose appearance in the stomach and the gut are the next observable states, with a median roughly of $2.95 \times10^{-2}$ and $3.07 \times10^{-2}$, as well as an approximate interquartile range of $4.33 \times10^{-2}$ and $4.35 \times10^{-2}$ respectively. In Equation \eqref{eq:BG}, the change in $\,G$ is dependent on a constant consisting of a scaled multiple of the total glucose appearance $P$, which is a function of both the glucose appearance in the stomach and gut $\,P_1,\,P_2$. Thus, this representation can be attributed to why $\,P_1$ and $\,P_2$ are more observable compared to the plasma insulin $I$ and the interstitial insulin $Q$, as the fraction $\frac{Q}{1+\alpha_G Q}$ is being multiplied by a relatively small value $\,S_I$, and changes in $I$ take time to propagate to Equation \eqref{eq:BG}.
 
 Overall, the \gls{ICING} model can not be classified as observable. In each observation, only the blood glucose and possibly the total glucose appearance can be uniquely identified. In practice, you could add more observations to increase the observability, but in the context of insulin-glucose dynamics, a lot of institutions only have access to blood glucose measurements, not plasma insulin or C-peptide data. While poor observability is a limitation in state-space models, the following sections show that the model has capabilities, albeit imperfect, to estimate insulin-glucose states.
 
@@ -1484,22 +1500,22 @@ In the first stage of comparing different nonlinear state estimators, each estim
 \begin{aligned}
 P_{0} &= \mathrm{diag}\!\left(
 \begin{bmatrix}
-1.00\\
-3.00\\
-3.00\\
-1.00\\
-2.00\\
+1.00 &
+3.00 &
+3.00 &
+1.00 &
+2.00 &
 1.00
-\end{bmatrix}\right)\\[4pt]
+\end{bmatrix}^{\sf T}\right)\\[4pt]
 Q &= \frac{1}{120}\mathrm{diag}\!\left(
 \begin{bmatrix}
-5.00\times10^{-3}\\
-1.00\\
-1.00\\
-5.00\times10^{-3}\\
-2.50\times10^{-2}\\
+0.005 &
+1.00 &
+1.00 &
+0.005 &
+0.025 &
 1.00\times10^{-8}
-\end{bmatrix}\right).
+\end{bmatrix}^{\sf T}\right).
 \end{aligned}
 \end{equation}
 
@@ -1569,21 +1585,8 @@ The extended Kalman filter overall performs the worst compared to the particle f
     \label{tab:estimators}
 \end{table}
 
-To compare the overall performance of the filters, it is helpful to analyze Figure \ref{fig:estPerf}. The x-axis is the computational complexity of each estimator. The minimum time to run amongst all the estimators was the extended filter. Thus, its computational complexity is 1. The computational complexity of the rest of the estimators is the multiple of time to run relative to the extended Kalman filter. The y-axis is the average \gls{MSE} for all deviations of the initial states, plotted in the log-domain. In terms of error, there is a plateau in improvements in performance after 750 particles. The subjective "optimum" number of particles was chosen as 750 particles, as there is a balance of moderate performance and lower computational cost. It was assumed that for each dimension in the state-space (total of 6), the number of particles needed $P$ grows exponentially with a power of 2, which allows $P$ to be estimated using the determined "optimal" number of particles
-\begin{equation}
-    \begin{aligned}
-        750 &= P \times 2^6 \\
-        P &= \frac{750}{64} \\
-       P &\approx 11.7. 
-    \end{aligned}
-\end{equation}
-For the next section, the insulin sensitivity will be included in the state-space. Consequently, the state-space increases to 7. To have a rough range of the number of particles needed to accommodate a larger dimension in the state-space, the approximate number of particles $N$ was calculated as such
-\begin{equation}
-    \begin{aligned}
-        N &= P \times 2^7 \\
-        N &\approx 1500.        
-    \end{aligned}
-\end{equation}
+To compare the overall performance of the filters, it is helpful to analyze Figure \ref{fig:estPerf}. The x-axis is the computational complexity of each estimator. The minimum time to run amongst all the estimators was the extended filter. Thus, its computational complexity is 1. The computational complexity of the rest of the estimators is the multiple of time to run relative to the extended Kalman filter. The y-axis is the average \gls{MSE} for all deviations of the initial states, plotted in the log-domain. In terms of error, there is a plateau in improvements in performance after 750 particles. The "optimum" number of particles was chosen as 750 particles, as there is a balance of moderate performance and lower computational cost.
+For the next section, the insulin sensitivity will be included in the state-space. Consequently, the state-space increases to 7. To have a rough range of the number of particles needed to accommodate a larger dimension in the state-space, the approximate number of particles 1500 particles according to Section \ref{sec:augment}. 
 \begin{figure}
    \centering
    \includegraphics[width=0.80\linewidth]{figures/5_6.pdf} 
@@ -1591,43 +1594,45 @@ For the next section, the insulin sensitivity will be included in the state-spac
    \label{fig:estPerf}
 \end{figure}
 
-The chosen "optimal" number of particles is much less computationally expensive compared to previous work \cite{aguirre-zapata_glycemic_2017}, which used 5000 particles for a state-space with the same number of dimensions. Although the Aguirre et al. study did contain nongaussian measurement noise, the number of particles to estimate the posterior distribution with a known measurement model prior likely does not require that many particles. If we decided to choose 5000 particles, there would likely be little marginal gain in the performance and would result in 5 times the computational complexity. For a system that may require an estimator to run in approximately real-time, an estimator with 5000 particles would require lots of computational resources. Hence, our approach is much more practical in clinical settings. If very limited computational resources are allotted, smaller sized particle filters or the extended Kalman filter can be utilized instead.
+The chosen "optimal" number of particles is much less computationally expensive compared to previous work \cite{aguirre-zapata_glycemic_2017}, which used 5000 particles for a state-space with the same number of dimensions. Although the Aguirre et al. study did contain nongaussian measurement noise, the number of particles to estimate the posterior distribution with a known measurement model prior likely does not require that many particles, even if an exponential heuristic was chosen for the particle calculation. If we decided to choose 5000 particles, there would likely be little marginal gain in the performance and would result in 5 times the computational complexity. For a system that may require an estimator to run in approximately real-time, an estimator with 5000 particles would require lots of computational resources. Hence, our approach is much more practical in clinical settings. If very limited computational resources are allotted, smaller sized particle filters or the extended Kalman filter can be utilized instead.
 
 \section{Parameter Estimation}
 
 State augmentation of insulin sensitivity in the extended Kalman filter and the particle filter was implemented to compare the estimation performance of the existing state estimators against the \gls{IPI} method. To accommodate the inclusion of the insulin sensitivity in the state-space, the initial and process noise covariance is appended as such
-\begin{align}
+\begin{equation}    
+\begin{aligned}
 P_{0} &= \mathrm{diag}\!\left(
 \begin{bmatrix}
-1.00\\
-3.00\\
-3.00\\
-1.00\\
-2.00\\
-1.00 \\
+1.00 &
+3.00 &
+3.00 &
+1.00 &
+2.00 &
+1.00  &
 1.00 \times 10^{-5}
-\end{bmatrix}\right) \notag \\
+\end{bmatrix}^{\sf T}\right) \\
 Q_{\text{ constant } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
 \begin{bmatrix}
-5.00\times10^{-3}\\
-1.00\\
-1.00\\
-5.00\times10^{-3}\\
-2.50\times10^{-2}\\
-1.00\times10^{-8}\\
+0.005 &
+1.00 &
+1.00 &
+0.005 &
+0.025 &
+1.00\times10^{-8} &
 8.00\times10^{-4}
-\end{bmatrix}\right)\\
+\end{bmatrix}^{\sf T}\right)\\
 Q_{\text{ time-varying } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
 \begin{bmatrix}
-5.00\times10^{-3}\\
-1.00\\
-1.00\\
-5.00\times10^{-3}\\
-2.50\times10^{-2}\\
-1.00\times10^{-8}\\
-0.33
-\end{bmatrix}\right) \notag .
-\end{align}
+0.005 &
+1.00 &
+1.00 &
+0.005 &
+0.025 &
+1.00\times10^{-8} &
+0.333
+\end{bmatrix}^{\sf T}\right) .
+\end{aligned}
+\end{equation}
 Both constant and time-varying insulin-sensitivity were used to investigate how characteristics of the parameter affect estimation. Figures \ref{fig:integralMethod} and \ref{fig:siMSE} display the performance of each method according to the time dependency of the parameter. MSE in these figures depicts the mean error for each time step, not the length of the sequence. 
 
 The \gls{IPI} method in Figure \ref{fig:integralMethod} illustrates how the estimation accuracy degrades drastically if any measurement noise is present in the calculation. Therefore, the performance is heavily-dependent on the quality of the measurements. Any estimation of the insulin sensitivity from the \gls{IPI} method does not provide any information on the insulin sensitivity, as the output never converges towards the true value(s) in a practical setting with noisy measurements. For this reason, the \gls{IPI} method is removed from the comparison of the extended Kalman filter and particle filter in the following section.
@@ -1755,6 +1760,8 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 \chapter{Conclusions}
 \label{ch:conclusions}
 % \engExpl{Describe the conclusions (reflect on the whole introduction given in Chapter 1).}
+
+
 A systematic framework for estimating insulin states in critically ill patients was presented in this study. Formulating a distribution of initial insulin-glucose states allowed for sampling an abundance of unique virtual patients and nutrition inputs to evaluate the observability of the \gls{ICING} model and the state and parameter estimation performance. By using standard measurements and sampling frequency available in hospitals, it was possible to simulate model-based glycaemic control with Bayesian filters along with estimating unknown parameters in the \gls{ICING} model. The results illustrate how model-based glycaemic control allows for monitoring at-risk patients and how possible corrections can be made to adjust necessary nutrition to adjust or stabilize the blood glucose of a given patient. 
 
 % \engExpl{Discuss the positive effects and the drawbacks.\\
