@@ -677,8 +677,7 @@ Tight glycemic control för kritiskt sjuka patienter på intensivvårdsavdelning
 % at \qty{200}{Gbps}.}
 % \fi
 
-Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of stress hormones results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the causality of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. Clinicians aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia.
-
+Patients in the intensive care unit suffering from critical illnesses (e.g. acute myocardial infarction, sepsis, stroke) have been widely documented to undergo hyperglycaemia, even those without a prior diagnosis of diabetes \cite{dungan_stress_2009}. Acute stress observed in critical illnesses often induces physiological changes, as the secretion of stress hormones results in an inflammatory response associated with insulin-resistance \cite{paolisso_hyperglycemia_2021} \cite{song_relationship_2025} \cite{lang_insulin-mediated_1990} \cite{andrews_glucocorticoids_1999} \cite{shangraw_differentiation_1989} \cite{heise_simulated_1998}. While there is inconclusive evidence pertaining to the causality of stress hyperglycaemia and adverse outcomes, the onset of mortality is far greater in patients with no reported history of hyperglycaemia \cite{dungan_stress_2009} \cite{song_relationship_2025}. Sustaining glucose concentration under 6.106 mmol/L through insulin infusion has demonstrated a reduction of mortality and morbidity, compared to less-intensive methods of glycaemic control \cite{berghe_intensive_2001}, at the subsequent cost of an increase of reported incidences of hypoglycaemia \cite{brunkhorst_intensive_2008}. Further review of intensive insulin therapy and tight glucose control has identified discrepancies in the administration of glycaemic control, mostly corresponding to the risk of moderate to severe hypoglycaemia and glycaemic variability in a critically ill patient is equally detrimental as stress hyperglycaemia, with an increase of mortality and health complications observed \cite{brunkhorst_intensive_2008} \cite{nice-sugar_study_investigators_hypoglycemia_2012} \cite{evans_surviving_2021}. 
 
 \section{Background}
 \label{sec:background}
@@ -692,7 +691,7 @@ Patients in the intensive care unit suffering from critical illnesses (e.g. acut
 % delimit what you are going to do and what others have done or will do.}
 
 
-Ad hoc sliding protocols have been used in the intensive care unit to provide clinicians the necessary nutrition and insulin doses to control blood glucose levels based on hourly glucose measurements \cite{thomas_implementation_2005} \cite{shaw_rethinking_2006}. Such methods are often difficult to implement in practice and result in minimal improvements in preventing mortality \cite{chase_model-based_nodate}. The implementation of tight glucose controllers avoids tedious procedures followed in sliding protocols by estimating insulin-glucose states on given insulin and nutrition inputs, with observed improvements in constraining blood glucose to a safe range \cite{compte_blood_2009}. The implementation of model-based tight glucose control methods relies on the formulation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{compte_blood_2009} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose states in patients. In practice, the estimated states from the insulin-glucose models are affected by process noise from unmodeled states (and/or parameters) in the model formulation and from noisy measurements. As a direct result, the insulin-glucose states in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the states in mechanistic insulin-glucose models. 
+Clinicians now aim to maintain blood glucose in a range of 6 mmol/L to 10 mmol/L to account for adverse outcomes in hyperglycaemia and hypoglycaemia. Ad hoc sliding protocols have been utilized in the intensive care unit to provide clinicians with the necessary nutrition and insulin doses to control blood glucose levels based on hourly glucose measurements \cite{thomas_implementation_2005} \cite{shaw_rethinking_2006}. Such methods are often difficult to implement in practice and result in minimal improvements in preventing mortality \cite{chase_model-based_nodate}. The implementation of tight glucose controllers avoids tedious procedures followed in sliding protocols by estimating insulin-glucose states on given insulin and nutrition inputs, with observed improvements in constraining blood glucose to a safe range \cite{compte_blood_2009}. The implementation of model-based tight glucose control methods relies on the formulation of insulin-glucose dynamics. Mechanistic insulin-glucose models have been developed with an extensive physiological foundation, and have been validated for glycaemic control in clinical settings \cite{chase_model-based_nodate} \cite{compte_blood_2009} \cite{lotz_monte_2008} \cite{lin_physiological_2011} \cite{hann_integral-based_2005}. The insulin-glucose models derived are nonlinear, which requires more advanced numerical methods to properly estimate the current and future insulin-glucose states in patients. In practice, the estimated states from the insulin-glucose models are affected by process noise from unmodeled states (and/or parameters) in the model formulation and from noisy measurements. As a direct result, the insulin-glucose states in practice struggle to be estimated deterministically. To accommodate modeling of stochastic processes, statistical methods are needed to optimally estimate the states in mechanistic insulin-glucose models. 
 
 
 % The patient parameters used in such models must reflect glucose-insulin dynamics observed physiologically to accurately model gluco-regulation. Mechanistic insulin-glucose models published have traditionally assigned patient parameters as population constants, backed by parameter sensitivity analysis studies. There are data-driven methods to approximate some patient parameters as shown in \cite{lin_physiological_2011} \cite{compte_blood_2009}, but a lack has been implemented with noisy measurements being taken into account. 
@@ -702,7 +701,7 @@ Ad hoc sliding protocols have been used in the intensive care unit to provide cl
 
 % This paper introduces a more robust approach to patient-specific parameter identification by formulating an estimator model. Instead of relying on fitting error metrics as the basis of parameter choice, leveraging bayesian estimation can improve the patient-specific parameter estimates used in dynamic mechanistic glucose-insulin models \cite{ninness_bayesian_2010}. Improved parameter estimates will result in enhanced glycaemic control and can further reduce hypoglycaemia, mortality, and morbidity in critically ill patients.
 
-Patients suffering with differing critical illnesses are observed with varying magnitudes of insulin resistance, preventing a one-size-fits-all tight glucose control protocol to restrict glycaemic levels. Model-based tight glucose control has the ability to adapt to a given patient's condition, but there currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose states. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012}, but they lack systematic design of the synthetic patient cohort and analyzing the relationship of filter configuration and performance of tight glucose control. The gap in research in analyzing various Bayesian filters with representative synthetic patients is detrimental, as studies need to gauge how well tight glucose controllers can work in practice with vulnerable patients.
+Patients suffering with differing critical illnesses are observed with varying magnitudes of insulin resistance, preventing a one-size-fits-all tight glucose control protocol to restrict glycaemic levels. Model-based tight glucose control has the ability to adapt to a given patient's condition, but there currently exist gaps in research for in-depth analysis of statistical modeling of insulin-glucose states. Previous studies have employed Bayesian filtering methods for this task \cite{aguirre-zapata_glycemic_2017} \cite{eberle_identifiability_2012} and integral-based approximation to estimate unknown insulin-glucose model parameters \cite{hann_integral-based_2005}. These studies lack systematic design of the synthetic patient cohort and relationship of filter configuration and performance of tight glucose control. The gap in research in analyzing various Bayesian filters with representative synthetic patients hinders gauging how well tight glucose controllers work in practice with vulnerable patients.
 
 % evidence shown in sensitivity studies that certain patient-specific parameters do not have much influence in the insulin-glucose dynamics \cite{chase_model-based_nodate} \cite{hann_integral-based_2005} \cite{compte_blood_2009}, inadequate assigning of the remaining parameters can lead to inadequate glycaemic control in critically ill patients. 
 
@@ -728,7 +727,7 @@ The overall goals of this project has been divided into the following sub-goals:
 \item Design a synthetic patient cohort
 % \sweExpl{för att tillfredsställa ingenjörssamfundet och vetenskapen – akademin) }
 \item Compare performance of various filters in estimation of insulin-glucose states
-\item Estimate unknown parameters in patients
+\item Estimate unknown insulin-glucose model parameters in patients
 % \sweExpl{eventuellt, för att uppfylla kursmålen – du som student}
 \end{enumerate}
 
@@ -758,12 +757,15 @@ Chapter \ref{ch:background} will introduce the existing modeling of insulin-gluc
 \chapter{Background}
 \label{ch:background}
 
-The background will introduce the theoretical concepts and prior work relevant to the thesis. Beginning with a description of the system physiology and the \gls{ICING} model, and how state estimation methods can be applied to estimate insulin-glucose states optimally. The chapter will conclude with practical parameter estimation approaches to predict unknown parameters.
+The background will introduce the theoretical concepts and prior work relevant to the thesis. Beginning with a description of the system physiology and the \gls{ICING} model. Followed by presenting how state estimation methods can be applied to estimate insulin-glucose states optimally. The chapter will then conclude with practical parameter estimation approaches to predict unknown parameters.
 
-\section{Insulin-Glucose Modeling}
+\section{Physiology of glucoregulation}
 
+To model glucoregulation in critically ill patients, it is necessary to understand how the physiological mechanisms are interrelated. Glucoregulation in the human body relies on the function of the pancreas. When there is a decrease in blood glucose, the alpha cells in the pancreas produce the hormone glucagon, that binds to liver cells. Resulting in the conversion of the stored glycogen in the liver to glucose, which is secreted in the bloodstream. In the case of an increase of blood glucose, such as the intake of a meal, beta cells in the pancreas will release insulin. The kidneys will filter the produced insulin, and the liver will be signaled to convert glucose into glycogen. Thus, decreasing the total amount of blood glucose.
 
-\subsection{Intensive Control Insulin-Nutrition-Glucose Model}
+As a result of the previously mentioned insulin resistance found in critically-ill patients, the body does not normally respond to insulin, resulting in lowered glycogen production in the liver. External food is given to patients to ensure proper nutrition, but food being digested in the body will result in a spike of blood glucose, as the glucose transfers from the stomach to the gut. As a result, it is imperative that patients with insulin resistance are given exogenous insulin by clinicians to maintain glycaemic ranges in a safe range. Given these functions of the human glucoregulation system, a model can be developed to build intuition of the insulin-glucose dynamics in patients.
+
+\section{Intensive Control Insulin-Nutrition-Glucose Model}
 
 The \gls{ICING} model presented by Lin et al. \cite{lin_physiological_2011} captures the insulin-glucose dynamics in critically ill patients. The model is constructed as a fusion of two existing models validated for patients in the intensive care unit \cite{chase_model-based_nodate} \cite{lotz_monte_2008}, containing the following ensemble of differential equations
 \begin{subequations}
@@ -1599,40 +1601,29 @@ The chosen "optimal" number of particles is much less computationally expensive 
 \section{Parameter Estimation}
 
 State augmentation of insulin sensitivity in the extended Kalman filter and the particle filter was implemented to compare the estimation performance of the existing state estimators against the \gls{IPI} method. To accommodate the inclusion of the insulin sensitivity in the state-space, the initial and process noise covariance is appended as such
-\begin{equation}    
+\begin{equation}
 \begin{aligned}
-P_{0} &= \mathrm{diag}\!\left(
-\begin{bmatrix}
-1.00 &
-3.00 &
-3.00 &
-1.00 &
-2.00 &
-1.00  &
-1.00 \times 10^{-5}
-\end{bmatrix}^{\sf T}\right) \\
-Q_{\text{ constant } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
-\begin{bmatrix}
-0.005 &
-1.00 &
-1.00 &
-0.005 &
-0.025 &
-1.00\times10^{-8} &
-8.00\times10^{-4}
-\end{bmatrix}^{\sf T}\right)\\
-Q_{\text{ time-varying } \,S_I} &= \frac{1}{120}\mathrm{diag}\!\left(
-\begin{bmatrix}
-0.005 &
-1.00 &
-1.00 &
-0.005 &
-0.025 &
-1.00\times10^{-8} &
-0.333
-\end{bmatrix}^{\sf T}\right) .
+P_{0} &= \mathrm{diag}(\bm{\sigma_{P_0}})\\
+Q_{\text{ constant }\,S_I} &= \frac{1}{120}\mathrm{diag}(\bm{\sigma_{Q_\text{const}}})\\
+Q_{\text{ time-varying }\,S_I} &= \frac{1}{120}\mathrm{diag}(\bm{\sigma_{Q_\text{tv}}}),
 \end{aligned}
 \end{equation}
+
+\begin{equation}
+\begin{aligned}
+\bm{\sigma_{P_0}} &=
+[1.00,\,3.00,\,3.00,\,1.00,\,2.00,\,1.00,\,\\
+&\qquad 1.00\times10^{-5}]^{\mathsf T}\\[4pt]
+\bm{\sigma_{Q_{\text{const}}}} &=
+[0.005,\,1.00,\,1.00,\,0.005,\,0.025,\,1.00\times10^{-8},\,\\
+&\qquad 8.00\times10^{-4}]^{\mathsf T}\\[4pt]
+\bm{\sigma_{Q_{\text{tv}}}} &=
+[0.005,\,1.00,\,1.00,\,0.005,\,0.025,\,1.00\times10^{-8},\,\\
+&\qquad 0.333]^{\mathsf T}.
+\end{aligned}
+\end{equation}
+
+
 Both constant and time-varying insulin-sensitivity were used to investigate how characteristics of the parameter affect estimation. Figures \ref{fig:integralMethod} and \ref{fig:siMSE} display the performance of each method according to the time dependency of the parameter. MSE in these figures depicts the mean error for each time step, not the length of the sequence. 
 
 The \gls{IPI} method in Figure \ref{fig:integralMethod} illustrates how the estimation accuracy degrades drastically if any measurement noise is present in the calculation. Therefore, the performance is heavily-dependent on the quality of the measurements. Any estimation of the insulin sensitivity from the \gls{IPI} method does not provide any information on the insulin sensitivity, as the output never converges towards the true value(s) in a practical setting with noisy measurements. For this reason, the \gls{IPI} method is removed from the comparison of the extended Kalman filter and particle filter in the following section.
@@ -1762,7 +1753,9 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 % \engExpl{Describe the conclusions (reflect on the whole introduction given in Chapter 1).}
 
 
-A systematic framework for estimating insulin states in critically ill patients was presented in this study. Formulating a distribution of initial insulin-glucose states allowed for sampling an abundance of unique virtual patients and nutrition inputs to evaluate the observability of the \gls{ICING} model and the state and parameter estimation performance. By using standard measurements and sampling frequency available in hospitals, it was possible to simulate model-based glycaemic control with Bayesian filters along with estimating unknown parameters in the \gls{ICING} model. The results illustrate how model-based glycaemic control allows for monitoring at-risk patients and how possible corrections can be made to adjust necessary nutrition to adjust or stabilize the blood glucose of a given patient. 
+
+
+% A systematic framework for estimating insulin states in critically ill patients was presented in this study. Formulating a distribution of initial insulin-glucose states allowed for sampling an abundance of unique virtual patients and nutrition inputs to evaluate the observability of the \gls{ICING} model and the state and parameter estimation performance. By using standard measurements and sampling frequency available in hospitals, it was possible to simulate model-based glycaemic control with Bayesian filters along with estimating unknown parameters in the \gls{ICING} model. The results illustrate how model-based glycaemic control allows for monitoring at-risk patients and how possible corrections can be made to adjust necessary nutrition to adjust or stabilize the blood glucose of a given patient. 
 
 % \engExpl{Discuss the positive effects and the drawbacks.\\
 % Describe the evaluation of the results of the degree project.\\
@@ -1796,9 +1789,9 @@ A systematic framework for estimating insulin states in critically ill patients 
 
 % In particular, the author of this thesis wishes to point out xxxxxx remains as a problem to be solved. Solving this problem is the next thing that should be done. ...
 
-To better understand the applicability of the method in this study, using real clinical data in a future study would provide insight into how well the \gls{ICING} model behaves. This is important as within this study, the virtual patients were generated utilizing the \gls{ICING} model. The inclusion of real clinical data would need to include necessary preprocessing and fine-tuning of the Bayesian filters that are not covered within this study. 
+% To better understand the applicability of the method in this study, using real clinical data in a future study would provide insight into how well the \gls{ICING} model behaves. This is important as within this study, the virtual patients were generated utilizing the \gls{ICING} model. The inclusion of real clinical data would need to include necessary preprocessing and fine-tuning of the Bayesian filters that are not covered within this study. 
 
-Another important issue that should be addressed is estimating more unknown parameters in the \gls{ICING} model. Further estimation of these parameters could result in better prediction of the insulin-glucose states at the subsequent cost of increasing the dimensionality of the state-space. In this study, only state augmentation was used for parameter estimation, but other methods should be investigated along the newly founded parameters of interest.
+% Another important issue that should be addressed is estimating more unknown parameters in the \gls{ICING} model. Further estimation of these parameters could result in better prediction of the insulin-glucose states at the subsequent cost of increasing the dimensionality of the state-space. In this study, only state augmentation was used for parameter estimation, but other methods should be investigated along the newly founded parameters of interest.
 
 % \section{Reflections}
 % \label{sec:reflections}
