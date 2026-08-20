@@ -8,7 +8,7 @@
   \draw[->] (2.32,3.5) -- (node2.north);
   \draw[->] (2.32,3.5) -- (node4.north);
   \draw[->] (2.32,3.5) -- (node5.north);
-  \node[align=left, draw, minimum width=231pt, fill=magenta!63!lightgray!85!pink] (node7) at (2.32,-1.22) {Dynamically run\\ $x_k = \begin{bmatrix}G_k & I_k & Q_k & P_{1,k} & P_{2,k} & u_{\,en,k}\end{bmatrix}$\\$u_k = \begin{bmatrix} D_k & P_{N,k} & u_{\,ex,k}\end{bmatrix}$\\$x_{k+1} = f(x_k, u_k, S_{I,k})$};
+  \node[align=left, draw, minimum width=231pt, fill=lightgray!99!red!49!magenta] (node7) at (2.32,-1.22) {Dynamically run\\ $x_k = \begin{bmatrix}G_k & I_k & Q_k & P_{1,k} & P_{2,k} & u_{\,en,k}\end{bmatrix}$\\$u_k = \begin{bmatrix} D_k & P_{N,k} & u_{\,ex,k}\end{bmatrix}$\\$x_{k+1} = f(x_k, u_k, S_{I,k}) + q_{k}$};
   \draw[->] (node3.south) -- (1.14,1.32);
   \draw[->] (node2.south) -- (1.33,1.32);
   \draw[->] (node4.south) -- (node6.north);

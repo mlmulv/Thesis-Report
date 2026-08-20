@@ -825,7 +825,7 @@ The \gls{ICING} model also involves several parameters alongside the previously 
 \end{table}
 
 It should be noted that in the \gls{ICING} model, the nonlinear dynamics are defined in continuous-time. Discretization of the model is necessary as in the following section, the estimation methods presented operate within discrete time, noted as $k$. If we define the discrete time step as $t_{k} = t_{k-1}+ \Delta t$, an example state $F(t)$ can be discretized according to the Euler method
-\begin{equation}
+\begin{equation}\label{eq:euler}
 \begin{aligned}
 \dot{F} &\approx \frac{F(t_{k}) - F(t_{k} - \Delta t)}{\Delta t} \\
 F_{k} &\approx F_{k-1} + \Delta t \dot{F}.
@@ -840,7 +840,7 @@ A probabilistic representation of the \gls{ICING} model will be utilized in this
 Within the scope of this thesis, discrete-time dynamical systems will be modeled in the state-space representation. A state-space model consists of system variables that describe the state of the system, inputs, and measurements. The states are typically formulated as linear or nonlinear equations. A probabilistic representation of the discrete-time state-space can be represented as such
 \begin{equation} \label{eq:prob1}
 \begin{aligned}
-x_{k} &\sim p(x_{k} \mid x_{k-1},\,u_{k-1}) \\
+x_{k} &\sim p(x_{k} \mid x_{k-1},\,u_{k-1}), \\
 y_{k} &\sim p(y_{k} \mid x_{k}),
 \end{aligned}
 \end{equation}
@@ -851,14 +851,14 @@ Any model has intrinsic approximation errors, and the errors should be taken int
 The objective of state estimators can described as estimating the distribution of the state $x_k$ , given all the measurements up to the current sample $p(x_{k} \mid y_{1:k})$. In the case of assuming the model is linear and Gaussian, the states and measurements can be written as the difference equations
 \begin{equation}
 \begin{aligned}
-x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1} \\
+x_{k} &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} + q_{k-1}, \\
 y_{k} &= Hx_{k} + r_{k},
 \end{aligned}
 \end{equation}
 where $q_{k-1} \sim \mathcal{N}(0,\,Q_{k-1})$ is the process noise, $r_{k} \sim \mathcal{N}(0,\,R_k)$ is the measurement noise, we can rewrite the Equation \eqref{eq:prob1} as the following
 \begin{equation}
 \begin{aligned}
-p(x_{k} \mid x_{k-1}, u_{k-1}) &= \mathcal{N}(x_{k} \mid A_{k-1}x_{k-1} + B_{k-1}u_{k-1},\,Q_{k-1}) \\
+p(x_{k} \mid x_{k-1}, u_{k-1}) &= \mathcal{N}(x_{k} \mid A_{k-1}x_{k-1} + B_{k-1}u_{k-1},\,Q_{k-1}), \\
 p(y_{k} \mid x_{k}) &= \mathcal{N}(y_{k} \mid H_{k}x_{k},\,R_{k}).
 \end{aligned}
 \end{equation}
@@ -867,17 +867,17 @@ The closed-form solution of $p(x_{k} \mid y_{1:k})$ for linear and Gaussian dyna
 \item \textit{Prediction step}
 \begin{equation} \label{eq:Predict_kf}
 \begin{aligned}
-m_{k}^- &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1} \\
+m_{k}^- &= A_{k-1}x_{k-1} + B_{k-1}u_{k-1}, \\
 P_{k}^- &= A_{k-1}P_{k-1}A_{k-1}^{\sf T} + Q_{k-1}.
 \end{aligned}
 \end{equation}
 \item \textit{Update step}
 \begin{equation} \label{eq:Update_kf}
 \begin{aligned}
-v_{k} &= y_{k} - H_{k}m_{k}^- \\
-S_{k} &= H_{k}P_{k}^-H_k^{\sf T} + R_k \\
-K_k &= P_k^-H_k^{\sf T}S_k^{-1} \\
-m_k &= m_k^- + K_kv_k \\
+v_{k} &= y_{k} - H_{k}m_{k}^- ,\\
+S_{k} &= H_{k}P_{k}^-H_k^{\sf T} + R_k ,\\
+K_k &= P_k^-H_k^{\sf T}S_k^{-1} ,\\
+m_k &= m_k^- + K_kv_k ,\\
 P_k &= P_k^- - K_kS_kK_k^{\sf T}.
 \end{aligned}
 \end{equation}
@@ -891,17 +891,17 @@ The extended Kalman filter can accommodate the nonlinearities in the \gls{ICING}
     \item \textit{Prediction step} 
     \begin{equation} \label{eq:Predict}
         \begin{aligned}
-            m_{k}^- &= f(m_{k-1},\,u_{k-1}) \\
-            P_{k}^- &= F_x(m_{k-1})P_{k-1}F_x^{\sf T}(m_{k-1}) + F_q(m_{k-1})Q_{k-1}F_q^{\sf T}(m_{k-1})
+            m_{k}^- &= f(m_{k-1},\,u_{k-1}), \\
+            P_{k}^- &= F_x(m_{k-1})P_{k-1}F_x^{\sf T}(m_{k-1}) + F_q(m_{k-1})Q_{k-1}F_q^{\sf T}(m_{k-1}).
         \end{aligned}
     \end{equation}
     \item \textit{Update step} 
     \begin{equation} \label{eq:Update}
         \begin{aligned}
-            v_{k} &= y_{k} - h(m_k^-) \\
-            S_{k} &= H_x(m_k^-)P_{k}^-H_x^{\sf T}(m_k^-) + H_r(m_k^-)R_kH_r^{\sf T}(m_k^-) \\
-            K_k &= P_k^-H_k^{\sf T}(m_k^-)S_k^{-1} \\
-            m_k &= m_k^- + K_kv_k \\
+            v_{k} &= y_{k} - h(m_k^-), \\
+            S_{k} &= H_x(m_k^-)P_{k}^-H_x^{\sf T}(m_k^-) + H_r(m_k^-)R_kH_r^{\sf T}(m_k^-), \\
+            K_k &= P_k^-H_k^{\sf T}(m_k^-)S_k^{-1}, \\
+            m_k &= m_k^- + K_kv_k, \\
             P_k &= P_k^- - K_kS_kK_k^{\sf T},
         \end{aligned}
     \end{equation}
@@ -909,9 +909,9 @@ The extended Kalman filter can accommodate the nonlinearities in the \gls{ICING}
 the Jacobian matrices $F_x(m_{k-1})$, $F_q(m_{k-1})$, $H_x(m_k^-)$, and $H_r(m_k^-)$ are the Taylor series linear approximation of the dynamic and measurement models
 \begin{equation}
     \begin{aligned}
-        \left[F_x(m_{k-1})\right]_{j,j'} &= \frac{\partial f_j(x,q)}{\partial x_{j'}}\bigg\rvert_{x=m_{k-1}, \,q=0} \\
-        \left[F_q(m_{k-1})\right]_{j,j'} &= \frac{\partial f_j(x,q)}{\partial q_{j'}}\bigg\rvert_{x=m_{k-1}, \,q=0} \\
-        \left[H_x(m_k^-)\right]_{j,j'} &= \frac{\partial h_j(x,r)}{\partial x_{j'}}\bigg\rvert_{x=m_k^-, \,r=0} \\
+        \left[F_x(m_{k-1})\right]_{j,j'} &= \frac{\partial f_j(x,q)}{\partial x_{j'}}\bigg\rvert_{x=m_{k-1}, \,q=0}, \\
+        \left[F_q(m_{k-1})\right]_{j,j'} &= \frac{\partial f_j(x,q)}{\partial q_{j'}}\bigg\rvert_{x=m_{k-1}, \,q=0}, \\
+        \left[H_x(m_k^-)\right]_{j,j'} &= \frac{\partial h_j(x,r)}{\partial x_{j'}}\bigg\rvert_{x=m_k^-, \,r=0}, \\
         \left[H_r(m_k^-)\right]_{j,j'} &= \frac{\partial h_j(x,r)}{\partial r_{j'}}\bigg\rvert_{x=m_k^-, \,r=0}.
     \end{aligned}
 \end{equation}
@@ -950,25 +950,25 @@ The steps to implement to formulate the bootstrap particle fiter iteratively can
 \begin{enumerate}
     \item Sample $N$ particles from the dynamic function
     \begin{align}
-        x_k^{(i)} \sim p(x_k \mid x_{k-1}^{(i)},\,u_{k-1}) \quad i = 1,\dots, N
+        x_k^{(i)} \sim p(x_k \mid x_{k-1}^{(i)},\,u_{k-1}) \quad i = 1,\dots, N.
     \end{align}
     \item Update weights from the measurement
     \begin{equation}
         \begin{aligned}
             w_k^{*(i)} &\propto p(y_k \mid x_k^{(i)})  \quad i = 1,\dots, N  \\
-            w_k^{(i)} &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N
+            w_k^{(i)} &= \frac{w_k^{*(i)}}{\sum_{j=1}^{N} w_k^{*(j)}} \quad i = 1,\dots, N .
         \end{aligned}
     \end{equation}
     \item Systematically resample particles from a distribution proportional to the weights
     \begin{equation}
         \begin{aligned}
-            u_1 &\sim \mathbb{U} \left[0, \frac{1}{N}\right] \\
-            u_r &= u_1 + \frac{r-1}{N} \qquad r=2, \dots, N \\
+            u_1 &\sim \mathbb{U} \left[0, \frac{1}{N}\right], \\
+            u_r &= u_1 + \frac{r-1}{N} \qquad r=2, \dots, N, \\
             x_k^{(i)} &=
                 \begin{cases}
                     x_k^{(r)} & \text{if } \sum_{j=1}^{i-1} w_k^{(j)} < u_r \leq \sum_{j=1}^{i} w_k^{(j)}  \qquad i=1,\dots, N 
-                \end{cases} \\
-            w_k^{(i)} &= \frac{1}{N} \qquad i=1, \dots, N
+                \end{cases}, \\
+            w_k^{(i)} &= \frac{1}{N} \qquad i=1, \dots, N .
         \end{aligned}
     \end{equation}
 \end{enumerate}
@@ -980,7 +980,7 @@ To empirically calculate the observability gramian, $2^n$ unique combinations of
 The initial condition $x_0$ will be assigned as perturbations $\delta_i \in \mathbb{R}^n$ around a nominal value $x_{\,nom} \in \mathbb{R}^n$
 \begin{equation}
     \begin{aligned}
-        x_{0,i} &= x_{\,nom} + \delta_i  \\
+        x_{0,i} &= x_{\,nom} + \delta_i,  \\
         \delta_i &= c \cdot S \cdot t_i, \qquad \text{with } S=\mathrm{diag}(x_{\text{max}}).
     \end{aligned}
 \end{equation}
@@ -1010,7 +1010,7 @@ with the positive definite matrix $\Psi \left[k\right]$ being assigned as the fo
 
 If the states have varying magnitudes of scale, it is recommended \cite{eberle_identifiability_2012} to rerun the observability gramian algorithm again with the following transformations
 \begin{align}
-x_s = \sqrt{\mathrm{diag}(W_O)} && T_s = \mathrm{diag}^{-1}(x_s).
+x_s = \sqrt{\mathrm{diag}(W_O)}, && T_s = \mathrm{diag}^{-1}(x_s).
 \end{align}
 The new state perturbations are assigned as the transformation $\bar{x} = T_s x$. 
 To make inferences about of the observability gramian, one can check the rank condition of the matrix by analyzing the nonzero singular values of $W_0$. If there exists singular values near zero (e.g. $<0.1$), a subset of the dynamics of the system can not be observed from the measurements.
@@ -1027,7 +1027,7 @@ As previously mentioned, there exists unrepresented \gls{ICING} model parameters
 A practical method to handle unknown parameters is to augment them to the existing state variables $\tilde{x}_k = \left[x_k, \theta_k\right]^{\sf T}$, such that Equation \eqref{eq:prob1} can be redefined as
 \begin{equation} \label{eq:prob2}
 \begin{aligned}
-\tilde{x}_k &\sim p(\tilde{x}_{k} \mid \tilde{x}_{k-1},\,u_{k-1})\\
+\tilde{x}_k &\sim p(\tilde{x}_{k} \mid \tilde{x}_{k-1},\,u_{k-1}),\\
 y_{k} &\sim p(y_{k} \mid \tilde{x}_k).
 \end{aligned}
 \end{equation}
@@ -1122,7 +1122,7 @@ The Integral-based Parameter Identification (\gls{IPI}) method is a nonlinear an
 the Equation \eqref{eq:BG} can be rearranged as such for a piecewise constant $S_I$ 
 \begin{alignat}{1}
     \int_{t_0}^{t_1} \dot{G} \, \diff t &\approx 
-        -p_G \int_{t_0}^{t_1} \widetilde{G}(t) \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{G}(t) \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + E_G - C_G \, \diff t \nonumber \\
+        -p_G \int_{t_0}^{t_1} \widetilde{G}(t) \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{G}(t) \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + E_G - C_G \, \diff t  \\
     G(t_1) - G(t_0) &\approx 
             -p_G \int_{t_0}^{t_1} \widetilde{G}(t) \, \diff t - S_I \int_{t_0}^{t_1} \widetilde{G}(t) \frac{Q(t)}{1+\alpha_G Q(t)} \, \diff t \nonumber \\ & \quad + \frac{1}{V_G} \int_{t_0}^{t_1} P(t) + E_G - C_G \, \diff t,
 \end{alignat}
@@ -1162,7 +1162,7 @@ Other methods not relying on linearization of the measurements must be explored 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/2_1.pdf}
-    \caption[Example patient's blood glucose and measurement]{Blood glucose and its' corresponding measurements from an example patient trajectory from the \gls{ICING} model.}
+    \caption[Example of a patient's blood glucose the corresponding measurements]{Blood glucose and its corresponding measurements from an example patient trajectory from the \gls{ICING} model.}
     \label{fig:background}
 \end{figure}
 
@@ -1223,11 +1223,12 @@ The \gls{ICING} model provides a foundation to model glucose removal, insulin ph
 % \label{sec:researchParadigm}
 % The philosophical motivation in this study is founded on utilizing a set of quantitative methods that serve the purpose of ultimately answering the previously stated research questions. The use of statistical metrics will quantitatively express the relationships of variables tested in the experiment. Consequently, the research questions will effectively be addressed. 
 
-The necessary methodology to achieve the goals introduced in Section \ref{sec:goals} will be presented in this chapter. It begins with the design of the synthetic patient cohort used for simulation of patients in this paper. The observability of the \gls{ICING} model is analyzed to learn if the states can be inferred from the measurements. Based on the observed performance, nonlinear state estimators are utilized to assess the model's ability to estimate unmeasured dynamics. Finally, the parameter estimation methods used to estimate unknown constant and time-varying insulin sensitivity are introduced.
+The necessary methodology to achieve the goals introduced in Section \ref{sec:goals} will be presented in this chapter. It begins with the design of patient trajectories to simulate critically ill patients in this paper. The observability of the \gls{ICING} model is analyzed to learn if the states can be inferred from the measurements. Based on the observed performance, nonlinear state estimators are utilized to assess the model's ability to estimate unmeasured dynamics. Finally, the parameter estimation methods used to estimate unknown constant and time-varying insulin sensitivity are introduced.
 
-\section{Synthetic Patient Cohort}
+\section{Synthetic Patient Trajectories}
 \label{sec:patientCohort}
-A synthetic patient cohort will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient model consists of simulated insulin-glucose dynamics ($G,\,Q,\,I,\,P_1,\,P_2,\,u_{\,en},\,P$) represented in Equations \eqref{eq:BG} to \eqref{eq:P}, known insulin sensitivity $S_I$, exogenous insulin $u_{ex}$, enteral feed $D$, and parenteral feed $P_N$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all synthetic patients. To introduce variance between patients, a synthetic patient is given a randomly sampled initial input observed from doses given to patients in the Karolinska University Hospital and a randomly assigned insulin sensitivity.
+\subsection{Initial States, Inputs, and Insulin Sensitivity}\label{sec:init}
+Patient trajectories will be simulated to model clinical insulin-glucose data observed in patients in the intensive care unit. A patient trajectory consists of simulated insulin-glucose dynamics ($G,\,Q,\,I,\,P_1,\,P_2,\,u_{\,en},\,P$) represented in Equations \eqref{eq:BG} to \eqref{eq:P} corrupted with additive white gaussian process noise $q_x$, known insulin sensitivity $S_I$, exogenous insulin $u_{ex}$, enteral feed $D$, and parenteral feed $P_N$. The population constants listed in Table \ref{tab:params} are assigned to the constant parameters for all trajectories. To introduce variance between patient trajectories, each trajectory has unique randomly sampled initial inputs observed from doses given to patients in the Karolinska University Hospital and a randomly assigned insulin sensitivity.
 
 % GLUC-ICU dataset:
 % - No. Patients: 27113
@@ -1236,8 +1237,7 @@ A synthetic patient cohort will be simulated to model clinical insulin-glucose d
 % - No minutes of feeding data: 105 085 755
 % - No minutes of insulin data: 81 395 921
 
-The GLUC-ICU dataset that will be made use of in this thesis consists of 27113 patients in the intensive care unit in Karolinska University hospital. 60.5\% of the total amount of patients are not given insulin, due to patients being in a stable enough condition or otherwise. From the 10702 patients that intake insulin at some period during their stay in critical care, there exists 100 Million minutes of feeding data and 80 million minutes of insulin data to sample from. Patients in the dataset were given discrete inputs of enteral, parenteral, and exogenous insulin. A joint histogram for enteral and parenteral, as well as a histogram for exogenous insulin were constructed, with bin heights in each histogram summing to 1. Subsequently, all inputs can be sampled from their respective histogram.
-
+The GLUC-ICU dataset that will be made use of in this thesis consists of 27113 patients in the intensive care unit at Karolinska University hospital. 60.5\% of the total amount of patients are not given insulin, due to patients being in a stable enough condition or otherwise. From the 10702 patients that intake insulin at some period during their stay in critical care, there exists 100 Million minutes of feeding data and 80 million minutes of insulin data to sample from. Patients in the dataset were given discrete inputs of enteral, parenteral, and exogenous insulin. A joint histogram for enteral and parenteral feeding, as well as a histogram for exogenous insulin were constructed. Subsequently, all inputs can be sampled from their respective histogram.
 
 % \begin{equation} \label{eq:inputs}
 %     \begin{aligned}
@@ -1246,10 +1246,9 @@ The GLUC-ICU dataset that will be made use of in this thesis consists of 27113 p
 %         P_N &\sim \mathcal{U}[0.2,\,0.4]\text{ mmol/min.} \\
 %     \end{aligned}
 % \end{equation}
-
 The insulin sensitivity has been shown to follow a log-normal distribution \cite{davidson_multi-input_2019}. Sampling the insulin sensitivity from a log-normal is important to adhere to the physiological constraints typically observed in patients, as the insulin sensitivity is small in magnitude, and sampling from a normal distribution could shift the insulin sensitivity negative or too large in magnitude, which can possibly result in poor estimation. The values chosen within this study will be drawn from the distribution\footnote{These parameters are approximated according to previous work from Davidson et al. \cite{davidson_multi-input_2019}}
 \begin{align} \label{eq:SI}
-S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
+S_{I,0} &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
 \end{align}
 % \begin{figure}[ht]
 % \centering
@@ -1257,20 +1256,67 @@ S_I &= \exp(X), \qquad \text{ with } X \sim \mathcal{N}(-8.05,\,0.70^2).
 % \caption{Probability Density Functions of the system inputs and parameters.}
 % \end{figure}
 
-To simulate patient data given the inputs and parameters, each synthetic patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the filter
+ Each synthetic patient needs to be assigned a unique initial state\footnote{The glucose appearance in the blood $P$ is not included as an initial state in the state-space model. This is a result of patients not reaching the maximum glucose out flux from the gut $P_{\,\text{max}}$ at the beginning of the simulation. Thus, it simplifies to a deterministic equation.} for the filter
 \begin{align}
     x_0 &= \begin{bmatrix}
         G_0 & I_0 & Q_0 & \,P_{1,0} & \,P_{2,0} &  \,u_{\,en, 0}
     \end{bmatrix}.
 \end{align}
-If it assumed that the patient begins at a steady state, it is possible to derive the initial states by solving for the roots of the differential equations \eqref{eq:BG} to \eqref{eq:uen}. This can be computed with the python solver function \texttt{scipy.optimize.fsolve}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html}} for each patient in the cohort.
+If it assumed that the patient begins at a steady state, it is possible to derive the initial states by solving for the roots of the differential equations \eqref{eq:BG} to \eqref{eq:uen}. This can be computed with the python solver function \texttt{scipy.optimize.fsolve}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html}} for each patient in the cohort with the sampled initial inputs and insulin sensitivity
+\begin{align}
+    x_0 \in \left\{x^*_0: f \left(x^*_0, \,S_{I,0}, \,D_0, \,P_{N,0}, \,u_{ex,0}\right) = 0\right\}.
+\end{align}
 
-Given all the initial states, known insulin sensitivity, and the patient inputs, the patient cohort can be generated by solving the differential equations \eqref{eq:BG} to \eqref{eq:P_2} with a time step of 1 minute for each patient. The results will be inputs to Equations \eqref{eq:uen} and \eqref{eq:P}. The ODE solver \texttt{scipy.integrate.solve\_ivp}\footnote{\url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}} function in python will be applied with the Explicit Runge-Kutta of order 5(4) integration method \cite{dormand_family_1980} to solve for the necessary dynamics.
+\subsection{Generating Synthetic Patient Trajectories}
 
-\begin{figure}
+To ensure generating clinically relevant synthetic patient data, the patient inputs should be chosen to fluctuate over time. The parenteral glucose and insulin inputs were designed such that they are periodic exponentially decreasing ramps to values half of the initial $P_{N,0}$ and $u_{ex,0}$, over a period of 4 hours, as well as a constant enteral glucose rate
+\begin{equation}
+    \begin{aligned}
+        D_k &= D_0, \\
+        P_{N,k} &= P_{N,0}\exp\left(-\frac{k \mod 240}{\ln(2) \times 240}\right), \\
+        u_{ex, k} &= u_{ex, 0}\exp\left(-\frac{k \mod 240}{\ln(2) \times 240}\right). \\
+    \end{aligned}
+\end{equation}
+Two different insulin sensitivity models are considered in this thesis. A constant insulin sensitivity is assigned as a function of the the initial sampled $S_I$
+\begin{align}
+    S_{I,k} = S_{I,0},
+\end{align}
+and a piecewise insulin sensitivity that consists of linearly changing $S_I$ with intervals of 20 hours (1200 discrete time steps)
+\begin{equation}\label{eq:piecewise}
+    \begin{aligned}
+        S_{I,1200} &= z_0S_{I,0} \qquad z_0 \sim \mathbb{U}[0.5, \,2], \\
+        S_{I,2400} &= z_1S_{I,1200} \qquad z_1 \sim \mathbb{U}[0.5, \,2], \\ 
+        S_{I,3600} &= z_2S_{I,2400} \qquad z_2 \sim \mathbb{U}[0.5, \,2], \\ 
+        S_{I,k} &=
+        \begin{cases}
+            \frac{S_{I, 1200} - S_{I, 0}}{1200}k + S_{I,0}, \qquad & k < 1200, \\[1ex]
+            \frac{S_{I, 2400} - S_{I, 1200}}{1200}(k-1200) + S_{I,1200}, & 1200 \leq k < 2400, \\[1ex]
+            \frac{S_{I, 3600} - S_{I, 2400}}{1200}(k-2400) + S_{I,2400}, & 2400 \leq k \leq 3600           
+        \end{cases}
+    \end{aligned}    
+\end{equation}
+To ensure the insulin sensitivity is constrained to physiologically observed values, $S_{I,1200}, \,S_{I,2400}, \,S_{I,3600}$ will be clipped to the minimum and maximum insulin sensitivity observed in the initial insulin sensitivity histogram.
+
+The process noise for the \gls{ICING} model will be assigned with the measurement sampling frequency in mind. Every 2 hours, a blood glucose sample of the patient is measured, resulting in 120 discrete time steps of the ICING model for a step size of $\Delta t = 1$ min. The process noise will be chosen as 10\% of the variance of the derived initial states, to signify variation of the true state compared to the model, as well as be scaled by the sampling frequency
+\begin{equation}\label{eq:processnoise}
+\begin{aligned}
+q_k &\sim \mathcal{N}\!\bigl(0, \mathrm{diag}(\bm{\sigma})\bigr),\\
+\bm{\sigma} &= \frac{1}{120}\begin{bmatrix}
+\frac{{\sigma_G}^2}{10} &
+\frac{{\sigma_Q}^2}{10} &
+\cdots &
+\frac{{\sigma_{P_2}}^2}{10} &
+1.0\times10^{-8}
+\end{bmatrix}^{\mathsf{T}}.
+\end{aligned}
+\end{equation}\footnotetext{The process noise for endogenous insulin $u_{en}$ was chosen as a relatively small value due to plasma insulin already being modeled with uncertainty.} 
+
+Thus, given all the initial states, known insulin sensitivity, and the patient inputs, the patient's insulin-glucose states can be derived dynamically as shown in Figure \ref{fig:datagen}, according to the discretized \gls{ICING} model with dynamics of the form as shown in Equation \eqref{eq:euler}.
+\begin{figure}[ht!]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/3_1.pdf}
     \caption{Process of generating synthetic patients.}
+    \label{fig:datagen}
 \end{figure}
 
 % \begin{figure}[ht] 
@@ -1307,10 +1353,10 @@ Given all the initial states, known insulin sensitivity, and the patient inputs,
 % In order to evaluate the estimation of patient-specific parameters, the methodology will follow a trajectory of investigating observability in insulin-glucose models, comparing state estimators, and then assessing parameter estimation methods. Each phase of the experiment will have their own respective patient cohort, and statistical metrics.
 
 \section{Observability of the Intensive Control Insulin-Nutrition-Glucose Model}
-In Section \ref{sec:patientCohort}, synthetic patients were created by first randomly sampling initial dynamics, and then utilizing an ODE solver to solve the dynamics according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose states, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose states and the observations as previously discussed in Section \ref{sec: obs}.
+In Section \ref{sec:patientCohort}, synthetic patient trajectories were created by first randomly sampling initial states, and then generating the 60 hours of patient's insulin-glucose states for a constant insulin sensitivity according to the \gls{ICING} model. For the \gls{ICING} model to be classified as observable, it must be possible to infer the insulin-glucose states, given a sufficient number of observations. To establish if the formulation of the \gls{ICING} model is observable, a mathematical analysis can determine the relationship of the insulin-glucose states and the observations as previously discussed in Section \ref{sec: obs}.
 
 1000 patients will be randomly sampled to investigate the observability of the \gls{ICING} model across various permutations of each random nominal state vector.
-The maximum value of each state\footnote{For this calculation, $u_{en}$ and $P$ are omitted. This is due to the fact that these dynamics are deterministic at $t=0$.} $x_{max}$ will be chosen as the maximum values of the patient cohort states found in the previous section \ref{sec:patientCohort}
+The maximum value of each state $x_{max}$ will be chosen as the maximum values of the patient cohort found in Section \ref{sec:patientCohort}
 \begin{equation}
 \begin{aligned}
 S &= \mathrm{diag}(x_{max}), \\
@@ -1322,22 +1368,7 @@ S &= \mathrm{diag}(x_{max}), \\
 as well with a maximum perturbation constant of $c=0.1$. With the following defined inputs, the observability gramian $W_O$ can be derived to analyze the singular values of all the calculated matrices using single value decomposition. To also analyze which states are the most observable respectively to each other, the diagonals of the observability gramian can be used to propose that diagonal entries greater in magnitude provide more information in relation to the observations. Formulating an approximation of the observability will provide insight into the performance of the estimators in the following section.    
 
 \section{Nonlinear State Estimation}
-The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the computational complexity $\mathcal{C}$ of estimating all states over the total time and the \gls{MSE} of the blood glucose concentration estimates will be recorded for all patients and filters in the given synthetic patient cohort. The simulations will span 12 hours to allow each estimator to converge, as well as a discrete time step of 1 minute, with glucose measurements corrupted with additive Gaussian noise ($\mathcal{N}(0,0.125)$) sampled every 120 minutes. There will be offsets in the initial states of $\pm2\%,\pm10\%,\pm25\%$, with each offset having a unique synthetic cohort of 500 patients. Adding an offset to the initial state will gauge how well each estimator can adapt to various initial perturbations in the estimate.
-
-Artificial process noise will be added to the state estimates for both the extended Kalman filter and the particle filter.  The process noise $q$ will be sampled at each discrete time step for both the extended Kalman filter and the particle filter roughly according to the following normal distribution
-\begin{equation}\label{eq:processnoise}
-\begin{aligned}
-q_k &\sim \mathcal{N}\!\bigl(0, \mathrm{diag}(\bm{\sigma})\bigr)\\
-\bm{\sigma} &= \frac{1}{120}\begin{bmatrix}
-\left(\frac{\mathrm{med}(G)}{100}\right)^2 &
-\left(\frac{\mathrm{med}(I)}{100}\right)^2 &
-\cdots &
-\left(\frac{\mathrm{med}(P_2)}{100}\right)^2 &
-1.0\times10^{-8}
-\end{bmatrix}^{\mathsf{T}}.
-\end{aligned}
-\end{equation}
-
+The extended Kalman filter and the particle filter are two different nonlinear state estimation methods presented in Section \ref{sec:state}. To compare each estimator with the \gls{ICING} model, the total time to run each filter and the mean squared error (\gls{MSE}) of the blood glucose concentration estimates will be recorded for 250 synthetic patient trajectories. The simulations will span 12 hours to allow each estimator to converge, with glucose measurements corrupted with additive Gaussian noise ($\mathcal{N}(0,0.25^2)$). 
 
 % \,
 % \overbrace{\frac{1}{120} \mathrm{diag}\left(
@@ -1350,95 +1381,73 @@ q_k &\sim \mathcal{N}\!\bigl(0, \mathrm{diag}(\bm{\sigma})\bigr)\\
 % 1.0\times10^{-8}
 % \end{bmatrix}
 % \right)}^{Q}\Bigg).
-The variance for the dynamics $G, \,I, \,Q, \,P_1, \,P_2 \,$ are chosen as the scaled median for the population statistics found in Section \ref{sec:patientCohort}. A 1\% deviation is chosen as the dynamics in the synthetic patients are relatively slow between measurements, and do not deviate much relative to the state.
-The process noise for the enteral insulin is assigned as a relatively small value in comparison to the other states to have the insulin sensitivity absorb more of the uncertainty of the glucose distribution between the gut and the stomach, instead of the endogenous insulin. 
 
 The extended Kalman filter parameters will be defined as
 \begin{enumerate}
   \item Initial covariance matrix of
-  \begin{align}
-    P_0= \mathrm{diag}\!\left(
-    \renewcommand{\arraystretch}{1.4}
-     \log_{10} \begin{bmatrix}
-      \mathrm{med}(G) &
-      \mathrm{med}(I) &
-      \cdots &
-      \mathrm{med}(u_{\,en})
-    \end{bmatrix}^{\sf T}\right)
+  \begin{align} 
+    P_0= \mathrm{diag}\left(\begin{bmatrix}
+    {\sigma_G}^2 &
+    {\sigma_Q}^2 &
+    \cdots &
+    {\sigma_{u_{en}}}^2&
+\end{bmatrix}^{\mathsf{T}}
+    \right).
   \end{align}
 
   \item Process noise covariance matrix of 
     \begin{align}
-        Q = \mathrm{diag}(\bm \sigma)
+        Q = \mathrm{diag}(\bm \sigma).
     \end{align} 
     \item Measurement noise covariance matrix of 
     \begin{align}
         R = \begin{bmatrix}
-            0.125
-        \end{bmatrix}
+            0.25^2
+        \end{bmatrix}.
     \end{align}
 \end{enumerate}
+Choosing the initial covariance matrix larger than the process noise covariance matrix is chosen to allow the filter to have large uncertainty at the beginning of the simulation until the first measurement.
 
-Particle filters containing $\left(100,\,200,\,300,\,400,\,500,\,750,\,1000,\,1500,\,2000\right)$ particles will be used to compare the relationship of the estimation performance over an increasing number of particles. The notation of the extended Kalman filter will be abbreviated as EKF and for a particle filter with N particles, it will be represented as PF N. The particle filter will be initialized by sampling particles from a multivariate Gaussian distribution with a mean of the initial state $x_0$, and a covariance equal to $P_0$.
-\begin{equation}
-    \begin{aligned}
-        x_0^{(i)} &\sim \mathcal{N}(x_0, P_0) \qquad i=1,\dots,\,N.
-    \end{aligned}
-\end{equation}
+Particle filters containing $\left(100,\,250,\,500,\,1000,\,1500, \,3000, \,5000\right)$
+particles will be used to compare the relationship of the estimation performance over an increasing number of particles. The notation of the extended Kalman filter will be abbreviated as EKF and for a particle filter with N particles, it will be represented as PF N. The initial particles for each particle filter will be randomly sampled from the derived initial state histograms in Section \ref{sec:patientCohort}, compared to the extended Kalman filter that samples from a fitted Gaussian distribution of the initial states.
 
-To define the computational complexity of the estimators given the experimental setup, let $\tau$ denote the average total time to run each particle filter and the extended Kalman filter in seconds
-\begin{equation}
-\begin{aligned}
-\tau_{\text{min}} &= \min(\tau) \\
-\mathcal{C}_i &= \frac{\tau_i}{\tau_{\text{min}}}.
-\end{aligned}
-\end{equation}
-The total time complexity is relative to the machine running the particle simulation. Hence, using a normalized scale for $\tau$ maintains repeatability across different environments, as each particle filter is designed in software such that the time complexity is linearly dependent on the amount of particles. The error of the estimators will be represented as the \gls{MSE} of the true blood glucose concentration sequence $G$ and an estimated blood glucose concentration sequence $\hat{G}$ of length $L$\begin{align}
-\,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left(G_i[j] - \hat{G}_i[j]\right)^2 & i=1,\dots,K.
+The error of the estimators for a patient $i$ will be represented as the \gls{MSE} of the true blood glucose concentration sequence $G$ and an estimated blood glucose concentration sequence $\hat{G}$ of length $L$\begin{align}
+\,\text{MSE}_i &= \frac{1}{L} \sum_{j=1}^{L} \left(G_i[j] - \hat{G}_i[j]\right)^2.
 \end{align}
-A Pareto curve can be utilized to visualize the "optimal" number of particles in terms of the trade-off between computational complexity and error. The resulting number of particles needed per dimension will be calculated to gauge the rough number of particles needed to include additional parameters in the state-space in the following section. 
+A Pareto curve can be utilized to visualize the "optimal" number of particles in terms of the trade-off between time complexity and error. The resulting number of particles needed per dimension will be calculated to gauge the rough number of particles needed to include additional parameters in the state-space in the following section. 
 
 \section{Parameter Estimation}
 
-The \gls{IPI} method introduced in Section \ref{sec:integral} will be the baseline implementation of estimating insulin sensitivity in patients and will be compared against the extended Kalman filter and the particle filter with state augmentation. Each method will try to estimate a constant insulin sensitivity and a piecewise insulin sensitivity that steps to a new value twice throughout the experiment to draw conclusions on the limitations of each estimator. The simulation will last for 60 hours, as changes in insulin sensitivity are relatively slow in time, with discrete time steps of 1 minute. There will be 500 total patients, and each filter will be assigned an initial state of a $\pm10\%$ deviation from the true initial state. At 20 and 40 hours, the piecewise insulin sensitivity will be randomly assigned a new value $S_{I,1}$ represented from the current value $S_{I,0}$ 
-\begin{equation} \label{eq:piecewise}
-    \begin{aligned}
-        z &\sim \mathbb{U}[0.75, \,0.95] \\
-        S_{I, \,1} &=
-        \begin{cases}
-            S_{I, \,0} (1-z), \qquad \text{ with probability 0.5}, \\
-            S_{I, \,0} (1+z), \qquad \text{ with probability 0.5}.        
-        \end{cases}
-    \end{aligned}
-\end{equation}   
-To ensure the insulin sensitivity is constrained to a physiologically relevant value, $S_{I,1}$ will be clamped to the minimum and maximum insulin sensitivity observed from Equation \ref{eq:SI}.  
-Due to an additional state being included in the state-space, the process noise in Equation \eqref{eq:processnoise} needs to be appended to consider the uncertainty of $\,S_I$. As previously mentioned in Section \ref{sec:patientCohort}, insulin sensitivity has been observed to be log-normal, which would translate to process noise that is multiplicative, not additive. Multiplicative noise follows a similar structure to Equation \eqref{eq:piecewise}, such that
-\begin{equation}\label{eq:multnoise}
-    \begin{aligned}
-        S_{I, \,k} &= f(S_{I, \,k-1}, \,u_{k-1}) \,q_{S_I, k-1}, \qquad \text{ with } \,q_{S_I, k-1} \sim \mathcal{N}(1,\,\sigma_{S_I}^2) \\
-        &= S_{I, \,k-1} \, q_{S_I, k-1}.
-    \end{aligned}
-\end{equation}
-The multiplicative noise variance $\sigma_{S_I}^2$ will be chosen for the desired coefficient of variation $\,CV$ for a constant and time-varying insulin sensitivity
-\begin{equation}
-    \begin{aligned}
-        \,CV &= \frac{\sigma_{S_I}}{\mu} \\
-       \sigma_{S_I} &= \,CV.
-    \end{aligned}
-\end{equation}
-Each estimate in the extended Kalman filter and the particle filter will include sampling from the additive process noise distribution from Equation \eqref{eq:processnoise}, but the insulin sensitivity estimate is multiplied with a sampled random variable in Equation \eqref{eq:multnoise}. 
+The \gls{IPI} method introduced in Section \ref{sec:integral} will be the baseline implementation of estimating insulin sensitivity in patients and will be compared against the extended Kalman filter and the particle filter with state augmented filters. Each method will estimate a constant insulin sensitivity and a piecewise insulin sensitivity to draw conclusions on the limitations of each estimator. The simulation will last for 60 hours, as changes in insulin sensitivity are relatively slow in time. There will be a total of 250 synthetic patient trajectories.
+
+% Due to an additional state being included in the state-space, the process noise in Equation \eqref{eq:processnoise} needs to be appended to consider the uncertainty of $\,S_I$. As previously mentioned in Section \ref{sec:patientCohort}, insulin sensitivity has been observed to be log-normal, which would translate to process noise that is multiplicative, not additive. Multiplicative noise follows a similar structure to Equation \eqref{eq:piecewise}, such that
+% \begin{equation}\label{eq:multnoise}
+%     \begin{aligned}
+%         S_{I, \,k} &= f(S_{I, \,k-1}, \,u_{k-1}) \,q_{S_I, k-1}, \qquad \text{ with } \,q_{S_I, k-1} \sim \mathcal{N}(1,\,\sigma_{S_I}^2) \\
+%         &= S_{I, \,k-1} \, q_{S_I, k-1}.
+%     \end{aligned}
+% \end{equation}
+% The multiplicative noise variance $\sigma_{S_I}^2$ will be chosen for the desired coefficient of variation $\,CV$ for a constant and time-varying insulin sensitivity
+% \begin{equation}
+%     \begin{aligned}
+%         \,CV &= \frac{\sigma_{S_I}}{\mu} \\
+%        \sigma_{S_I} &= \,CV.
+%     \end{aligned}
+% \end{equation}
+
+Due to the insulin sensitivity being log normal as previously explained in Section \ref{sec:init}, the process noise needed to model insulin sensitivity as a random walk in the dynamic model will be sampled from a distribution of $\mathcal{N}(1, \frac{{\sigma_{S_I}}^2}{1200})$
+
 The extended Kalman filter configuration for this section is the following
 \begin{enumerate}
     \item Initial covariance matrix of 
         \begin{align}
-            \hat{P_0}= \mathrm{diag}\!\left(
-            \renewcommand{\arraystretch}{1.4}
-            \log_{10} \begin{bmatrix}
-            \mathrm{med}(G) &
+            \hat{P_0}= \mathrm{diag}\left( \begin{bmatrix}
+            \left(\frac{\mathrm{med}(G)}{10}\right)^2 &
             \cdots &
-            \mathrm{med}(u_{\,en}) &
-            \max(S_I)^2
-            \end{bmatrix}^{\sf T}\right)  
+            \left(\frac{\mathrm{med}(u_{en})}{10}\right)^2 &
+            1 \times 10^{-3}
+            \end{bmatrix}^{\mathsf{T}}
+            \right).
         \end{align}
     \item Process noise matrix of     
         \begin{align} \label{eq:processVary}
@@ -1446,7 +1455,7 @@ The extended Kalman filter configuration for this section is the following
             \begin{bmatrix}
                 \bm{\sigma} \\
                 \frac{\max(S_I)^2}{120} 
-            \end{bmatrix}\right)
+            \end{bmatrix}\right).
         \end{align}        
 
     \item Measurement noise of R 
@@ -1470,7 +1479,7 @@ In the next chapter, the results of the synthetic patient cohort generation, obs
 \label{ch:resultsAndAnalysis}
 
 \section{Synthetic Patient Cohort} \label{sec:cohortResults}
-Approximating probability mass functions was used to analyze the characteristics of the target population of critically ill patients in the Karolinska University Hospital. Figure \ref{fig:cohort} is divided into two subfigures, with Figure \ref{fig:cohortInput} consisting of the histograms of the inputs $\,u_{\,ex},\,D,\text{ and }\,P_N$, as well as the insulin sensitivity parameter $\,S_I$, and Figure \ref{fig:cohortDynamic} is visualizing the histograms of the derived initial states $\,G,\,I,\,Q,\,P_1,\,P_2,\,P,\,u_{\,en}$.
+Approximating probability mass functions was used to analyze the characteristics of the target population of critically ill patients, with inputs sampled directly from clinical data from the Karolinska University Hospital. Figure \ref{fig:cohort} is divided into two subfigures, with Figure \ref{fig:cohortInput} consisting of the histograms of the inputs $\,u_{\,ex},\,D,\text{ and }\,P_N$, as well as the insulin sensitivity parameter $\,S_I$, and Figure \ref{fig:cohortDynamic} is visualizing the histograms of the derived initial states $\,G,\,I,\,Q,\,P_1,\,P_2,\,P,\,u_{\,en}$.
 
 Sampling numerous synthetic patients presented a diverse distribution of realistic initial states from the randomly assigned inputs and insulin sensitivity. This allowed for sampling of many unique variations of patient insulin-glucose states over time without relying on manual interventions. Previous work in synthetic patient cohorts in glycaemic control was often limited to perturbations in previously recorded clinical data \cite{lotz_monte_2008} or from integral-fitting \cite{lin_physiological_2011} \cite{hann_integral-based_2005}, but in this approach, a clear computational method towards reproducible generation of patient data was made feasible to analyze and compare the methods in the following sections.
 
@@ -1527,7 +1536,7 @@ P_{0} &= \mathrm{diag}\!\left(
 1.00 &
 2.00 &
 1.00
-\end{bmatrix}^{\sf T}\right)\\[4pt]
+\end{bmatrix}^{\sf T}\right),\\[4pt]
 Q &= \frac{1}{120}\mathrm{diag}\!\left(
 \begin{bmatrix}
 0.005 &
@@ -1622,8 +1631,8 @@ The chosen "optimal" number of particles is much less computationally expensive 
 State augmentation of insulin sensitivity in the extended Kalman filter and the particle filter was implemented to compare the estimation performance of the existing state estimators against the \gls{IPI} method. To accommodate the inclusion of the insulin sensitivity in the state-space, the initial and process noise covariance is appended as such
 \begin{equation}
 \begin{aligned}
-P_{0} &= \mathrm{diag}(\bm{\sigma_{P_0}})\\
-Q_{\text{ constant }\,S_I} &= \frac{1}{120}\mathrm{diag}(\bm{\sigma_{Q_\text{const}}})\\
+P_{0} &= \mathrm{diag}(\bm{\sigma_{P_0}}),\\
+Q_{\text{ constant }\,S_I} &= \frac{1}{120}\mathrm{diag}(\bm{\sigma_{Q_\text{const}}}),\\
 Q_{\text{ time-varying }\,S_I} &= \frac{1}{120}\mathrm{diag}(\bm{\sigma_{Q_\text{tv}}}),
 \end{aligned}
 \end{equation}

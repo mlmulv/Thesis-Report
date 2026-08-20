@@ -999,6 +999,9 @@ OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tex-gyre/ts1qtm.fd
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tex-gyre/ts1qtm.fd
@@ -1032,11 +1035,6 @@ INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tex-gyre/t1qcr.fd
 INPUT /usr/local/texlive/2026/texmf-dist/tex/latex/tex-gyre/t1qcr.fd
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/tex-gyre/ec-qcrr.tfm
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/tfm/public/tex-gyre/ec-qcrr.tfm
-INPUT ./figures/3_1.pdf
-INPUT ./figures/3_1.pdf
-INPUT ./figures/3_1.pdf
-INPUT ./figures/3_1.pdf
-INPUT ./figures/3_1.pdf
 OUTPUT thesis.mw
 INPUT /usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/tex-gyre/q-ts1.enc
 INPUT thesis.mw
@@ -1044,6 +1042,14 @@ OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
+INPUT ./figures/3_1.pdf
+INPUT ./figures/3_1.pdf
+INPUT ./figures/3_1.pdf
+INPUT ./figures/3_1.pdf
+INPUT ./figures/3_1.pdf
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
@@ -1264,6 +1270,9 @@ OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.aux
+OUTPUT thesis.mw
+INPUT thesis.mw
+OUTPUT thesis.mw
 OUTPUT thesis.mw
 INPUT thesis.mw
 OUTPUT thesis.mw
