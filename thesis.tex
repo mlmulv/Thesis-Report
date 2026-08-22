@@ -1650,56 +1650,58 @@ The \gls{IPI} method in Figure \ref{fig:integralMethod} illustrates how the esti
     \label{fig:integralMethod}
 \end{figure}
 
-In Figure \ref{fig:siMSE}, both the extended Kalman filter and the particle filter converge towards the true constant insulin sensitivity. The extended Kalman filter on average plateaus in the estimation of the insulin sensitivity around a MSE of $10^{-10}$, while the particle filter with 1500 particles on average roughly converges closer to the true value with a MSE close to $10^{-11}$. The extended Kalman filter often has higher variance in the estimate because particle filters average the variance over all the particles. Thus, the extended Kalman filter can also converge to the true value, but on average performs worse than the particle filter.
+In Figure \ref{fig:siMSE}, both the extended Kalman filter and the particle filter converge towards the true constant insulin sensitivity. The extended Kalman filter on average plateaus in the estimation of the insulin sensitivity around an MSE of $5^{-7}$, while the particle filter with 2000 particles on average roughly converges closer to the true value with a MSE close to $10^{-8}$. The extended Kalman filter adapts much more slowly compared to the particle filter as a result of the particles' ability to draw new particles at each measurement, where many Monte Carlo samples can better estimate the insulin-glucose dynamics.
 
-In the time-varying parameter estimation case, it can be seen in Figure \ref{fig:siMSE} that the extended Kalman filter struggles to converge compared to the particle filter. This can be attributed to the extended Kalman filter's linearization approximation in the dynamic models, as when having a parameter transition to a new value quickly, the mismatch in the Jacobian linearization causes the filter to diverge. About 30\% of the extended Kalman filter runs (150 patients) diverged, and had to be discarded entirely. Consequently, the extended Kalman filter is unreliable regarding notable unaccounted for changes in the parameters of interest. The particle filter can be seen to adapt to the steps in the insulin sensitivity at 1200 and 2400 minutes, as the \gls{MSE} decreases in the minutes following. The particle filter largely remains unaffected by the stationarity of the insulin-sensitivity due to the particle filter's ability to approximate nonlinear and nongaussian dynamic models, unlike the extended Kalman filter. To conclude, the overall performance in parameter estimation is shown in Table \ref{tab:siResult}, with the particle filter achieving the lowest MSE in estimating both constant and time-varying insulin sensitivity.
+In the time-varying parameter estimation case, it can be seen in Figure \ref{fig:siMSE} that both the extended Kalman filter and particle filter struggle to converge. There is a clear lack ability for the dynamic model to adapt to insulin sensitivity that is changing. Both filter's are modeling the piecewise insulin sensitivity with the expected deviation over time ${\sigma_{S_I}}^2$, but the estimates do not adapt. This can also be observed in the bottom plot in Figure \ref{fig:integralMethod}, as the insulin sensitivity estimates follow a similar trend over time with an increase of error. The observability of the \gls{ICING} model is likely acting as a bottleneck in this instance, as the model would need to decouple the changing insulin sensitivity from the relatively unobservable interstitial and plasma insulin.
 \begin{figure}
     \centering
     \includegraphics[width=0.98\linewidth]{figures/5_10.pdf}
     \caption[Performance of parameter estimation across time]{Mean MSE over time in parameter estimation methods estimating insulin sensitivity.}
     \label{fig:siMSE}
 \end{figure}
-\begin{table}
-\centering
-\begin{subtable}{0.96\textwidth}
-\centering
-\setlength{\tabcolsep}{6pt}
-\caption{Constant $S_I$}
-\begin{tabular}{l c c c}
-\toprule
-\textbf{Method} &
-\multicolumn{2}{c}{\textbf{Deviation}} & \textbf{Avg} \\
-\cmidrule(lr){2-3}
- & \textbf{-10\%} & \textbf{+10\%} \\
-\midrule
-EKF & $9.57 \times 10^{-10}$ & $5.03 \times 10^{-9}$ & $3.00 \times 10^{-9}$\\
-& \sd{$3.26 \times 10^{-9}$} & \sd{$2.82 \times 10^{-8}$} & \sd{$2.02 \times 10^{-8}$} \\
-PF 1500 & $7.21 \times 10^{-10}$ & $7.02 \times 10^{-10}$ & $7.11 \times 10^{-10}$\\
-& \sd{$3.64 \times 10^{-9}$} & \sd{$3.65 \times 10^{-9}$} & \sd{$3.65 \times 10^{-9}$} \\
-\bottomrule
-\end{tabular}
-\end{subtable}\vfill
-\begin{subtable}{0.96\textwidth}
-\centering
-\setlength{\tabcolsep}{6pt}
-\caption{Time-varying $S_I$}
-\begin{tabular}{l c c c}
-\toprule
-\textbf{Method} &
-\multicolumn{2}{c}{\textbf{Deviation}} & \textbf{Avg} \\
-\cmidrule(lr){2-3}
- & \textbf{-10\%} & \textbf{+10\%} \\
-\midrule
-EKF & $8.66 \times 10^{-5}$ & $9.73 \times 10^{-5}$ & $9.19 \times 10^{-5}$\\
-& \sd{$2.61 \times 10^{-3}$} & \sd{$2.64 \times 10^{-3}$} & \sd{$2.63 \times 10^{-4}$} \\
-PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\\
-& \sd{$1.82 \times 10^{-7}$} & \sd{$1.79 \times 10^{-7}$} & \sd{$1.80 \times 10^{-7}$} \\
-\bottomrule
-\end{tabular}
-\end{subtable}
-\caption[Performance of parameter estimation across patients]{Comparison of the mean MSE in parameter estimation methods estimating insulin sensitivity. Standard deviations of the MSE are shown in parentheses.}
-\label{tab:siResult}
-\end{table}
+
+% About 30\% of the extended Kalman filter runs (150 patients) diverged, and had to be discarded entirely. Consequently, the extended Kalman filter is unreliable regarding notable unaccounted for changes in the parameters of interest. The particle filter can be seen to adapt to the steps in the insulin sensitivity at 1200 and 2400 minutes, as the \gls{MSE} decreases in the minutes following. The particle filter largely remains unaffected by the stationarity of the insulin-sensitivity due to the particle filter's ability to approximate nonlinear and nongaussian dynamic models, unlike the extended Kalman filter. To conclude, the overall performance in parameter estimation is shown in Table \ref{tab:siResult}, with the particle filter achieving the lowest MSE in estimating both constant and time-varying insulin sensitivity.
+% \begin{table}
+% \centering
+% \begin{subtable}{0.96\textwidth}
+% \centering
+% \setlength{\tabcolsep}{6pt}
+% \caption{Constant $S_I$}
+% \begin{tabular}{l c c c}
+% \toprule
+% \textbf{Method} &
+% \multicolumn{2}{c}{\textbf{Deviation}} & \textbf{Avg} \\
+% \cmidrule(lr){2-3}
+%  & \textbf{-10\%} & \textbf{+10\%} \\
+% \midrule
+% EKF & $9.57 \times 10^{-10}$ & $5.03 \times 10^{-9}$ & $3.00 \times 10^{-9}$\\
+% & \sd{$3.26 \times 10^{-9}$} & \sd{$2.82 \times 10^{-8}$} & \sd{$2.02 \times 10^{-8}$} \\
+% PF 1500 & $7.21 \times 10^{-10}$ & $7.02 \times 10^{-10}$ & $7.11 \times 10^{-10}$\\
+% & \sd{$3.64 \times 10^{-9}$} & \sd{$3.65 \times 10^{-9}$} & \sd{$3.65 \times 10^{-9}$} \\
+% \bottomrule
+% \end{tabular}
+% \end{subtable}\vfill
+% \begin{subtable}{0.96\textwidth}
+% \centering
+% \setlength{\tabcolsep}{6pt}
+% \caption{Time-varying $S_I$}
+% \begin{tabular}{l c c c}
+% \toprule
+% \textbf{Method} &
+% \multicolumn{2}{c}{\textbf{Deviation}} & \textbf{Avg} \\
+% \cmidrule(lr){2-3}
+%  & \textbf{-10\%} & \textbf{+10\%} \\
+% \midrule
+% EKF & $8.66 \times 10^{-5}$ & $9.73 \times 10^{-5}$ & $9.19 \times 10^{-5}$\\
+% & \sd{$2.61 \times 10^{-3}$} & \sd{$2.64 \times 10^{-3}$} & \sd{$2.63 \times 10^{-4}$} \\
+% PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\\
+% & \sd{$1.82 \times 10^{-7}$} & \sd{$1.79 \times 10^{-7}$} & \sd{$1.80 \times 10^{-7}$} \\
+% \bottomrule
+% \end{tabular}
+% \end{subtable}
+% \caption[Performance of parameter estimation across patients]{Comparison of the mean MSE in parameter estimation methods estimating insulin sensitivity. Standard deviations of the MSE are shown in parentheses.}
+% \label{tab:siResult}
+% \end{table}
 
 % \begin{table}
 % \centering
@@ -1767,6 +1769,8 @@ PF 1500 & $2.73 \times 10^{-8}$ & $2.71 \times 10^{-8}$ & $2.72 \times 10^{-8}$\
 \chapter{Conclusions}
 \label{ch:conclusions}
 % \engExpl{Describe the conclusions (reflect on the whole introduction given in Chapter 1).}
+
+The evolution of a critically ill person's health is unique to their given condition, resulting in a challenging problem for clinicians to address. The use of dynamic insulin-glucose models in tight glucose control allows for a computational method of tight glucose control, instead of utilizing complex ad-hoc sliding protocols to control blood glucose based on sparse glucose measurements. The aim of this study was to improve and expand the current methods of using Bayesian filters to estimate glucoregulation in a given patient.
 
 
 
